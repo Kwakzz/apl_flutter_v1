@@ -26,13 +26,7 @@ Future<List<Map<String, dynamic>>> getCoaches () async {
       if (response.body.isEmpty) return [];
 
       final coaches = jsonDecode(response.body);
-      final filteredCoaches = coaches.map((coach) {
-        coach.remove('activation_code');
-        coach.remove('activation_expiry');
-        coach.remove('activated_at');
-        return coach;
-      }).toList();
-      return filteredCoaches.cast<Map<String, dynamic>>();
+      return List<Map<String, dynamic>>.from(coaches);  
     }
 
     else {
@@ -42,7 +36,6 @@ Future<List<Map<String, dynamic>>> getCoaches () async {
   }
 
   catch (e) {
-    print (e);
     return [];
   }
 

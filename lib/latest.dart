@@ -69,7 +69,13 @@ class _LatestState extends State<Latest> {
     // Fetch seasons and set the selected season
     getSeasons().then((result) {
       setState(() {
+
+        // handle null result
+        if (result == []) {
+          return;
+        }
         seasonsMap = result;
+
         if (seasonsMap.isNotEmpty) {
           selectedSeasonMap = seasonsMap.first;
         } else {
@@ -77,60 +83,70 @@ class _LatestState extends State<Latest> {
         }
 
       // Fetch gameweeks for the selected season
-      getSeasonGameweeks(selectedSeasonMap['season_id']).then((result) {
-        setState(() {
-          gameweeksMap = result;
+      // don't fetch gameweeks if the selected season is empty
+      if (selectedSeasonMap.isNotEmpty) {
+        getSeasonGameweeks(selectedSeasonMap['season_id']).then((result) {
+          setState(() {
 
-          // If gameweek date has passed, remove that gameweek
-          gameweeksMap.removeWhere((fixture) =>
-              DateTime.parse(fixture['gameweek_date']).isBefore(DateTime.now()));
+            // handle null result
+            if (result == []) {
+              return;
+            }
+            gameweeksMap = result;
 
-          // Set the selected gameweek to the last gameweek (next gameweek)
-          if (gameweeksMap.isNotEmpty) {
-            selectedGameweekMap = gameweeksMap.last;
-          } else {
-            selectedGameweekMap = {}; 
-          }
+            // If gameweek date has passed, remove that gameweek
+            if (gameweeksMap.isNotEmpty) {
+              gameweeksMap.removeWhere((fixture) =>
+                DateTime.parse(fixture['gameweek_date']).isBefore(DateTime.now()));
+            }
 
-          // Fetch the next set of fixtures (unplayed games)
-          try {
-            getGameweekGames(selectedGameweekMap['gameweek_id']).then((result) {
-              setState(() {
-                try {
-                  nextFixtures = result;
-                } catch (e) {
-                  return;
-                }
+            // Set the selected gameweek to the last gameweek (next gameweek)
+            if (gameweeksMap.isNotEmpty) {
+              selectedGameweekMap = gameweeksMap.last;
+            } else {
+              selectedGameweekMap = {}; 
+            }
 
-                // Get the competition id of the first fixture
-                selectedCompId = nextFixtures[0]['competition_id'];
+            // Fetch the next set of fixtures (unplayed games)
+            try {
+              getGameweekGames(selectedGameweekMap['gameweek_id']).then((result) {
+                setState(() {
+                  try {
+                    nextFixtures = result;
+                  } catch (e) {
+                    return;
+                  }
 
-                // Fetch standings for the selected season and competition
-                try {
+                  // Get the competition id of the first fixture
+                  selectedCompId = nextFixtures[0]['competition_id'];
 
-                  getSeasonCompStandingsWithTeams(
-                          selectedSeasonMap['season_id'], selectedCompId)
-                      .then((result) {
-                    setState(() {
-                      standingsTeams = result;
-                      // Update standings
-                      for (var team in standingsTeams) {
-                        int teamId = team['team_id'];
-                        updateStandings(updateStandingsTeamJson(
-                            teamId, selectedCompId, selectedSeasonMap['season_id']));
-                      }
+                  // Fetch standings for the selected season and competition
+                  try {
+
+                    getSeasonCompStandingsWithTeams(
+                            selectedSeasonMap['season_id'], selectedCompId)
+                        .then((result) {
+                      setState(() {
+                        standingsTeams = result;
+                        // Update standings
+                        for (var team in standingsTeams) {
+                          int teamId = team['team_id'];
+                          updateStandings(updateStandingsTeamJson(
+                              teamId, selectedCompId, selectedSeasonMap['season_id']));
+                        }
+                      });
                     });
-                  });
-                } catch (e) {
-                  return;
-                }
+                  } catch (e) {
+                    return;
+                  }
+                });
               });
-            });
-          } catch (e) {
-            return;
-          }
+            } catch (e) {
+              return;
+            }
+          });
         });
-      });
+      }
     });
 
     // Fetch teams when the page loads
@@ -225,9 +241,8 @@ class _LatestState extends State<Latest> {
             // fixtures
             // Check if nextFixtures is empty before rendering fixtures
             if (nextFixtures.isEmpty)
-              Container(
-                margin: const EdgeInsets.only(left: 10),
-                child: const AppText(
+              const Center(
+                child: AppText(
                   text: "No fixtures available", 
                   fontWeight: FontWeight.w300, 
                   fontSize: 13, 
@@ -273,27 +288,36 @@ class _LatestState extends State<Latest> {
                   // league tables
                   // Check if gameweeksMap is empty before rendering league tables
                   if (gameweeksMap.isEmpty)
-                    const CircularProgressIndicator() // You can replace this with a loading indicator or message
+                    const Center(
+                      child: AppText(
+                        text: "No tables available", 
+                        fontWeight: FontWeight.w300, 
+                        fontSize: 13, 
+                        color: Colors.black
+                      )
+                    )
                   else if (leagueTables.isNotEmpty)
                     ...leagueTables,
 
                   // "View Tables" button
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const Tables(
-                          pageName: 'Tables',
-                        )),
-                      );
-                    },
-                    child: const AppText(
-                      text: 'View all tables',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: Color.fromARGB(255, 2, 107, 183),
-                    ),
-                  )
+                  // if gameweeksMap is empty, don't show the button
+                  if (gameweeksMap.isNotEmpty)
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const Tables(
+                            pageName: 'Tables',
+                          )),
+                        );
+                      },
+                      child: const AppText(
+                        text: 'View all tables',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: Color.fromARGB(255, 2, 107, 183),
+                      ),
+                    )
                 ],
               ),
             ),

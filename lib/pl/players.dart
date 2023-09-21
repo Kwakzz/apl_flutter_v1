@@ -28,10 +28,10 @@ class _PlayersState extends State<Players> {
 
      List <Widget> myTabs = const [
       Tab(
-        text: "Men's"
+        text: "Men"
       ),
       Tab(
-        text: "Women's"
+        text: "Women"
       ),
     ];
     

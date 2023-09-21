@@ -33,7 +33,6 @@ Future<Map<String, dynamic>> getCoach(int coachId) async {
   } 
   
   catch (e) {
-    print(e);
     return {};
   }
 }
