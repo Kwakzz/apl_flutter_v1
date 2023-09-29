@@ -433,6 +433,23 @@ String createNewsItemJson (
   );
 }
 
+String editNewsItemJson (
+  newsItemId,
+  title,
+  subtitle,
+  content,
+  coverPic
+) {
+  return jsonEncode(<String, dynamic>{
+      'news_item_id': newsItemId,
+      'title': title,
+      'subtitle': subtitle,
+      'content': content,
+      'cover_pic': coverPic
+    }
+  );
+}
+
 /// This function returns a JSON for adding a table to a season competition.
 String createStandingsJson (
   standingsName,

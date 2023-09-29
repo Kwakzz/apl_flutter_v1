@@ -2,6 +2,7 @@ import 'package:apl/helper_classes/custom_appbar.dart';
 import 'package:apl/helper_classes/text.dart';
 import 'package:apl/lastest_news_item.dart';
 import 'package:apl/latest_fixtures.dart';
+import 'package:apl/latest_tables.dart';
 import 'package:apl/pl/fixtures.dart';
 import 'package:apl/pl/tables.dart';
 import 'package:apl/pl/view_news_item.dart';
@@ -39,9 +40,11 @@ class _LatestState extends State<Latest> {
   Map <String, dynamic> selectedSeasonMap = {};
 
   List<Map<String, dynamic>> gameweeksMap = [];
-  Map <String, dynamic> selectedGameweekMap = {};
+  Map <String, dynamic> upcomingGameweekMap = {};
 
-  List<Map <String, dynamic>> nextFixtures = [];
+  Map <String, dynamic> mostRecentGameweekMap = {};
+
+  List<Map <String, dynamic>> selectedGameweekFixtures = [];
 
   int selectedCompId = 0;
 
@@ -77,6 +80,7 @@ class _LatestState extends State<Latest> {
         seasonsMap = result;
 
         if (seasonsMap.isNotEmpty) {
+          // seasons are already sorted in descending order of season_id, so the first season is the most recent season
           selectedSeasonMap = seasonsMap.first;
         } else {
           selectedSeasonMap = {};
@@ -94,31 +98,42 @@ class _LatestState extends State<Latest> {
             }
             gameweeksMap = result;
 
-            // If gameweek date has passed, remove that gameweek
-            if (gameweeksMap.isNotEmpty) {
-              gameweeksMap.removeWhere((fixture) =>
-                DateTime.parse(fixture['gameweek_date']).isBefore(DateTime.now()));
-            }
-
             // Set the selected gameweek to the last gameweek (next gameweek)
             if (gameweeksMap.isNotEmpty) {
-              selectedGameweekMap = gameweeksMap.last;
-            } else {
-              selectedGameweekMap = {}; 
+
+              // get next gameweek. Among the list of gameweeks, it's the gameweek whose date is greater than today's date or equal to today's date. For the gameweeks whose date is greater than today's date, the one with the nearest date is selected. The gameweeks are already sorted in ascending order of date, so the first gameweek whose date is greater than today's date is the next gameweek
+
+              // get today's date
+              DateTime today = DateTime.now();
+
+              // get the next gameweek
+              Map<String, dynamic> nextGameweek = gameweeksMap.firstWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isAfter(today) || DateTime.parse(gameweek['gameweek_date']).isAtSameMomentAs(today));
+
+              // set the selected gameweek to the next gameweek
+              upcomingGameweekMap = nextGameweek;
+
+              // get the most recent gameweek to display the most recent results. this gameweek is the one whose date is less than today's date. For the gameweeks whose date is less than today's date, the one with the nearest date is selected. The gameweeks are already sorted in ascending order of date, so the first gameweek whose date is less than today's date is the most recent gameweek
+              Map<String, dynamic> mostRecentGameweek = gameweeksMap.firstWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isBefore(today));
+
+              
+            }
+
+            else {
+              upcomingGameweekMap = {};
             }
 
             // Fetch the next set of fixtures (unplayed games)
             try {
-              getGameweekGames(selectedGameweekMap['gameweek_id']).then((result) {
+              getGameweekGames(upcomingGameweekMap['gameweek_id']).then((result) {
                 setState(() {
                   try {
-                    nextFixtures = result;
+                    selectedGameweekFixtures = result;
                   } catch (e) {
                     return;
                   }
 
                   // Get the competition id of the first fixture
-                  selectedCompId = nextFixtures[0]['competition_id'];
+                  selectedCompId = selectedGameweekFixtures[0]['competition_id'];
 
                   // Fetch standings for the selected season and competition
                   try {
@@ -192,10 +207,10 @@ class _LatestState extends State<Latest> {
             padding: const EdgeInsets.all(16),
             decoration: const BoxDecoration(
               color: Color.fromARGB(255, 2, 107, 183),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
-              )
+              // borderRadius: BorderRadius.only(
+              //   topLeft: Radius.circular(16),
+              //   topRight: Radius.circular(16),
+              // )
             ),
             child: AppText(
               text: '${groupedStandings[standingsId]![0]['competition_name']} ${groupedStandings[standingsId]![0]['standings_name']} (${groupedStandings[standingsId]![0]['gender']})',
@@ -220,10 +235,7 @@ class _LatestState extends State<Latest> {
           children: [
 
             // latest news
-            Container(
-              margin: const EdgeInsets.only( bottom: 16),
-              color: const Color.fromARGB(255, 0, 53, 91),
-              child: LatestNews(
+            LatestNews(
                 newsItem: newsItem,
                 onTapped: () {
                   Navigator.push(
@@ -234,26 +246,15 @@ class _LatestState extends State<Latest> {
                   );
                 },
               ),
-            ),
+            
 
-
-
-            // fixtures
-            // Check if nextFixtures is empty before rendering fixtures
-            if (nextFixtures.isEmpty)
-              const Center(
-                child: AppText(
-                  text: "No fixtures available", 
-                  fontWeight: FontWeight.w300, 
-                  fontSize: 13, 
-                  color: Colors.black
-                )
-              )
-            else
+            const SizedBox(height: 50),
+            
+            // latest fixtures
             LatestFixtures(
-              fixtures: nextFixtures, 
+              fixtures: selectedGameweekFixtures, 
               teams: teams,
-              selectedGameweekMap: selectedGameweekMap,
+              selectedGameweekMap: upcomingGameweekMap,
               onPressed: () {
                 Navigator.push(
                   context,
@@ -265,67 +266,23 @@ class _LatestState extends State<Latest> {
             ),
 
             // tables
-            Container(
-                // width
-     
-               decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(16),
-                  bottomRight: Radius.circular(16),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 1,
-                    offset: Offset(0, 3),
-                  )
-                ]
-              ),
-              margin: const EdgeInsets.only(top:16, bottom: 16, left: 10, right: 10),
-              child: Column(
-                children: [
-                  // league tables
-                  // Check if gameweeksMap is empty before rendering league tables
-                  if (gameweeksMap.isEmpty)
-                    const Center(
-                      child: AppText(
-                        text: "No tables available", 
-                        fontWeight: FontWeight.w300, 
-                        fontSize: 13, 
-                        color: Colors.black
-                      )
-                    )
-                  else if (leagueTables.isNotEmpty)
-                    ...leagueTables,
-
-                  // "View Tables" button
-                  // if gameweeksMap is empty, don't show the button
-                  if (gameweeksMap.isNotEmpty)
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Tables(
-                            pageName: 'Tables',
-                          )),
-                        );
-                      },
-                      child: const AppText(
-                        text: 'View all tables',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Color.fromARGB(255, 2, 107, 183),
-                      ),
-                    )
-                ],
-              ),
-            ),
+            LatestTables(
+              leagueTables: leagueTables, 
+              gameweeksMap: gameweeksMap, 
+              viewAllTablesOnPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Tables(
+                    pageName: 'Tables',
+                  )),
+                );
+              },
+            )
             
           ]          
 
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: const Color.fromARGB(255, 0, 53, 91),
       )
     );
   }

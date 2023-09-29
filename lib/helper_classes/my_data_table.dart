@@ -76,7 +76,8 @@ class topScorersTable extends StatelessWidget {
             // name
             DataCell(
               AppText(
-                text:'${topScorer['fname']} ${topScorer['lname']}',
+                // pick only the first of the player's first names
+                text:'${topScorer['fname'].toString().split(' ')[0]} ${topScorer['lname']}',
                 color: Colors.black,
                 fontSize: 13,
                 fontWeight: FontWeight.w400,
@@ -194,7 +195,7 @@ class topAssistProvidersTable extends StatelessWidget {
             // name
             DataCell(
               AppText(
-                text:'${topAssistProvider['fname']} ${topAssistProvider['lname']}',
+                text:'${topAssistProvider['fname'].toString().split(' ')[0]} ${topAssistProvider['lname']}',
                 color: Colors.black,
                 fontSize: 13,
                 fontWeight: FontWeight.w400,
@@ -226,7 +227,7 @@ class topAssistProvidersTable extends StatelessWidget {
               AppText(
                 text: topAssistProvider['no_of_assists'].toString(),
                 color: Colors.black,
-                fontSize: 14,
+                fontSize: 13,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -300,7 +301,7 @@ class TopCleanSheetsTable extends StatelessWidget {
                     // index + 1 because index starts at 0
                     text: (topCleanSheets.indexOf(teamWithCleanSheet) + 1).toString(),
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: 13,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -320,7 +321,7 @@ class TopCleanSheetsTable extends StatelessWidget {
                       AppText(
                         text:'${teamWithCleanSheet['team_name_abbrev']}',
                         color: Colors.black,
-                        fontSize: 14,
+                        fontSize: 13,
                         fontWeight: FontWeight.w600,
                       ),
                     ]
@@ -333,7 +334,7 @@ class TopCleanSheetsTable extends StatelessWidget {
                   AppText(
                     text:'${teamWithCleanSheet['no_of_clean_sheets']}',
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: 13,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

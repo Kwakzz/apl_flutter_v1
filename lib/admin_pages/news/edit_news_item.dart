@@ -46,6 +46,9 @@ class _EditNewsItemState extends State<EditNewsItem> {
   late TextEditingController _subtitleController;
   late TextEditingController _contentController;
 
+  // The news item's cover image. It can be a file or a url. If the news item already has a cover image, it will be a url. If not, it will be a file. Again, if the user changes the cover image, it will be a file. The news item's cover pic will be displayed based on this variable.
+  dynamic _image;
+
 
   // News item's details
   String newsItemJson = '';
@@ -66,12 +69,14 @@ class _EditNewsItemState extends State<EditNewsItem> {
     _titleController = TextEditingController(text: widget.newsItem['title']);
     _subtitleController = TextEditingController(text: widget.newsItem['subtitle']);
     _contentController = TextEditingController(text: widget.newsItem['content']);
+    
+    if (widget.newsItem['cover_pic'] != null) {
+      _image = widget.newsItem['cover_pic'];
+    }
   }
 
 
   final ImagePicker picker = ImagePicker();
-
-  File? _image;
 
 
   //Image Picker function to get image from gallery
@@ -152,6 +157,7 @@ class _EditNewsItemState extends State<EditNewsItem> {
         body: Form(
           key: _formKey,
           child: ListView(
+
             // Children are the form fields
             children: [
 
@@ -162,12 +168,16 @@ class _EditNewsItemState extends State<EditNewsItem> {
               ),
 
               Center(
-                child: _image == null ?const AppText(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w300,
-                  text: "No cover image selected",
-                ) : Image.file(_image!),
+                child: _image == null
+                    ? const AppText(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w300,
+                        text: "No cover image selected",
+                      )
+                    : _image is File
+                        ? Image.file(_image)
+                        : Image.network(_image), 
               ),
               
 
@@ -212,9 +222,9 @@ class _EditNewsItemState extends State<EditNewsItem> {
                   // Validate the form
                   if (_formKey.currentState!.validate()) {
 
-                    if (_image != null) {
+                    if (_image != null && _image is File) {
 
-                      String url = "http://localhost/backend/api/news_item/add_cover_pic.php";
+                      String url = "http://3.8.171.188/backend/api/news_item/add_cover_pic.php";
 
                       Map<String, dynamic> imageUpload = await uploadImage(_image!, url);
 
@@ -239,7 +249,7 @@ class _EditNewsItemState extends State<EditNewsItem> {
 
                     }
 
-                    newsItemJson = createNewsItemJson(
+                    newsItemJson = editNewsItemJson(
                       widget.newsItem['news_item_id'],
                       _titleController.text, 
                       _subtitleController.text,

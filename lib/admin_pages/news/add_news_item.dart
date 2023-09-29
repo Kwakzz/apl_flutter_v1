@@ -207,7 +207,7 @@ class _AddNewsItemState extends State<AddNewsItem> {
                     
                     if (_image != null) {
 
-                      String url = "http://localhost/backend/api/news_item/add_cover_pic.php";
+                      String url = "http://3.8.171.188/backend/api/news_item/add_cover_pic.php";
 
                       Map<String, dynamic> imageUpload = await uploadImage(_image!, url);
 

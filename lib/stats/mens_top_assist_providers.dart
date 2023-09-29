@@ -138,7 +138,7 @@ class _MensTopAssistProvidersState extends State<MensTopAssistProviders> {
             orElse: () => {},
           );
 
-           // load the top scorers of the selected season and competition
+           // load the top assist providers of the selected season and competition
           getSeasonCompTopAssistProviders(selectedSeasonMap['season_id'], selectedCompMap['competition_id']).then((result) {
             setState(() {
               topAssistProviders = result;

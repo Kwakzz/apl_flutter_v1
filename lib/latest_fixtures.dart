@@ -1,5 +1,4 @@
 import 'package:apl/helper_classes/custom_list_tile.dart';
-import 'package:apl/pl/fixtures.dart';
 import 'package:apl/pl/game_details.dart';
 import 'package:flutter/material.dart';
 
@@ -80,15 +79,13 @@ class _LatestFixturesState extends State<LatestFixtures> {
       )
     );
 
+    if (widget.fixtures.isEmpty) {
+      return Container();
+    }
     
     return Container(
-      margin: const EdgeInsets.all(16),
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(16),
-          bottomRight: Radius.circular(16),
-        ),
         boxShadow: [
            BoxShadow(
             color: Colors.black12,
@@ -97,28 +94,27 @@ class _LatestFixturesState extends State<LatestFixtures> {
           )
         ]
       ),
+
       child: Column(
-        children: [    
+        children: [   
+           
           Center(
             child: Container(
-              padding: const EdgeInsets.all(16),
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.only(top: 16, bottom: 16),
               decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 2, 107, 183),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
-                ),
               ),
-              constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width, 
-              ),
-              child: AppText(
-                // if the gameweek number is null, then display the text ''
-                text: widget.selectedGameweekMap['gameweek_number'] == null ? 'Gameweek' : 'Gameweek ${widget.selectedGameweekMap['gameweek_number']}',
-                
-                fontWeight: FontWeight.bold, 
-                fontSize: 15, 
-                color: Colors.white,
+              child: 
+              Center(
+                child:AppText(
+                  // if the gameweek number is null, then display the text ''
+                  text: widget.selectedGameweekMap['gameweek_number'] == null ? 'Gameweek' : 'Gameweek ${widget.selectedGameweekMap['gameweek_number']}',
+                  
+                  fontWeight: FontWeight.bold, 
+                  fontSize: 18, 
+                  color: Colors.white,
+                )
               ),
             ),
           ),
@@ -128,15 +124,29 @@ class _LatestFixturesState extends State<LatestFixtures> {
           
 
           // view fixtures button
-          TextButton(
-            onPressed: widget.onPressed,
-            child: const AppText(
-              text: 'View all fixtures',
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-              color: Color.fromARGB(255, 2, 107, 183),
-            ),
+          // put arrow beside it
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: widget.onPressed,
+                child: const AppText(
+                  text: 'View all fixtures',
+                  fontWeight: FontWeight.w300,
+                  fontSize: 12,
+                  color: Colors.black,
+                ),
+              ),
+              const Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.black,
+                size: 10,
+              )
+            ],
           )
+          
+
+          
         ]
       )
     );

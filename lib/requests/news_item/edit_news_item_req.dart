@@ -21,7 +21,7 @@ Future <Map<String, dynamic>> editNewsItem (String newsItemDetails) async {
  
     if (response.statusCode == 200) {
       result = {
-        'success': true,
+        'status': true,
         'message': "News item edited successfully"
       };
       return result;
@@ -29,7 +29,7 @@ Future <Map<String, dynamic>> editNewsItem (String newsItemDetails) async {
 
     else {
       result = {
-        'success': false,
+        'status': false,
         'message': "Error editing news item"
       };
       return result;

@@ -61,7 +61,7 @@ class _SeasonCompsViewState extends State<SeasonCompsView> {
           const Center(
             child: AppText(
             text: 'No competitions found',
-            fontSize: 20,
+            fontSize: 13,
             fontWeight: FontWeight.w400,
             color: Colors.black,
             )

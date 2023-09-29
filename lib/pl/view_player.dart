@@ -195,13 +195,13 @@ class _ViewPlayerState extends State<ViewPlayer> {
               // club
               PlayerDetailListTile(
                 heading: 'Club',
-                value: player['club_name'] == null ? 'N/A' : player['club_name'].toString(),
+                value: player['team_name'] == null ? 'N/A' : player['team_name'].toString(),
               ),
 
               // position
               PlayerDetailListTile(
                 heading: 'Position',
-                value: player['position'] == null ? 'N/A' : player['position'].toString(),
+                value: player['position_name'] == null ? 'N/A' : player['position_name'].toString(),
               ),
 
 

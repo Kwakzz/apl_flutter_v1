@@ -25,6 +25,7 @@ class MenuListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 55,
       decoration: BoxDecoration(
         color: tileColor,
         border: Border.all(
@@ -38,14 +39,14 @@ class MenuListTile extends StatelessWidget {
       child: ListTile(
         title: AppText(
           color: textColor,
-          fontSize: 13,
+          fontSize: 12,
           fontWeight: FontWeight.w400,
           text: text,
         ),
         trailing:  Icon(
           Icons.arrow_forward_ios,
           color: textColor,
-          size: 12,
+          size: 9,
         ),
         onTap: onTap,
       ),
@@ -74,6 +75,7 @@ class FavTeamMenuListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 55,
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(
@@ -100,7 +102,7 @@ class FavTeamMenuListTile extends StatelessWidget {
         trailing: const Icon(
           Icons.arrow_forward_ios,
           color: Colors.black,
-          size: 12,
+          size: 9,
         ),
         onTap: onTap,
       ),
@@ -130,29 +132,30 @@ class PlayerListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 70,
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(
-          color: const Color.fromARGB(255, 232, 229, 229),
+          color: const Color.fromARGB(255, 246, 245, 245),
         ),
       ),
       child: ListTile(
         title: AppText(
           color: Colors.black,
-          fontSize: 14,
+          fontSize: 12,
           fontWeight: FontWeight.w400,
           text: playerName,
         ),
         subtitle: AppText(
           color: Colors.black,
-          fontSize: 10,
+          fontSize: 9,
           fontWeight: FontWeight.w300,
           text: teamName,
         ),
         trailing: const Icon(
           Icons.arrow_forward_ios,
           color: Colors.black,
-          size:12
+          size:9
         ),
         onTap: onTap,
       ),
@@ -198,14 +201,14 @@ class ClubListTile extends StatelessWidget {
         ),
         title: AppText(
           color: Colors.black,
-          fontSize: 14,
+          fontSize: 12,
           fontWeight: FontWeight.w400,
           text: teamName,
         ),
         trailing: const Icon(
           Icons.arrow_forward_ios,
           color: Colors.black,
-          size: 12,
+          size: 9,
         ),
         onTap: onTap,
       ),
@@ -248,7 +251,7 @@ class NewsListTile extends StatelessWidget {
         ),
         title: AppText(
           color: Colors.black,
-          fontSize: 14,
+          fontSize: 12,
           fontWeight: FontWeight.w400,
           text: newsMap['title'],
         ),
@@ -261,7 +264,7 @@ class NewsListTile extends StatelessWidget {
         trailing: const Icon(
           Icons.arrow_forward_ios,
           color: Colors.black,
-          size: 12,
+          size: 9,
         ),
         onTap: onTap,
       ),
@@ -315,7 +318,7 @@ class FixturesListTile extends StatelessWidget {
           trailing: const Icon(
             Icons.arrow_forward_ios,
             color: Colors.black,
-            size: 12,
+            size: 9,
           ),
           onTap: onTap,
         ),
@@ -422,7 +425,7 @@ class StartingXIListTile extends StatelessWidget {
       trailing: const Icon(
         Icons.arrow_forward_ios,
         color: Colors.black,
-        size: 12,
+        size: 9,
 
       ),
       onTap: onTap,
@@ -537,13 +540,13 @@ class AdminListTile extends StatelessWidget {
       child: ListTile(
         title: AppText (
           text: title,
-          fontSize: 13,
+          fontSize: 12,
           fontWeight: FontWeight.w400,
           color: Colors.black,
         ),
         subtitle: AppText(
           text: subtitle,
-          fontSize: 11,
+          fontSize: 10,
           fontWeight: FontWeight.w300,
           color: Colors.grey,
         ),
@@ -618,13 +621,13 @@ class PlayerAdminListTile extends StatelessWidget {
       child: ListTile(
         title: AppText (
           text: title,
-          fontSize: 13,
+          fontSize: 12,
           fontWeight: FontWeight.w400,
           color: Colors.black,
         ),
         subtitle: AppText(
           text: subtitle,
-          fontSize: 11,
+          fontSize: 10,
           fontWeight: FontWeight.w300,
           color: Colors.grey,
         ),
@@ -707,7 +710,7 @@ class AdminListTileWithoutSubtitle extends StatelessWidget {
       child: ListTile(
         title: AppText (
           text: title,
-          fontSize: 13,
+          fontSize: 12,
           fontWeight: FontWeight.w400,
           color: Colors.black,
         ),
@@ -783,13 +786,13 @@ class AdminListTileWithOnTap extends StatelessWidget {
       child: ListTile(
         title: AppText (
           text: title,
-          fontSize: 13,
+          fontSize: 12,
           fontWeight: FontWeight.w400,
           color: Colors.black,
         ),
         subtitle: AppText(
           text: subtitle,
-          fontSize: 11,
+          fontSize: 10,
           fontWeight: FontWeight.w300,
           color: Colors.grey,
         ),

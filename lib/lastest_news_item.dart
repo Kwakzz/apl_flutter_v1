@@ -13,15 +13,12 @@ class LatestNews extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.38,
-      child: Align(
-        alignment: Alignment.centerLeft, 
-        child: Column(
+    return 
+        Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AspectRatio(
-              aspectRatio: 16 / 9,
+              aspectRatio: 14 / 9,
               child: newsItem['cover_pic'] == null || newsItem['cover_pic'] == '' ? Container() : Image.network(
                 newsItem['cover_pic'],
                 width: MediaQuery.of(context).size.width,
@@ -30,12 +27,12 @@ class LatestNews extends StatelessWidget {
               )
             ),
             Container(
-              margin: const EdgeInsets.only(left:10, top: 12,),
+              margin: const EdgeInsets.only(left:10, top: 12, bottom: 5),
               child: GestureDetector(
                 onTap: onTapped,
                 child: AppText(
                   text: newsItem['title']??'',
-                  fontSize: 17,
+                  fontSize: 20,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
                 )
@@ -51,8 +48,6 @@ class LatestNews extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ),
     );
   }
 }

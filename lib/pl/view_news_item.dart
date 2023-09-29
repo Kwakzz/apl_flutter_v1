@@ -49,11 +49,8 @@ class _ViewNewsItemState extends State<ViewNewsItem> {
                 newsItem: snapshot.data,
               );
             } else {
-              return const AppText(
-                text: 'Error loading news item',
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+              return const Center(
+                child: CircularProgressIndicator(),
               );
             }
           }
@@ -119,12 +116,15 @@ class NewsItemDetails extends StatelessWidget {
               margin: const EdgeInsets.only(top: 20),
               // if cover pic is null or an empty string, don't show the image
               
-              child: newsItem['cover_pic'] == null || newsItem['cover_pic'] == '' ? Container() : Image.network(
+              child: newsItem['cover_pic'] == null || newsItem['cover_pic'] == '' ? Container() : AspectRatio(
+              aspectRatio: 14 / 9,
+              child: Image.network(
                 newsItem['cover_pic'],
                 width: MediaQuery.of(context).size.width,
                 height: 200,
                 fit: BoxFit.cover,
               )
+            ),
             ),
 
             const SizedBox(height: 20),

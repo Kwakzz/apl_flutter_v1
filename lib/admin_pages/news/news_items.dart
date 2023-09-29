@@ -144,7 +144,11 @@ class _NewsItemsState extends State<NewsItems> {
                                 }
                               );
                             // refresh the page
-                            Navigator.pop(context);
+                            getAllNewsItems().then((result) {
+                              setState(() {
+                                newsItems = result;
+                              });
+                            });
                             
                           } else {
                             showDialog(
