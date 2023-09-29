@@ -140,7 +140,7 @@ class _MensTopCleanSheetsState extends State<MensTopCleanSheets> {
           );
 
            // load the teams with the most clean sheets in the selected season and competition
-          getSeasonCompTopScorers(selectedSeasonMap['season_id'], selectedCompMap['competition_id']).then((result) {
+          getSeasonCompTopCleanSheets(selectedSeasonMap['season_id'], selectedCompMap['competition_id']).then((result) {
             setState(() {
               topCleanSheets = result;
             });
@@ -149,6 +149,7 @@ class _MensTopCleanSheetsState extends State<MensTopCleanSheets> {
         );
       }
     );
+
 
 
     return Column(

@@ -141,7 +141,7 @@ class _WomensTopCleanSheetsState extends State<WomensTopCleanSheets> {
           );
 
            // load the teams with the most clean sheets in the selected season and competition
-          getSeasonCompTopScorers(selectedSeasonMap['season_id'], selectedCompMap['competition_id']).then((result) {
+          getSeasonCompTopCleanSheets(selectedSeasonMap['season_id'], selectedCompMap['competition_id']).then((result) {
             setState(() {
               topCleanSheets = result;
             });
