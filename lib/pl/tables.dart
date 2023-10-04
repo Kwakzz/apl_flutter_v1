@@ -3,7 +3,7 @@ import 'package:apl/pl/mens_tables.dart';
 import 'package:apl/pl/womens_results_view.dart';
 import 'package:apl/pl/womens_tables.dart';
 import 'package:apl/requests/teams/get_teams_req.dart';
-import 'package:apl/pl/men_results_view.dart';
+import 'package:apl/pl/mens_results_view.dart';
 import 'package:flutter/material.dart';
 
 

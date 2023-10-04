@@ -10,6 +10,7 @@ import 'package:apl/pl/tables.dart';
 import 'package:apl/pl/view_news_item.dart';
 import 'package:apl/requests/games/get_gw_games_req.dart';
 import 'package:apl/requests/gameweeks/get_season_gw_req.dart';
+import 'package:apl/requests/goal/get_goals_by_season_and_comp_req.dart';
 import 'package:apl/requests/news_item/get_all_news_items_req.dart';
 import 'package:apl/requests/seasons/get_seasons_req.dart';
 import 'package:apl/requests/standings/get_season_comp_standings_with_teams_req.dart';
@@ -55,6 +56,8 @@ class _LatestState extends State<Latest> {
   List<Map<String, dynamic>> standingsTeams = [];
 
   List<Map<String, dynamic>> teams = [];
+
+  List<Map<String, dynamic>> goals = [];
   
 
   @override
@@ -187,6 +190,7 @@ class _LatestState extends State<Latest> {
                   }
                 });
               });
+
             }
 
 
@@ -205,6 +209,17 @@ class _LatestState extends State<Latest> {
       });
     });
 
+    // Fetch goals when the page loads
+    // they are needed to display the number of goals scored by each team
+    // display them if season is not empty and selectedCompId is not 0
+    if (selectedSeasonMap.isNotEmpty && selectedCompId != 0) {
+      getGoalsBySeasonAndCompetition(selectedSeasonMap['season_id'], selectedCompId).then((result) {
+        setState(() {
+          goals = result;
+        });
+      });
+    }
+
   }
 
   
@@ -212,6 +227,8 @@ class _LatestState extends State<Latest> {
 
   @override
   Widget build(BuildContext context) {
+
+    print (goals);
 
     // check the standingsTeam list. if there's any standingsTeam with a different standings_id, create a separate list for that
     // this is to create a separate table for each standings_id
@@ -326,7 +343,8 @@ class _LatestState extends State<Latest> {
                       pageName: 'Results',
                     )),
                   );
-                }
+                },
+                goals: goals,
               ),
              
 

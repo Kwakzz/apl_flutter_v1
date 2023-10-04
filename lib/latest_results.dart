@@ -13,7 +13,8 @@ class LatestResults extends StatefulWidget {
       required this.fixtures,
       required this.teams,
       required this.selectedGameweekMap,
-      required this.onPressed
+      required this.onPressed,
+      required this.goals,
     }
   );
 
@@ -21,7 +22,7 @@ class LatestResults extends StatefulWidget {
   final List<Map<String, dynamic>> teams;
   final Map<String, dynamic> selectedGameweekMap;
   final Function () ? onPressed;
-
+  final List<Map<String, dynamic>> goals;
   
 
 
@@ -33,25 +34,11 @@ class _LatestResultsState extends State<LatestResults> {
 
   
 
-  List<Map<String, dynamic>> homeTeamGoals = [];
-  List<Map<String, dynamic>> awayTeamGoals = [];
-  List<Map<String, dynamic>> homeTeamPlayers = [];
-  List<Map<String, dynamic>> awayTeamPlayers = [];
 
-  List<Map<String, dynamic>> playersDropDownMap = [];
-  List <String> playersDropDownList = [];
-
-  List <String> goalScorersDropDownList = [];
-  List <String> assistDropDownList = [];
-
-  Map <String, dynamic> selectedGoalScorerMap = {};
-  Map <String, dynamic> selectedAssistMap = {};
 
   List<Map<String, dynamic>> teamMap = [];
   List <String> teamDropDownList = [];
   Map <String, dynamic> selectedTeamMap = {};
-
-  List <Map<String, dynamic>> assists = [];
 
 
   @override
@@ -71,10 +58,19 @@ class _LatestResultsState extends State<LatestResults> {
           team['team_id'] == fixture['home_id']);
           final awayTeam = widget.teams.firstWhere((team) => team['team_id'] == fixture['away_id']);
 
+          // Find the goals which match the fixture id and home team id to get the number of goals scored by the home team
+          final homeGoals = widget.goals.where((goal) => goal['game_id'] == fixture['game_id'] && goal['team_id'] == fixture['home_id']).toList();
+          
+          final homeTeamScore = homeGoals.length;
+
+          // Find the goals which match the fixture id and away team id to get the number of goals scored by the away team
+          final awayGoals = widget.goals.where((goal) => goal['game_id'] == fixture['game_id'] && goal['team_id'] == fixture['away_id']).toList();
+          final awayTeamScore = awayGoals.length;
+
           try {
             return FixturesListTile(
                   
-              title: '${homeTeam['team_name']} vs ${awayTeam['team_name']}',
+              title: '${homeTeam['team_name']} $homeTeamScore - $awayTeamScore ${awayTeam['team_name']}',
               // display competition name and stage
               // if stage is null, then display the text ''
               subtitle: fixture['stage_name'] == null ? '${fixture['competition_name']}' : '${fixture['competition_name']} - ${fixture['stage_name']}',
