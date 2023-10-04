@@ -30,8 +30,6 @@ class GameEvents extends StatefulWidget {
 
 class _GameEventsState extends State<GameEvents> {
 
-  // form key
-  GlobalKey <FormState> formKey = GlobalKey<FormState>();
 
   List<Map<String, dynamic>> homeTeamGoals = [];
   List<Map<String, dynamic>> awayTeamGoals = [];
@@ -52,8 +50,6 @@ class _GameEventsState extends State<GameEvents> {
   Map <String, dynamic> selectedTeamMap = {};
 
   List <Map<String, dynamic>> assists = [];
-
-  TextEditingController minuteScoredController = TextEditingController();
 
 
 

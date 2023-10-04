@@ -14,7 +14,10 @@ class LatestNews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return 
-        Column(
+    Container(
+      padding: const EdgeInsets.only(bottom: 80),
+      color: const Color.fromARGB(255, 0, 53, 91),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AspectRatio(
@@ -48,6 +51,7 @@ class LatestNews extends StatelessWidget {
               ),
             ),
           ],
+        )
     );
   }
 }

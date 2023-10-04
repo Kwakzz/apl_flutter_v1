@@ -1,6 +1,4 @@
-import 'dart:convert';
 import '../requests/if_user_exists.dart';
-import 'package:flutter/material.dart';
 
 /// This function validates an email based on a regular expression pattern.
 bool isEmailValid(String email) {

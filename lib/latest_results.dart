@@ -6,8 +6,8 @@ import 'helper_classes/text.dart';
 
 
 
-class LatestFixtures extends StatefulWidget {
-  const LatestFixtures(
+class LatestResults extends StatefulWidget {
+  const LatestResults(
     {
       super.key,
       required this.fixtures,
@@ -22,13 +22,36 @@ class LatestFixtures extends StatefulWidget {
   final Map<String, dynamic> selectedGameweekMap;
   final Function () ? onPressed;
 
+  
+
 
   @override
-  _LatestFixturesState createState() => _LatestFixturesState();
+  _LatestResultsState createState() => _LatestResultsState();
 }
 
-class _LatestFixturesState extends State<LatestFixtures> {
+class _LatestResultsState extends State<LatestResults> {
 
+  
+
+  List<Map<String, dynamic>> homeTeamGoals = [];
+  List<Map<String, dynamic>> awayTeamGoals = [];
+  List<Map<String, dynamic>> homeTeamPlayers = [];
+  List<Map<String, dynamic>> awayTeamPlayers = [];
+
+  List<Map<String, dynamic>> playersDropDownMap = [];
+  List <String> playersDropDownList = [];
+
+  List <String> goalScorersDropDownList = [];
+  List <String> assistDropDownList = [];
+
+  Map <String, dynamic> selectedGoalScorerMap = {};
+  Map <String, dynamic> selectedAssistMap = {};
+
+  List<Map<String, dynamic>> teamMap = [];
+  List <String> teamDropDownList = [];
+  Map <String, dynamic> selectedTeamMap = {};
+
+  List <Map<String, dynamic>> assists = [];
 
 
   @override
@@ -140,7 +163,7 @@ class _LatestFixturesState extends State<LatestFixtures> {
                 TextButton(
                   onPressed: widget.onPressed,
                   child: const AppText(
-                    text: 'View all fixtures',
+                    text: 'View all results',
                     fontWeight: FontWeight.w300,
                     fontSize: 12,
                     color: Colors.black,

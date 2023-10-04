@@ -2,8 +2,10 @@ import 'package:apl/helper_classes/custom_appbar.dart';
 import 'package:apl/helper_classes/text.dart';
 import 'package:apl/lastest_news_item.dart';
 import 'package:apl/latest_fixtures.dart';
+import 'package:apl/latest_results.dart';
 import 'package:apl/latest_tables.dart';
 import 'package:apl/pl/fixtures.dart';
+import 'package:apl/pl/results.dart';
 import 'package:apl/pl/tables.dart';
 import 'package:apl/pl/view_news_item.dart';
 import 'package:apl/requests/games/get_gw_games_req.dart';
@@ -44,7 +46,9 @@ class _LatestState extends State<Latest> {
 
   Map <String, dynamic> mostRecentGameweekMap = {};
 
-  List<Map <String, dynamic>> selectedGameweekFixtures = [];
+  List<Map <String, dynamic>> upcomingGameweekFixtures = [];
+
+  List <Map<String, dynamic>> mostRecentGameweekFixtures = [];
 
   int selectedCompId = 0;
 
@@ -98,71 +102,99 @@ class _LatestState extends State<Latest> {
             }
             gameweeksMap = result;
 
-            // Set the selected gameweek to the last gameweek (next gameweek)
             if (gameweeksMap.isNotEmpty) {
 
-              // get next gameweek. Among the list of gameweeks, it's the gameweek whose date is greater than today's date or equal to today's date. For the gameweeks whose date is greater than today's date, the one with the nearest date is selected. The gameweeks are already sorted in ascending order of date, so the first gameweek whose date is greater than today's date is the next gameweek
+              setState(() {
 
-              // get today's date
-              DateTime today = DateTime.now();
+                // get today's date
+                DateTime today = DateTime.now();
 
-              // get the next gameweek
-              Map<String, dynamic> nextGameweek = gameweeksMap.firstWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isAfter(today) || DateTime.parse(gameweek['gameweek_date']).isAtSameMomentAs(today));
+                // get next gameweek. Among the list of gameweeks, it's the gameweek whose date is greater than today's date or equal to today's date. For the gameweeks whose date is greater than today's date, the one with the nearest date is selected. The gameweeks are already sorted in descending order of date, so the first gameweek whose date is greater than today's date is the next gameweek
+                if (gameweeksMap.firstWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isAfter(today) || DateTime.parse(gameweek['gameweek_date']).isAtSameMomentAs(today) ).isNotEmpty) {
 
-              // set the selected gameweek to the next gameweek
-              upcomingGameweekMap = nextGameweek;
+                  Map<String, dynamic> nextGameweek = (gameweeksMap.firstWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isAfter(today)));
+                  upcomingGameweekMap = nextGameweek;
 
-              // get the most recent gameweek to display the most recent results. this gameweek is the one whose date is less than today's date. For the gameweeks whose date is less than today's date, the one with the nearest date is selected. The gameweeks are already sorted in ascending order of date, so the first gameweek whose date is less than today's date is the most recent gameweek
-              Map<String, dynamic> mostRecentGameweek = gameweeksMap.firstWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isBefore(today));
+                }
+    
+                  
+                // get the most recent gameweek to display the most recent results. this gameweek is the one whose date is less than today's date. For the gameweeks whose date is less than today's date, the one with the nearest date is selected. The gameweeks are already sorted in descending order of date, so the first gameweek whose date is less than today's date is the most recent gameweek
+                if (gameweeksMap.firstWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isBefore(today)).isNotEmpty) {
 
+                  Map<String, dynamic> mostRecentGameweek = (gameweeksMap.firstWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isBefore(today)));
+
+                  mostRecentGameweekMap = mostRecentGameweek;
+                }      
               
-            }
-
-            else {
-              upcomingGameweekMap = {};
+              });
             }
 
             // Fetch the next set of fixtures (unplayed games)
-            try {
+            if (upcomingGameweekMap.isNotEmpty) {
               getGameweekGames(upcomingGameweekMap['gameweek_id']).then((result) {
                 setState(() {
-                  try {
-                    selectedGameweekFixtures = result;
-                  } catch (e) {
+                  upcomingGameweekFixtures = result;
+                });
+              });
+            } 
+
+            // Fetch the most recent set of fixtures (played games)
+            if (mostRecentGameweekMap.isNotEmpty) {
+              getGameweekGames(mostRecentGameweekMap['gameweek_id']).then((result) {
+                setState(() {
+                  mostRecentGameweekFixtures = result;
+                });
+              });
+            }
+               
+
+            // get the competition whose table you want to display. if there are any upcoming fixtures, display the table for the competition of the first fixture. if there are no upcoming fixtures, display the table for the competition of the first fixture in the most recent gameweek
+            if (mostRecentGameweekFixtures.isNotEmpty) {
+              setState(() {
+                selectedCompId = mostRecentGameweekFixtures[0]['competition_id'];
+              });
+            }
+            else if (upcomingGameweekFixtures.isNotEmpty) {
+              setState(() {
+                selectedCompId = upcomingGameweekFixtures[0]['competition_id'];
+              });
+            }
+
+            if (selectedCompId != 0) {
+
+              // Fetch standings for the selected season and competition
+
+              getSeasonCompStandingsWithTeams(
+                selectedSeasonMap['season_id'], selectedCompId
+              ).then((result) {
+                setState(() {
+                  standingsTeams = result;
+
+                  if (standingsTeams.isEmpty) {
                     return;
                   }
 
-                  // Get the competition id of the first fixture
-                  selectedCompId = selectedGameweekFixtures[0]['competition_id'];
-
-                  // Fetch standings for the selected season and competition
-                  try {
-
-                    getSeasonCompStandingsWithTeams(
-                            selectedSeasonMap['season_id'], selectedCompId)
-                        .then((result) {
-                      setState(() {
-                        standingsTeams = result;
-                        // Update standings
-                        for (var team in standingsTeams) {
-                          int teamId = team['team_id'];
-                          updateStandings(updateStandingsTeamJson(
-                              teamId, selectedCompId, selectedSeasonMap['season_id']));
-                        }
-                      });
-                    });
-                  } catch (e) {
-                    return;
+                  // Update standings
+                  for (var team in standingsTeams) {
+                    int teamId = team['team_id'];
+                    updateStandings(
+                      updateStandingsTeamJson(
+                        teamId, 
+                        selectedCompId, 
+                        selectedSeasonMap['season_id']
+                      )
+                    );
                   }
                 });
               });
-            } catch (e) {
-              return;
             }
+
+
           });
         });
-      }
+     }});
     });
+  
 
     // Fetch teams when the page loads
     // they are needed to display the team name instead of the team id so that we can
@@ -173,9 +205,9 @@ class _LatestState extends State<Latest> {
       });
     });
 
-  });
-
   }
+
+  
 
 
   @override
@@ -184,47 +216,59 @@ class _LatestState extends State<Latest> {
     // check the standingsTeam list. if there's any standingsTeam with a different standings_id, create a separate list for that
     // this is to create a separate table for each standings_id
     Map<int, List<Map<String, dynamic>>> groupedStandings = {};
+    List<Widget> leagueTables = [];
 
-    // men's standings
-    for (var team in standingsTeams) {
-      int standingsId = team['standings_id'];
+    if (standingsTeams.isNotEmpty) {
 
-      if (!groupedStandings.containsKey(standingsId)) {
-        groupedStandings[standingsId] = [];
+      // men's standings
+      for (var team in standingsTeams) {
+        int standingsId = team['standings_id'];
+
+        if (!groupedStandings.containsKey(standingsId)) {
+          groupedStandings[standingsId] = [];
+        }
+
+        groupedStandings[standingsId]!.add(team);
       }
 
-      groupedStandings[standingsId]!.add(team);
+      leagueTables = groupedStandings.entries
+      .map<Widget>((entry) {
+        int standingsId = entry.key;
+        List<Map<String, dynamic>> teams = entry.value;
+
+        return Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 2, 107, 183),
+                // borderRadius: BorderRadius.only(
+                //   topLeft: Radius.circular(16),
+                //   topRight: Radius.circular(16),
+                // )
+              ),
+              child: AppText(
+                text: '${groupedStandings[standingsId]![0]['competition_name']} ${groupedStandings[standingsId]![0]['standings_name']} (${groupedStandings[standingsId]![0]['gender']})',
+                fontWeight: FontWeight.bold, 
+                fontSize: 15, 
+                color: Colors.white
+              ),
+            ),
+            LatestLeagueTable(standingsTeams: teams),         
+            const SizedBox(height: 16), 
+          ],
+        );
+      })
+      .toList();
     }
 
-    List<Widget> leagueTables = groupedStandings.entries
-    .map<Widget>((entry) {
-      int standingsId = entry.key;
-      List<Map<String, dynamic>> teams = entry.value;
-
-      return Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 2, 107, 183),
-              // borderRadius: BorderRadius.only(
-              //   topLeft: Radius.circular(16),
-              //   topRight: Radius.circular(16),
-              // )
-            ),
-            child: AppText(
-              text: '${groupedStandings[standingsId]![0]['competition_name']} ${groupedStandings[standingsId]![0]['standings_name']} (${groupedStandings[standingsId]![0]['gender']})',
-              fontWeight: FontWeight.bold, 
-              fontSize: 15, 
-              color: Colors.white
-            ),
-          ),
-          LatestLeagueTable(standingsTeams: teams),         
-          const SizedBox(height: 16), 
-        ],
+    if (selectedSeasonMap.isEmpty) {
+      return const Center(
+        child: CircularProgressIndicator(
+          color: Colors.white,
+        ),
       );
-    })
-    .toList();
+    }
 
 
     return  MaterialApp(
@@ -248,22 +292,43 @@ class _LatestState extends State<Latest> {
               ),
             
 
-            const SizedBox(height: 50),
+            const SizedBox(height: 35),
             
+            if (upcomingGameweekMap.isNotEmpty) 
             // latest fixtures
-            LatestFixtures(
-              fixtures: selectedGameweekFixtures, 
-              teams: teams,
-              selectedGameweekMap: upcomingGameweekMap,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Fixtures(
-                    pageName: 'Fixtures',
-                  )),
-                );
-              }
+              LatestFixtures(
+                fixtures: upcomingGameweekFixtures, 
+                teams: teams,
+                selectedGameweekMap: upcomingGameweekMap,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Fixtures(
+                      pageName: 'Fixtures',
+                    )),
+                  );
+                }
+              ),
+
+            Container(
+              height: 20,
             ),
+            
+            if (mostRecentGameweekMap.isNotEmpty)
+              LatestResults(
+                fixtures: mostRecentGameweekFixtures, 
+                teams: teams,
+                selectedGameweekMap: mostRecentGameweekMap,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Results(
+                      pageName: 'Results',
+                    )),
+                  );
+                }
+              ),
+             
 
             // tables
             LatestTables(
@@ -282,7 +347,7 @@ class _LatestState extends State<Latest> {
           ]          
 
         ),
-        backgroundColor: const Color.fromARGB(255, 0, 53, 91),
+        backgroundColor: Colors.white,
       )
     );
   }
