@@ -1,5 +1,6 @@
 import 'package:apl/helper_classes/custom_list_tile.dart';
 import 'package:apl/pl/game_details.dart';
+import 'package:apl/requests/goal/get_goals_by_season_and_comp_req.dart';
 import 'package:flutter/material.dart';
 
 import 'helper_classes/text.dart';
@@ -14,7 +15,8 @@ class LatestResults extends StatefulWidget {
       required this.teams,
       required this.selectedGameweekMap,
       required this.onPressed,
-      required this.goals,
+      required this.selectedSeasonId,
+      required this.selectedCompId,
     }
   );
 
@@ -22,7 +24,8 @@ class LatestResults extends StatefulWidget {
   final List<Map<String, dynamic>> teams;
   final Map<String, dynamic> selectedGameweekMap;
   final Function () ? onPressed;
-  final List<Map<String, dynamic>> goals;
+  final int selectedSeasonId;
+  final int selectedCompId;
   
 
 
@@ -32,13 +35,23 @@ class LatestResults extends StatefulWidget {
 
 class _LatestResultsState extends State<LatestResults> {
 
-  
+  @override
+  void initState() {
+    super.initState();
+    getGoalsBySeasonAndCompetition(widget.selectedSeasonId, widget.selectedCompId).then((result) {
+      setState(() {
+        goals = result;
+                  
+      });
+    });
+  }
 
 
 
   List<Map<String, dynamic>> teamMap = [];
   List <String> teamDropDownList = [];
   Map <String, dynamic> selectedTeamMap = {};
+  List<Map<String, dynamic>> goals = [];
 
 
   @override
@@ -59,12 +72,12 @@ class _LatestResultsState extends State<LatestResults> {
           final awayTeam = widget.teams.firstWhere((team) => team['team_id'] == fixture['away_id']);
 
           // Find the goals which match the fixture id and home team id to get the number of goals scored by the home team
-          final homeGoals = widget.goals.where((goal) => goal['game_id'] == fixture['game_id'] && goal['team_id'] == fixture['home_id']).toList();
+          final homeGoals = goals.where((goal) => goal['game_id'] == fixture['game_id'] && goal['team_id'] == fixture['home_id']).toList();
           
           final homeTeamScore = homeGoals.length;
 
           // Find the goals which match the fixture id and away team id to get the number of goals scored by the away team
-          final awayGoals = widget.goals.where((goal) => goal['game_id'] == fixture['game_id'] && goal['team_id'] == fixture['away_id']).toList();
+          final awayGoals = goals.where((goal) => goal['game_id'] == fixture['game_id'] && goal['team_id'] == fixture['away_id']).toList();
           final awayTeamScore = awayGoals.length;
 
           try {

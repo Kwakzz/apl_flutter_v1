@@ -569,13 +569,6 @@ class LatestLeagueTable extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 5,
-            offset: Offset(0, 2),
-          )
-        ],
         borderRadius: BorderRadius.all(
           Radius.circular(10),
         )
@@ -583,7 +576,7 @@ class LatestLeagueTable extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: DataTable(
-          columnSpacing: MediaQuery.of(context).size.width * 0.048,
+          columnSpacing: MediaQuery.of(context).size.width * 0.0558,
           columns: const <DataColumn>[
 
             // pos

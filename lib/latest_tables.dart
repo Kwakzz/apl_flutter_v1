@@ -1,7 +1,4 @@
-import 'package:apl/helper_classes/custom_list_tile.dart';
-import 'package:apl/pl/fixtures.dart';
-import 'package:apl/pl/game_details.dart';
-import 'package:apl/pl/tables.dart';
+
 import 'package:flutter/material.dart';
 
 import 'helper_classes/text.dart';
