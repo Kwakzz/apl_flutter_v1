@@ -10,6 +10,7 @@ class User {
   // String renewalToken;
   int isAdmin;
   int teamId;
+  int playerId;
 
   User(
     {
@@ -23,7 +24,8 @@ class User {
       // required this.token, 
       // required this.renewalToken,
       required this.isAdmin,
-      required this.teamId
+      required this.teamId,
+      required this.playerId
     }
   );
 
@@ -42,7 +44,8 @@ class User {
         isAdmin: responseData['is_admin'],
         // token: responseData['access_token'],
         // renewalToken: responseData['renewal_token']
-        teamId: responseData['team_id']
+        teamId: responseData['team_id'],
+        playerId: responseData['player_id']
     );
   }
 }

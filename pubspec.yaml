@@ -30,8 +30,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_core: ^2.15.0
-  firebase_auth: ^4.7.2
   google_fonts: ^2.1.0
   path_provider: ^2.0.8
   intl: ^0.17.0
