@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:apl/create_user.dart';
 import 'package:apl/helper_classes/custom_appbar.dart';
 import 'package:apl/helper_classes/custom_dialog_box.dart';
@@ -6,6 +8,7 @@ import 'package:apl/helper_classes/user_preferences.dart';
 import 'package:apl/homepage.dart';
 import 'package:apl/pl/club_details.dart';
 import 'package:apl/requests/teams/get_teams_req.dart';
+import 'package:apl/requests/user/reset_password_req.dart';
 import 'package:apl/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,12 +29,39 @@ class _MoreState extends State<More> {
 
   bool isLoggedIn = false;
   int? teamId = 0;
+  String? emailAdress = "";
   Map<String, dynamic> favouriteTeam = {};
 
   /// this function logs the user out of the app
   void logOut() async {
-    UserPreferences().removeUser();
+    Map<String, dynamic> logOutResponse = await UserPreferences().removeUser();
     teamId = 0;
+    emailAdress = "";
+
+    if (!mounted) return;
+
+    if (logOutResponse['isRemoved']) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return ErrorDialogueBox(
+            text: 'Sign Out',
+            content: logOutResponse['message'],
+          );
+        }
+      );
+    } 
+    else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return ErrorDialogueBox(
+            text: 'Sign Out Error',
+            content: logOutResponse['message'],
+          );
+        }
+      );
+    }
   }
 
   /// Checks if the user is logged in and if the user is an admin. If the user is as admin, set the isAdmin variable to true.
@@ -41,11 +71,13 @@ class _MoreState extends State<More> {
     setState(() {
       isLoggedIn = prefs.containsKey('email_address');
       teamId = prefs.getInt('team_id');
+      emailAdress = prefs.getString('email_address');
     });
 
     if (!isLoggedIn) {
       setState(() {
         teamId = 0;
+        emailAdress = "";
       });
     }
 
@@ -133,22 +165,27 @@ class _MoreState extends State<More> {
         textColor: Colors.white,
         tileColor: const Color.fromARGB(255, 71, 108, 255),
         onTap: () {
+          // ask for confirmation
           showDialog(
-            context: context,
+            context: context, 
             builder: (BuildContext context) {
-              return ErrorDialogueBox(
-                text: "Success",
-                content: "You've signed out successfully!",
+              return ActionConfirmationDialogBox(
+                title: 'Sign Out',
+                content: 'Are you sure you want to sign out?',
+
+                // if the user confirms that they want to sign out, log them out
+                onPressed: () {
+                  logOut();
+                  // refresh the page
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomePage(),
+                    ),
+                  );
+                },
               );
             }
-          );
-          logOut();
-          // refresh the page
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const HomePage(),
-            ),
           );
         },
       ),
@@ -179,7 +216,57 @@ class _MoreState extends State<More> {
       ),
       MenuListTile(
         text: "Change Password",
-        onTap: () {},
+        onTap: () {
+          String emailJson =  jsonEncode(
+            <String, dynamic> {
+              'email_address': emailAdress
+            }
+          );
+
+          // Ask the user to confirm if they want to reset their password
+          showDialog(
+            context: context, 
+            builder: (BuildContext context) {
+              return ActionConfirmationDialogBox(
+                title: 'Password Reset',
+                content: 'Are you sure you want to reset your password?',
+
+                // if the user confirms that they want to reset their password, send a request to the server to reset their password
+                onPressed: () async {
+                   Map<String, dynamic> response = await resetPassword(emailJson);
+
+                  if (!mounted) return;
+                  
+
+                  if (response['status']) {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return ErrorDialogueBox(
+                          text: 'Password Reset',
+                          content: response['message'],
+                        );
+                      }
+                    );
+                  } 
+                  else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return ErrorDialogueBox(
+                          text: 'Password Reset Error',
+                          content: response['message'],
+                        );
+                      }
+                    );
+                  }
+                },
+              );
+            }
+          );
+
+         
+        },
       ),
 
 

@@ -15,13 +15,19 @@ class UserPreferences {
     prefs.setString("gender", user.gender);
     prefs.setInt("is_admin", user.isAdmin);
     prefs.setInt("team_id", user.teamId);
-    prefs.setInt("player_id", user.playerId);
+    
+    // only save player_id if it is not null
+    if (user.playerId != null) {
+      prefs.setInt("player_id", user.playerId!);
+    }
+
     // prefs.setString("token", user.token);
     // prefs.setString("renewalToken", user.renewalToken);
 
   }
 
   Future<User> getUser() async {
+
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     int userId = prefs.getInt("user_id")!;
@@ -35,9 +41,11 @@ class UserPreferences {
     // String renewalToken = prefs.getString("renewalToken")!;
     String gender = prefs.getString("gender")!;
     int teamId = prefs.getInt("team_id")!;
-    int playerId = 0;
-    if (prefs.containsKey("player_id")) {
+    int playerId;
+    try {
       playerId = prefs.getInt("player_id")!;
+    } catch (e) {
+      playerId = 0;
     }
 
     return User(
@@ -54,24 +62,20 @@ class UserPreferences {
       teamId: teamId,
       playerId: playerId
     );
+
   }
 
-  void removeUser() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+  Future<Map<String, dynamic>> removeUser() async {
 
-    prefs.remove("user_id");
-    prefs.remove("fname");
-    prefs.remove("lname");
-    prefs.remove("email_address");
-    prefs.remove("mobile_number");
-    prefs.remove("date_of_birth");
-    prefs.remove("gender");
-    prefs.remove("is_admin");
-    prefs.remove("team_id");
-    // prefs.remove("type");
-    // prefs.remove("token");
-    // prefs.remove("renewalToken");
-    prefs.remove("player_id");
+    // return true if user is removed
+    // return false if user is not removed
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? isRemoved = await prefs.clear();
+    return {
+      "isRemoved": isRemoved,
+      "message": "You've been logged out successfully"
+    };
+
   }
 
   

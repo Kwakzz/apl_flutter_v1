@@ -1,13 +1,8 @@
 import 'dart:convert';
 
-import 'package:apl/create_user.dart';
 import 'package:apl/helper_classes/text.dart';
-import 'package:apl/helper_functions/convert_to_json.dart';
-import 'package:apl/homepage.dart';
 import 'package:apl/requests/user/reset_password_req.dart';
-import 'package:apl/requests/user/sign_in_req.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'helper_classes/custom_dialog_box.dart';
 import 'helper_classes/form_label.dart';
 import 'package:apl/helper_classes/custom_button.dart';

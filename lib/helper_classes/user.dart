@@ -10,7 +10,7 @@ class User {
   // String renewalToken;
   int isAdmin;
   int teamId;
-  int playerId;
+  int? playerId;
 
   User(
     {

@@ -88,8 +88,7 @@ class AuthProvider with ChangeNotifier {
         };
  
       }
-      
-      
+         
       else {
 
         // set the user's status to not logged in

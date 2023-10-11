@@ -172,7 +172,6 @@ class _SignInState extends State<SignIn> {
 
                     AuthProvider authProvider = AuthProvider();
     
-
                     Map<String, dynamic> response = await authProvider.login(signInDetailsJson);
 
                     if (!mounted) return;
@@ -184,7 +183,8 @@ class _SignInState extends State<SignIn> {
                           builder: (context) => const HomePage(),
                         ),
                       );
-                    } else {
+                    } 
+                    else {
                       showDialog(
                         context: context, 
                         builder: (BuildContext context) {

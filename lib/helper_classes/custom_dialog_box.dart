@@ -141,7 +141,7 @@ class DeleteConfirmationDialogBox extends StatelessWidget {
             color: Colors.black,
             fontSize: 13,
             fontWeight: FontWeight.w400,
-            text: "Cancel",
+            text: "Keep",
           ),
         ),
 
@@ -157,6 +157,81 @@ class DeleteConfirmationDialogBox extends StatelessWidget {
             text: "Delete",
           ),
         ),
+      ],
+      
+    );
+  }
+}
+
+/// class for deleting confirmation dialog box
+class ActionConfirmationDialogBox extends StatelessWidget {
+
+  ActionConfirmationDialogBox (
+    {
+      super.key,
+      required this.title,
+      required this.content,
+      required this.onPressed,
+    }
+  );
+
+  final String title;
+  final String content;
+  final Function onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: AppText(
+        color: Colors.black,
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        text: title,
+      ),
+
+      content: AppText(
+        color: Colors.black,
+        fontSize: 13,
+        fontWeight: FontWeight.w400,
+        text: content,
+      ),
+
+      actions: [
+        // Yes
+        TextButton(
+          onPressed: () {
+            onPressed();
+          }, 
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(
+              const Color.fromARGB(255, 0, 53, 91),
+            ),
+          ),
+          child: const AppText(
+            color: Color.fromARGB(255, 255, 255, 255),
+            fontSize: 13,
+            fontWeight: FontWeight.w400,
+            text: "Yes",
+          ),
+        ),
+
+        // No
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          }, 
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>( Colors.white)
+          ),
+          child: const AppText(
+            color: Colors.black,
+            fontSize: 13,
+            fontWeight: FontWeight.w400,
+            text: "No",
+          ),
+        ),
+
+        
       ],
       
     );

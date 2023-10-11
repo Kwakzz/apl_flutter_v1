@@ -576,7 +576,7 @@ class LatestLeagueTable extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: DataTable(
-          columnSpacing: MediaQuery.of(context).size.width * 0.0518,
+          columnSpacing: MediaQuery.of(context).size.width * 0.0418,
           columns: const <DataColumn>[
 
             // pos
