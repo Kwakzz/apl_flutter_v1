@@ -81,12 +81,13 @@ class _LatestResultsState extends State<LatestResults> {
           final awayTeamScore = awayGoals.length;
 
           try {
-            return FixturesListTile(
+            return ResultsGraphicListTile(
                   
-              title: '${homeTeam['team_name']} $homeTeamScore - $awayTeamScore ${awayTeam['team_name']}',
-              // display competition name and stage
-              // if stage is null, then display the text ''
-              subtitle: fixture['stage_name'] == null ? '${fixture['competition_name']}' : '${fixture['competition_name']} - ${fixture['stage_name']}',
+              homeTeam: homeTeam,
+              homeTeamScore: homeTeamScore,
+              awayTeam: awayTeam,
+              awayTeamScore: awayTeamScore,
+              gameDetails: fixture,
               
               onTap: () {
                 Navigator.push(
@@ -135,11 +136,12 @@ class _LatestResultsState extends State<LatestResults> {
                   topLeft: Radius.circular(10.0),
                   topRight: Radius.circular(10.0),
                 ),
-                color: Color.fromARGB(255, 2, 107, 183),
+                color: Color.fromARGB(255, 21, 107, 168),
+                // color: Color.fromARGB(255, 2, 107, 183),
               ),
               child: 
               Center(
-                child:AppText(
+                child: AppText(
                   // if the gameweek number is null, then display the text ''
                   text: widget.selectedGameweekMap['gameweek_number'] == null ? 'Gameweek' : 'Gameweek ${widget.selectedGameweekMap['gameweek_number']}',
                   

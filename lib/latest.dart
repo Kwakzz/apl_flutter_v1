@@ -243,7 +243,7 @@ class _LatestState extends State<Latest> {
                             topLeft: Radius.circular(10.0),
                             topRight: Radius.circular(10.0),
                           ),
-                          color: Color.fromARGB(255, 2, 107, 183),
+                          color: Color.fromARGB(255, 21, 107, 168),
                         ),
                         child: 
                         Center(
@@ -288,10 +288,10 @@ class _LatestState extends State<Latest> {
                   ),
                 
 
-                const SizedBox(height: 35),
+              const SizedBox(height: 35),
                 
-                if (upcomingGameweekMap.isNotEmpty) 
-                // latest fixtures
+
+                  // latest fixtures
                   LatestFixtures(
                     fixtures: upcomingGameweekFixtures, 
                     teams: teams,
@@ -306,9 +306,9 @@ class _LatestState extends State<Latest> {
                     }
                   ),
 
-                Container(
-                  height: 20,
-                ),
+              Container(
+                height: 20,
+              ),
                 
                 if (mostRecentGameweekMap.isNotEmpty)
                   LatestResults(

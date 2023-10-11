@@ -37,7 +37,7 @@ class _LatestTablesState extends State<LatestTables> {
     return Container(
       // width
       decoration: const BoxDecoration(
-        color: Colors.white,
+        color: Colors.white,        
       ),
       margin: const EdgeInsets.only(top:16, bottom: 16),
       child: Column(         
@@ -49,24 +49,24 @@ class _LatestTablesState extends State<LatestTables> {
               // if gameweeksMap is empty, don't show the button
                   
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      onPressed: widget.viewAllTablesOnPressed,
-                      child: const AppText(
-                        text: 'View all tables',
-                        fontWeight: FontWeight.w300,
-                        fontSize: 12,
-                        color: Colors.black,
-                      ),
-                    ),
-                    const Icon(
-                      Icons.arrow_forward_ios,
-                      color: Colors.black,
-                      size: 10,
-                    )
-                  ],
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: widget.viewAllTablesOnPressed,
+                  child: const AppText(
+                    text: 'View all tables',
+                    fontWeight: FontWeight.w300,
+                    fontSize: 12,
+                    color: Colors.black,
+                  ),
+                ),
+                const Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.black,
+                  size: 10,
                 )
+              ],
+            )
               ],
             ),
           );

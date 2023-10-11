@@ -286,10 +286,7 @@ class FixturesListTile extends StatelessWidget {
 
   String title;
   String subtitle;
-  Function()? onTap;
-
-
-  
+  Function()? onTap; 
 
 
   @override
@@ -893,3 +890,238 @@ class AdminStartingXITile extends StatelessWidget {
   }
 }
 
+
+
+class FixturesGraphicListTile extends StatelessWidget {
+
+  FixturesGraphicListTile (
+    {
+      super.key,
+      required this.homeTeam,
+      required this.awayTeam,
+      required this.gameDetails,
+      this.onTap
+    }
+  );
+
+  final Map<String, dynamic> homeTeam;
+  final Map<String, dynamic> awayTeam;
+  final Map<String, dynamic> gameDetails;
+  Function()? onTap;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(
+          color: const Color.fromARGB(255, 246, 243, 243),
+        ),
+      ),
+      child: ListTile(
+        title: GestureDetector(
+          onTap: onTap,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+
+              // Home team
+              AppText(
+                text: homeTeam['team_name_abbrev'],
+                fontWeight: FontWeight.w400,
+                fontSize: 14, 
+                color: Colors.black,
+              ),
+
+              // home team logo
+              Container(
+                margin: const EdgeInsets.only(left: 10, right: 10),
+                child: Image.network(
+                  homeTeam['team_logo_url'],
+                  width: 25,
+                  height: 25,
+                ),
+              ),
+
+              const Text("     "),
+
+              // Start time
+              AppText(
+                text: gameDetails['start_time'].toString().substring(0, 5),
+                fontWeight: FontWeight.w500,
+                fontSize: 19, 
+                color: Colors.black,
+              ),
+
+              const Text("     "),
+
+              // away team
+              AppText(
+                text: awayTeam['team_name_abbrev'],
+                fontWeight: FontWeight.w400,
+                fontSize: 14, 
+                color: Colors.black,
+              ),
+
+              // away team logo
+              Container(
+                margin: const EdgeInsets.only(left: 10, right: 10),
+                child: Image.network(
+                  awayTeam['team_logo_url'],
+                  width: 25,
+                  height: 25,
+                ),
+              ),
+
+              // space
+              const Text("     "),
+
+              // forward arrow
+              const Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.black,
+                size: 9,
+              ),
+
+            ],
+          )
+        ),
+
+        // competition name
+        subtitle: Container(
+          margin: const EdgeInsets.only(top: 5),
+          child: Center(
+            child: AppText (
+              text: gameDetails['stage_name'] == null ? '${gameDetails['competition_name']}' : '${gameDetails['competition_name']} - ${gameDetails['stage_name']}',
+              fontWeight: FontWeight.w400,
+              fontSize: 9,
+              color: const Color.fromARGB(255, 71, 70, 70),
+            )
+          )
+        ),
+        
+      )
+    );
+  }
+}
+
+
+class ResultsGraphicListTile extends StatelessWidget {
+
+  ResultsGraphicListTile (
+    {
+      super.key,
+      required this.homeTeam,
+      required this.awayTeam,
+      required this.homeTeamScore,
+      required this.awayTeamScore,
+      required this.gameDetails,
+      this.onTap
+    }
+  );
+
+  final Map<String, dynamic> homeTeam;
+  final Map<String, dynamic> awayTeam;
+  int homeTeamScore;
+  int awayTeamScore;
+  final Map<String, dynamic> gameDetails;
+
+  Function()? onTap;
+
+
+   @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(
+          color: const Color.fromARGB(255, 246, 243, 243),
+        ),
+      ),
+      child: ListTile(
+        title: GestureDetector(
+          onTap: onTap,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+
+              // Home team
+              AppText(
+                text: homeTeam['team_name_abbrev'],
+                fontWeight: FontWeight.w400,
+                fontSize: 14, 
+                color: Colors.black,
+              ),
+
+              // home team logo
+              Container(
+                margin: const EdgeInsets.only(left: 10, right: 10),
+                child: Image.network(
+                  homeTeam['team_logo_url'],
+                  width: 25,
+                  height: 25,
+                ),
+              ),
+
+              const Text("     "),
+
+              // Start time
+              AppText(
+                text: '$homeTeamScore - $awayTeamScore',
+                fontWeight: FontWeight.w500,
+                fontSize: 19, 
+                color: Colors.black,
+              ),
+
+              const Text("     "),
+
+              // away team
+              AppText(
+                text: awayTeam['team_name_abbrev'],
+                fontWeight: FontWeight.w400,
+                fontSize: 14, 
+                color: Colors.black,
+              ),
+
+              // away team logo
+              Container(
+                margin: const EdgeInsets.only(left: 10, right: 10),
+                child: Image.network(
+                  awayTeam['team_logo_url'],
+                  width: 25,
+                  height: 25,
+                ),
+              ),
+
+              // space
+              const Text("     "),
+
+              // forward arrow
+              const Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.black,
+                size: 9,
+              ),
+
+            ],
+          )
+        ),
+
+        // competition name
+        subtitle: Container(
+          margin: const EdgeInsets.only(top: 5),
+          child: Center(
+            child: AppText (
+              text: gameDetails['stage_name'] == null ? '${gameDetails['competition_name']}' : '${gameDetails['competition_name']} - ${gameDetails['stage_name']}',
+              fontWeight: FontWeight.w400,
+              fontSize: 9,
+              color: const Color.fromARGB(255, 71, 70, 70),
+            )
+          )
+        ),
+        
+      )
+    );
+  }
+}

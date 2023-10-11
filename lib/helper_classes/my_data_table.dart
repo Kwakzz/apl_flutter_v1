@@ -576,7 +576,7 @@ class LatestLeagueTable extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: DataTable(
-          columnSpacing: MediaQuery.of(context).size.width * 0.0558,
+          columnSpacing: MediaQuery.of(context).size.width * 0.0518,
           columns: const <DataColumn>[
 
             // pos
@@ -633,6 +633,16 @@ class LatestLeagueTable extends StatelessWidget {
             DataColumn(
               label: AppText(
                 text: 'L',
+                color: Color.fromARGB(255, 53, 52, 52),
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+
+            // goals scored
+            DataColumn(
+              label: AppText(
+                text: 'GS',
                 color: Color.fromARGB(255, 53, 52, 52),
                 fontSize: 11,
                 fontWeight: FontWeight.w600,
@@ -730,6 +740,15 @@ class LatestLeagueTable extends StatelessWidget {
                 DataCell(
                   AppText(
                     text: standingsTeam['losses'].toString(),
+                    color: Colors.black,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+
+                DataCell(
+                  AppText(
+                    text: standingsTeam['goals_scored'].toString(),
                     color: Colors.black,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,

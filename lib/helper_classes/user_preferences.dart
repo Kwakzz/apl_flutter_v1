@@ -15,7 +15,6 @@ class UserPreferences {
     prefs.setString("gender", user.gender);
     prefs.setInt("is_admin", user.isAdmin);
     prefs.setInt("team_id", user.teamId);
-    // potential null value for player_id
     prefs.setInt("player_id", user.playerId);
     // prefs.setString("token", user.token);
     // prefs.setString("renewalToken", user.renewalToken);
@@ -36,7 +35,10 @@ class UserPreferences {
     // String renewalToken = prefs.getString("renewalToken")!;
     String gender = prefs.getString("gender")!;
     int teamId = prefs.getInt("team_id")!;
-    int playerId = prefs.getInt("player_id")!;
+    int playerId = 0;
+    if (prefs.containsKey("player_id")) {
+      playerId = prefs.getInt("player_id")!;
+    }
 
     return User(
       userId: userId,

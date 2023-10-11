@@ -36,7 +36,7 @@ class _LatestFixturesState extends State<LatestFixtures> {
 
     SizedBox fixtures = SizedBox(
       // height is the length of the listview itemcount
-      height: 70.0 * widget.fixtures.length,
+      height: 80.0 * widget.fixtures.length,
       child: ListView.builder(
               
         shrinkWrap: true,
@@ -49,12 +49,13 @@ class _LatestFixturesState extends State<LatestFixtures> {
           final awayTeam = widget.teams.firstWhere((team) => team['team_id'] == fixture['away_id']);
 
           try {
-            return FixturesListTile(
+            return FixturesGraphicListTile(
+
+              gameDetails: fixture,
                   
-              title: '${homeTeam['team_name']} vs ${awayTeam['team_name']}',
-              // display competition name and stage
-              // if stage is null, then display the text ''
-              subtitle: fixture['stage_name'] == null ? '${fixture['competition_name']}' : '${fixture['competition_name']} - ${fixture['stage_name']}',
+              homeTeam: homeTeam,
+
+              awayTeam: awayTeam,
               
               onTap: () {
                 Navigator.push(
@@ -103,7 +104,7 @@ class _LatestFixturesState extends State<LatestFixtures> {
                   topLeft: Radius.circular(10.0),
                   topRight: Radius.circular(10.0),
                 ),
-                color: Color.fromARGB(255, 2, 107, 183),
+                color: Color.fromARGB(255, 21, 107, 168),
               ),
               child: 
               Center(

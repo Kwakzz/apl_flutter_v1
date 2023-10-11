@@ -241,17 +241,27 @@ class _MensResultsViewState extends State<MensResultsView> {
                   return Column(
                     children: [
                       Container(
+                        decoration:const BoxDecoration(
+                          color:  Color.fromARGB(255, 243, 241, 241),
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        width: MediaQuery.of(context).size.width,
                         margin: const EdgeInsets.only(top: 30, bottom: 10),
-                        child: AppText(
-                          text: formattedDate,
-                          color: Colors.black,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
+                        child: Center(
+                          child: AppText(
+                            text: formattedDate,
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                          )
                         )
                       ),
-                      FixturesListTile(
-                        title: '${homeTeam['team_name']} $homeTeamScore - $awayTeamScore ${awayTeam['team_name']}',        
-                        subtitle: "${fixture['competition_name']} ${fixture['stage_name'] ?? ''}",
+                      ResultsGraphicListTile(
+                        homeTeam: homeTeam,
+                        homeTeamScore: homeTeamScore,
+                        awayTeam: awayTeam,
+                        awayTeamScore: awayTeamScore,
+                        gameDetails: fixture,
                         onTap: () {
                           Navigator.push(
                             context,
@@ -267,14 +277,16 @@ class _MensResultsViewState extends State<MensResultsView> {
                           );
                         },
                       ),
-                      const Divider(),
                     ],
                   );
                 } else {
                   // If it's the same gameweek_date, display only the fixture details
-                  return FixturesListTile(
-                    title: '${homeTeam['team_name']} $homeTeamScore - $awayTeamScore ${awayTeam['team_name']}',            
-                    subtitle: "${fixture['competition_name']} ${fixture['stage_name'] ?? ''}",
+                  return ResultsGraphicListTile(
+                    homeTeam: homeTeam,
+                    homeTeamScore: homeTeamScore,
+                    awayTeam: awayTeam,
+                    awayTeamScore: awayTeamScore,
+                    gameDetails: fixture,
                     onTap: () {
                       Navigator.push(
                         context,
