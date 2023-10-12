@@ -1,7 +1,6 @@
 import 'package:apl/helper_classes/custom_list_tile.dart';
 import 'package:apl/helper_classes/text.dart';
 import 'package:apl/pl/view_player.dart';
-import 'package:apl/requests/formation/get_formations_req.dart';
 import 'package:apl/requests/starting_xi/get_team_starting_xi_players_req.dart';
 import 'package:apl/requests/starting_xi/get_team_starting_xi_req.dart';
 import 'package:apl/requests/teams/get_team_players_req.dart';
@@ -44,7 +43,6 @@ class _TeamLineupState extends State<TeamLineup> {
   List<Map<String, dynamic>> dropdownPositionsMap = [];
   List<String> dropDownListForPositions = [];
 
-  List<Map<String, dynamic>> formations = [];
   Map<String, dynamic> teamStartingXI = {};
   List <Map<String, dynamic>> teamStartingXIPlayers = [];
 
@@ -165,12 +163,7 @@ class _TeamLineupState extends State<TeamLineup> {
       );
     }
 
-    // prevent the page from crashing if the formation hasn't been loaded yet
     try {
-
-      // team's formation
-      // Map <String, dynamic> formation = {};
-      // formation = formations.firstWhere((formation) => formation['formation_id'] == teamStartingXI['formation_id'], orElse: () => {});
     
       return ListView(
 

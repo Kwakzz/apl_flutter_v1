@@ -68,21 +68,21 @@ class _StatsState extends State<Stats> {
 
               // space between sections
 
-              Container(
-                margin: const EdgeInsets.only(top: 10),
-              ),
-              MenuListTile(
-                text: "Fouls",
-                onTap: () {},
-              ),
-              MenuListTile(
-                text: "Yellow Cards",
-                onTap: () {},
-              ),
-              MenuListTile(
-                text: "Red Cards",
-                onTap: () {},
-              ),
+              // Container(
+              //   margin: const EdgeInsets.only(top: 10),
+              // ),
+              // MenuListTile(
+              //   text: "Fouls",
+              //   onTap: () {},
+              // ),
+              // MenuListTile(
+              //   text: "Yellow Cards",
+              //   onTap: () {},
+              // ),
+              // MenuListTile(
+              //   text: "Red Cards",
+              //   onTap: () {},
+              // ),
 
 
             ],

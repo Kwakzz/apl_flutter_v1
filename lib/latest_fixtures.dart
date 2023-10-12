@@ -80,9 +80,13 @@ class _LatestFixturesState extends State<LatestFixtures> {
       )
     );
 
-    if (widget.fixtures.isEmpty) {
-      return Container();
+    if (widget.fixtures.isEmpty || widget.teams.isEmpty || widget.selectedGameweekMap.isEmpty) {
+      return const CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.blue), 
+        strokeWidth: 2, 
+      );
     }
+    
     
     return Container(
       margin: const EdgeInsets.only(left: 10, right: 10),
@@ -111,7 +115,6 @@ class _LatestFixturesState extends State<LatestFixtures> {
                 child:AppText(
                   // if the gameweek number is null, then display the text ''
                   text: widget.selectedGameweekMap['gameweek_number'] == null ? 'Gameweek' : 'Gameweek ${widget.selectedGameweekMap['gameweek_number']}',
-                  
                   fontWeight: FontWeight.bold, 
                   fontSize: 18, 
                   color: Colors.white,

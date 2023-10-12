@@ -7,6 +7,7 @@ import 'package:apl/helper_classes/text.dart';
 import 'package:apl/helper_classes/user_preferences.dart';
 import 'package:apl/homepage.dart';
 import 'package:apl/pl/club_details.dart';
+import 'package:apl/privacy_policy.dart';
 import 'package:apl/requests/teams/get_teams_req.dart';
 import 'package:apl/requests/user/reset_password_req.dart';
 import 'package:apl/sign_in.dart';
@@ -140,15 +141,26 @@ class _MoreState extends State<More> {
         margin: const EdgeInsets.only(top: 20),
       ),
 
-      // privacy, FAQS section
+      // privacy 
       MenuListTile(
         text: "Privacy Policy",
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const PrivacyPolicyPage()
+            ),
+          );
+        },
       ),
-      MenuListTile(
-        text: "FAQs",
-        onTap: () {},
-      ),
+
+      // FAQS section
+      // MenuListTile(
+      //   text: "FAQs",
+      //   onTap: () {
+          
+      //   },
+      // ),
 
     ];
 
@@ -210,10 +222,10 @@ class _MoreState extends State<More> {
         text: "Manage Account",
         onTap: () {},
       ),
-      MenuListTile(
-        text: "Change Email Address",
-        onTap: () {},
-      ),
+      // MenuListTile(
+      //   text: "Change Email Address",
+      //   onTap: () {},
+      // ),
       MenuListTile(
         text: "Change Password",
         onTap: () {
@@ -291,14 +303,18 @@ class _MoreState extends State<More> {
         teamName: favouriteTeam['team_name'] ?? "No Favourite Team",
         teamLogoURL: favouriteTeam['team_logo_url'],
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ClubDetails(
-                team: favouriteTeam,
+
+          if (teamId != 0) {  
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ClubDetails(
+                  team: favouriteTeam,
+                ),
               ),
-            ),
-          );
+            );
+          }
+
         },
       ),
 
@@ -321,12 +337,19 @@ class _MoreState extends State<More> {
       // privacy, FAQS section
       MenuListTile(
         text: "Privacy Policy",
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const PrivacyPolicyPage()
+            ),
+          );
+        },
       ),
-      MenuListTile(
-        text: "FAQs",
-        onTap: () {},
-      ),
+      // MenuListTile(
+      //   text: "FAQs",
+      //   onTap: () {},
+      // ),
       
     ];
 

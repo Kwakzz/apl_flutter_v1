@@ -46,14 +46,15 @@ class _PlayersState extends State<Players> {
             prevContext: context,
             myTabs: myTabs,  
           ),
-          body: const TabBarView(
+          body:  const TabBarView(
             children: [
 
               // men's players
               MensPlayers(),
 
               // women's players
-              WomensPlayers() 
+              WomensPlayers()
+
             ]
           ),
         ),

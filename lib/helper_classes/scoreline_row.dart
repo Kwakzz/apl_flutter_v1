@@ -42,9 +42,16 @@ class ScoreLineRow extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(left: 10, right: 10),
             child: Image.network(
-              homeTeam['team_logo_url'],
+              // if home team logo is null, then display the image_not_supported icon
+              homeTeam['team_logo_url'] == null || homeTeam['team_logo_url'] == '' ? const Icon(Icons.image_not_supported, size: 13) :homeTeam['team_logo_url'],
               width: 30,
               height: 30,
+              errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                return const Icon(
+                  Icons.error, 
+                  size: 18,
+                );
+              }
             ),
           ),
 
@@ -73,9 +80,16 @@ class ScoreLineRow extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(left: 10, right: 10),
             child: Image.network(
-              awayTeam['team_logo_url'],
+              // if away team logo is null, then display the image_not_supported icon
+              awayTeam['team_logo_url'] == null || awayTeam['team_logo_url'] == '' ? const Icon(Icons.image_not_supported, size: 13) :awayTeam['team_logo_url'],
               width: 30,
               height: 30,
+              errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                return const Icon(
+                  Icons.error, 
+                  size: 18,
+                );
+              }
             ),
           ),
 
@@ -124,9 +138,16 @@ class StartTimeRow extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(left: 10, right: 10),
             child: Image.network(
-              homeTeam['team_logo_url'],
+              // if home team logo is null, then display the image_not_supported icon
+              homeTeam['team_logo_url'] == null || homeTeam['team_logo_url'] == '' ? const Icon(Icons.image_not_supported, size: 13) :homeTeam['team_logo_url'],
               width: 30,
               height: 30,
+              errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                return const Icon(
+                  Icons.error, 
+                  size: 18,
+                );
+              }
             ),
           ),
 
@@ -157,9 +178,16 @@ class StartTimeRow extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(left: 10, right: 10),
             child: Image.network(
-              awayTeam['team_logo_url'],
+              // if away team logo is null, then display the image_not_supported icon
+              awayTeam['team_logo_url'] == null || awayTeam['team_logo_url'] == '' ? const Icon(Icons.image_not_supported, size: 13) :awayTeam['team_logo_url'],
               width: 30,
               height: 30,
+              errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                return const Icon(
+                  Icons.error, 
+                  size: 18,
+                );
+              }
             ),
           ),
 

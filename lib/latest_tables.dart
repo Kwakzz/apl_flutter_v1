@@ -30,7 +30,7 @@ class _LatestTablesState extends State<LatestTables> {
   @override
   Widget build(BuildContext context) {
 
-    if (widget.leagueTables.isEmpty){
+    if (widget.leagueTables.isEmpty || widget.gameweeksMap.isEmpty){
       return Container();
     }
 

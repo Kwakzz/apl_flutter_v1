@@ -312,14 +312,20 @@ class TopCleanSheetsTable extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     
                     children: [
-                      Image.network(
-                        '${teamWithCleanSheet['team_logo_url']}',
+                      teamWithCleanSheet['team_logo_url'] == null || teamWithCleanSheet['team_logo_url'] == '' ? const Icon(Icons.image_not_supported, size: 13) :Image.network(
+                        teamWithCleanSheet['team_logo_url'],
                         height: 20,
                         width: 20,
+                        errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                          return const Icon(
+                            Icons.error, 
+                            size: 13,
+                          ); 
+                        }
                       ),
                       const Text("  "),
                       AppText(
-                        text:'${teamWithCleanSheet['team_name_abbrev']}',
+                        text:teamWithCleanSheet['team_name_abbrev'].toString(),
                         color: Colors.black,
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
@@ -332,7 +338,7 @@ class TopCleanSheetsTable extends StatelessWidget {
                 // clean sheets
                 DataCell(
                   AppText(
-                    text:'${teamWithCleanSheet['no_of_clean_sheets']}',
+                    text: teamWithCleanSheet['no_of_clean_sheets'].toString(),
                     color: Colors.black,
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
@@ -469,14 +475,20 @@ class LeagueTable extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   
                   children: [
-                    Image.network(
-                      '${standingsTeam['team_logo_url']}',
+                    standingsTeam['team_logo_url'] == null || standingsTeam['team_logo_url'] == '' ? const Icon(Icons.image_not_supported, size: 13) :Image.network(
+                      standingsTeam['team_logo_url'],
                       height: 20,
                       width: 20,
+                      errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                        return const Icon(
+                          Icons.error, 
+                          size: 13,
+                        );
+                      }
                     ),
                     const Text("  "),
                     AppText(
-                      text:'${standingsTeam['team_name_abbrev']}',
+                      text: standingsTeam['team_name_abbrev'],
                       color: Colors.black,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -489,7 +501,7 @@ class LeagueTable extends StatelessWidget {
               // no_played
               DataCell(
                 AppText(
-                  text:'${standingsTeam['no_played']}',
+                  text:standingsTeam['no_played'].toString(),
                   color: Colors.black,
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
@@ -690,14 +702,20 @@ class LatestLeagueTable extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     
                     children: [
-                      Image.network(
-                        '${standingsTeam['team_logo_url']}',
+                      standingsTeam['team_logo_url'] == null || standingsTeam['team_logo_url'] == '' ? const Icon(Icons.image_not_supported, size: 13) :Image.network(
+                        standingsTeam['team_logo_url'],
                         height: 20,
                         width: 20,
+                        errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                          return const Icon(
+                            Icons.error, 
+                            size: 13,
+                          );
+                        }
                       ),
                       const Text("  "),
                       AppText(
-                        text:'${standingsTeam['team_name_abbrev']}',
+                        text:standingsTeam['team_name_abbrev'],
                         color: Colors.black,
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -710,7 +728,7 @@ class LatestLeagueTable extends StatelessWidget {
                 // no_played
                 DataCell(
                   AppText(
-                    text:'${standingsTeam['no_played']}',
+                    text:standingsTeam['no_played'].toString(),
                     color: Colors.black,
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -864,14 +882,20 @@ class PlayerTransfersTable extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     
                     children: [
-                      Image.network(
-                        '${transfer['prev_team_logo_url']}',
+                      transfer['prev_team_logo_url'] == null || transfer['prev_team_logo_url'] == '' ? const Icon(Icons.image_not_supported, size: 13) :Image.network(
+                        transfer['prev_team_logo_url'],
                         height: 20,
                         width: 20,
+                        errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                          return const Icon(
+                            Icons.error, 
+                            size: 13,
+                          );
+                        }
                       ),
                       const Text("  "),
                       AppText(
-                        text:'${transfer['prev_team_name_abbrev']}',
+                        text: transfer['prev_team_name_abbrev'],
                         color: Colors.black,
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
@@ -887,14 +911,21 @@ class PlayerTransfersTable extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     
                     children: [
-                      Image.network(
-                        '${transfer['new_team_logo_url']}',
+                      transfer['new_team_logo_url'] == null || transfer['new_team_logo_url'] == '' ? const Icon(Icons.image_not_supported, size: 13) :Image.network(
+                        transfer['new_team_logo_url'],
                         height: 20,
                         width: 20,
+                        errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                          return const Icon(
+                            Icons.error, 
+                            size: 13,
+                          );
+                        }
                       ),
                       const Text("  "),
+                       
                       AppText(
-                        text:'${transfer['new_team_name_abbrev']}',
+                        text:transfer['new_team_name_abbrev'],
                         color: Colors.black,
                         fontSize: 13,
                         fontWeight: FontWeight.w400,

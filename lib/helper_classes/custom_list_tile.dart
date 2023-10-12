@@ -87,11 +87,17 @@ class FavTeamMenuListTile extends StatelessWidget {
       ),
       margin: const EdgeInsets.only(left: 10, right: 10, bottom: 5),
       child: ListTile(
-        leading: teamLogoURL == null ? null : 
+        leading: teamLogoURL == null || teamLogoURL == '' ? const Icon(Icons.image_not_supported, size: 13):
         Image.network(
           teamLogoURL!,
           width: 30,
           height: 30,
+          errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+            return const Icon(
+              Icons.error, 
+              size: 18,
+            );
+          }
         ),
         title: AppText(
           color: Colors.black,
@@ -192,12 +198,18 @@ class ClubListTile extends StatelessWidget {
         ),
       ),
       child: ListTile(
-        // if teamLogoURL is null, then display nothing
-        leading: teamLogoURL == null ? null : 
+        // if teamLogoURL is null, then display image not supported icon
+        leading: teamLogoURL == null || teamLogoURL == '' ? const Icon(Icons.image_not_supported, size: 13) :
         Image.network(
           teamLogoURL!,
           width: 50,
           height: 50,
+          errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+            return const Icon(
+              Icons.error, 
+              size: 18,
+            );
+          }
         ),
         title: AppText(
           color: Colors.black,
@@ -242,12 +254,18 @@ class NewsListTile extends StatelessWidget {
         ),
       ),
       child: ListTile(
-        // if news item cover pic is null or an empty string, then display nothing
-        leading: newsMap['cover_pic'] == null || newsMap['cover_pic'] == '' ? null :
+        // if news item cover pic is null or an empty string, then display image not supported icon
+        leading: newsMap['cover_pic'] == null || newsMap['cover_pic'] == '' ? const Icon(Icons.image_not_supported, size: 13) :
         Image.network(
           newsMap['cover_pic'],
           width: 50,
           height: 50,
+          errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+            return const Icon(
+              Icons.error, 
+              size: 13,
+            );
+          }
         ),
         title: AppText(
           color: Colors.black,
@@ -937,10 +955,16 @@ class FixturesGraphicListTile extends StatelessWidget {
               // home team logo
               Container(
                 margin: const EdgeInsets.only(left: 10, right: 10),
-                child: Image.network(
+                child: homeTeam['team_logo_url'] == null || homeTeam['team_logo_url'] == '' ? const Icon(Icons.image_not_supported, size: 13) : Image.network(
                   homeTeam['team_logo_url'],
                   width: 25,
                   height: 25,
+                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                    return const Icon(
+                      Icons.error, 
+                      size: 13,
+                    );
+                  }
                 ),
               ),
 
@@ -967,10 +991,16 @@ class FixturesGraphicListTile extends StatelessWidget {
               // away team logo
               Container(
                 margin: const EdgeInsets.only(left: 10, right: 10),
-                child: Image.network(
+                child: awayTeam['team_logo_url'] == null || awayTeam['team_logo_url'] == '' ? const Icon(Icons.image_not_supported, size: 13) :Image.network(
                   awayTeam['team_logo_url'],
                   width: 25,
                   height: 25,
+                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                    return const Icon(
+                      Icons.error, 
+                      size: 13,
+                    );
+                  }
                 ),
               ),
 
@@ -1057,10 +1087,16 @@ class ResultsGraphicListTile extends StatelessWidget {
               // home team logo
               Container(
                 margin: const EdgeInsets.only(left: 10, right: 10),
-                child: Image.network(
+                child: homeTeam['team_logo_url'] == null || homeTeam['team_logo_url'] == '' ? const Icon(Icons.image_not_supported, size: 13) :Image.network(
                   homeTeam['team_logo_url'],
                   width: 25,
                   height: 25,
+                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                    return const Icon(
+                      Icons.error, 
+                      size: 13,
+                    );
+                  }
                 ),
               ),
 
@@ -1088,9 +1124,16 @@ class ResultsGraphicListTile extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(left: 10, right: 10),
                 child: Image.network(
-                  awayTeam['team_logo_url'],
+                  // if away team logo is null, then display image not supported icon
+                  awayTeam['team_logo_url'] == null || awayTeam['team_logo_url'] == '' ? const Icon(Icons.image_not_supported, size: 13) :awayTeam['team_logo_url'],
                   width: 25,
                   height: 25,
+                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                    return const Icon(
+                      Icons.error, 
+                      size: 13,
+                    );
+                  }
                 ),
               ),
 

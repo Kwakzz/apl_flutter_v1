@@ -16,6 +16,7 @@ import 'package:apl/requests/standings/get_season_comp_standings_with_teams_req.
 import 'package:apl/requests/standings/update_standings_team_req.dart';
 import 'package:apl/requests/teams/get_teams_req.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'helper_classes/my_data_table.dart';
 import 'helper_functions/convert_to_json.dart';
@@ -160,6 +161,7 @@ class _LatestState extends State<Latest> {
 
   }
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
  
 
   @override
@@ -169,6 +171,7 @@ class _LatestState extends State<Latest> {
     
     return MaterialApp(
       home: Scaffold(
+        key: _scaffoldKey,
         appBar: const APLAppBar(),
         body: FutureBuilder(
           future: fetchData(),
@@ -182,14 +185,23 @@ class _LatestState extends State<Latest> {
             }
 
             if (snapshot.hasError) {
-              return const Center(
-                child: AppText(
-                  text: "Error loading data",
-                  fontSize: 13,
-                  fontWeight: FontWeight.w300,
-                  color: Colors.black,
-                )
+              SchedulerBinding.instance.addPostFrameCallback((_) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: AppText(
+                      text: 'An error occurred. Please try again later',
+                      fontSize: 13,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.white,
+                    )
+                  ),
+                );
+              }
               );
+
+              // Return a fallback UI, or simply return an empty container.
+              return Container();
+
             }
 
             final List<dynamic> data = snapshot.data as List<dynamic>;

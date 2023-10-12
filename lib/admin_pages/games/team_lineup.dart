@@ -3,7 +3,6 @@ import 'package:apl/helper_classes/custom_dialog_box.dart';
 import 'package:apl/helper_classes/custom_list_tile.dart';
 import 'package:apl/helper_classes/text.dart';
 import 'package:apl/helper_functions/convert_to_json.dart';
-import 'package:apl/requests/formation/get_formations_req.dart';
 import 'package:apl/requests/starting_xi/add_starting_xi_req.dart';
 import 'package:apl/requests/starting_xi/delete_starting_xi_player.dart';
 import 'package:apl/requests/starting_xi/get_team_starting_xi_players_req.dart';
@@ -102,13 +101,6 @@ class _TeamLineupState extends State<TeamLineup> {
     getActiveWomensTeamPlayers(widget.team['team_id']).then((result) {
       setState(() {
         femalePlayers = result;
-      });
-    });
-
-    // get all formations
-    getFormations().then((result) {
-      setState(() {
-        formations = result;
       });
     });
 
@@ -231,10 +223,6 @@ class _TeamLineupState extends State<TeamLineup> {
 
     // prevent the page from crashing if the formation hasn't been loaded yet
     try {
-
-      // team's formation
-      // Map <String, dynamic> formation = {};
-      // formation = formations.firstWhere((formation) => formation['formation_id'] == teamStartingXI['formation_id'], orElse: () => {});
     
       return ListView(
 

@@ -112,8 +112,11 @@ class _LatestResultsState extends State<LatestResults> {
       )
     );
 
-    if (widget.fixtures.isEmpty) {
-      return Container();
+    if (widget.fixtures.isEmpty || widget.teams.isEmpty || widget.selectedGameweekMap.isEmpty) {
+      return const CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.blue), 
+        strokeWidth: 2, 
+      );
     }
     
     return Container(

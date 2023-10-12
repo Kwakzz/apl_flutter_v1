@@ -13,8 +13,15 @@ class LatestNews extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-    Container(
+
+    if (newsItem.isEmpty){
+      return const CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.blue), 
+        strokeWidth: 2, 
+      );
+    }
+
+    return Container(
       padding: const EdgeInsets.only(bottom: 80),
       color: const Color.fromARGB(255, 0, 53, 91),
         child: Column(
@@ -22,11 +29,22 @@ class LatestNews extends StatelessWidget {
           children: [
             AspectRatio(
               aspectRatio: 14 / 9,
-              child: newsItem['cover_pic'] == null || newsItem['cover_pic'] == '' ? Container() : Image.network(
+              child: newsItem['cover_pic'] == null || newsItem['cover_pic'] == '' ? 
+              const Icon(Icons.image_not_supported, size: 20) : Image.network(
                 newsItem['cover_pic'],
                 width: MediaQuery.of(context).size.width,
                 height: 200,
                 fit: BoxFit.cover,
+                errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                  return const Center(
+                    child: AppText(
+                      text: 'Error loading image', 
+                      fontWeight: FontWeight.w400, 
+                      fontSize: 15,
+                      color: Colors.white
+                    )
+                  );
+                }
               )
             ),
             Container(
