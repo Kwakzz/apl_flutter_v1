@@ -218,10 +218,11 @@ class _MoreState extends State<More> {
         )
       ),
 
-      MenuListTile(
-        text: "Manage Account",
-        onTap: () {},
-      ),
+      // MenuListTile(
+      //   text: "Manage Account",
+      //   onTap: () {},
+      // ),
+      
       // MenuListTile(
       //   text: "Change Email Address",
       //   onTap: () {},
@@ -304,7 +305,7 @@ class _MoreState extends State<More> {
         teamLogoURL: favouriteTeam['team_logo_url'],
         onTap: () {
 
-          if (teamId != 0) {  
+          if (teamId != 0 && favouriteTeam.isNotEmpty) {  
             Navigator.push(
               context,
               MaterialPageRoute(
