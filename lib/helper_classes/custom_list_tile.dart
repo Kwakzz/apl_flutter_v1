@@ -352,6 +352,67 @@ class NewsListTile extends StatelessWidget {
 }
 
 
+
+class LatestNewsListTile extends StatelessWidget {
+
+  LatestNewsListTile (
+    {
+      super.key,
+      required this.newsMap,
+      this.onTap,
+    }
+  );
+
+  Map <String, dynamic> newsMap;
+  Function()? onTap;
+
+  
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        // border: Border.all(
+        //   color: const Color.fromARGB(255, 232, 229, 229),
+        // ),
+      ),
+      child: ListTile(
+        // if news item cover pic is null or an empty string, then display image not supported icon
+        leading: AspectRatio(
+          aspectRatio: 15 / 9,
+          child: newsMap['cover_pic'] == null || newsMap['cover_pic'] == '' ? 
+          const Icon(Icons.image_not_supported, size: 20) : Image.network(
+            newsMap['cover_pic'],
+            width: MediaQuery.of(context).size.width,
+            height: 100,
+            fit: BoxFit.cover,
+            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+              return const Center(
+                child: AppText(
+                  text: 'Error loading image', 
+                  fontWeight: FontWeight.w400, 
+                  fontSize: 13,
+                  color: Colors.white
+                )
+              );
+            }
+          )
+        ),
+        title: AppText(
+          color: Colors.black,
+          fontSize: 15,
+          fontWeight: FontWeight.w300,
+          text: newsMap['title'],
+        ),
+        onTap: onTap,
+      ),
+    );
+  }
+}
+
+
 class FixturesListTile extends StatelessWidget {
 
   FixturesListTile (

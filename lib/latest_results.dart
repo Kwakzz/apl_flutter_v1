@@ -2,6 +2,7 @@ import 'package:apl/helper_classes/custom_list_tile.dart';
 import 'package:apl/pl/game_details.dart';
 import 'package:apl/requests/goal/get_goals_by_season_and_comp_req.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'helper_classes/text.dart';
 
@@ -123,7 +124,10 @@ class _LatestResultsState extends State<LatestResults> {
       margin: const EdgeInsets.only(left: 10, right: 10),
       decoration:  BoxDecoration(
         color: Colors.white,
-        
+        border: Border.all(  
+          color:  const Color.fromARGB(255, 230, 227, 227), 
+          width: 1, 
+        ),
         borderRadius: BorderRadius.circular(10.0),
       ),
 
@@ -142,18 +146,38 @@ class _LatestResultsState extends State<LatestResults> {
                 color: Color.fromARGB(255, 21, 107, 168),
                 // color: Color.fromARGB(255, 2, 107, 183),
               ),
-              child: 
-              Center(
-                child: AppText(
-                  // if the gameweek number is null, then display the text ''
-                  text: widget.selectedGameweekMap['gameweek_number'] == null ? 'Gameweek' : 'Gameweek ${widget.selectedGameweekMap['gameweek_number']}',
-                  
+              child: const Center(
+                child:AppText(
+                  text: "Latest Results",
                   fontWeight: FontWeight.bold, 
                   fontSize: 18, 
                   color: Colors.white,
                 )
               ),
             ),
+          ),
+
+          // gameweek number
+          Container(
+            margin: const EdgeInsets.only(top: 15, bottom: 10),
+            child: AppText(
+              text: widget.selectedGameweekMap['gameweek_number'] == null ? 'Gameweek' : 'Gameweek ${widget.selectedGameweekMap['gameweek_number']}',
+              fontWeight: FontWeight.w400, 
+              fontSize: 16, 
+              color: Colors.black,
+            )
+          ),
+
+          // date
+          Container(
+            margin: const EdgeInsets.only(bottom: 15, top: 10),
+            child: AppText(
+              // date format should be something like: Sat 12th Dec
+              text: DateFormat('EEE d MMM yyyy').format(DateTime.parse(widget.selectedGameweekMap['gameweek_date'])),
+              fontWeight: FontWeight.w300, 
+              fontSize: 12, 
+              color: Colors.black,
+            )
           ),
 
           fixtures,      

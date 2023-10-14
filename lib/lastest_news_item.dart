@@ -22,11 +22,14 @@ class LatestNews extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.only(bottom: 80),
+      padding: const EdgeInsets.only(bottom: 50),
       color: const Color.fromARGB(255, 0, 53, 91),
         child: Column(
+
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
+            // news item cover pic
             AspectRatio(
               aspectRatio: 14 / 9,
               child: newsItem['cover_pic'] == null || newsItem['cover_pic'] == '' ? 
@@ -47,6 +50,8 @@ class LatestNews extends StatelessWidget {
                 }
               )
             ),
+
+            // news item title
             Container(
               margin: const EdgeInsets.only(left:10, top: 12, bottom: 5),
               child: GestureDetector(
@@ -59,6 +64,8 @@ class LatestNews extends StatelessWidget {
                 )
               ),
             ),
+
+            // news item subtitle
             Container(
               margin: const EdgeInsets.only(left:10),
               child: AppText(
@@ -68,6 +75,7 @@ class LatestNews extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
+
           ],
         )
     );

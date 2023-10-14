@@ -36,19 +36,32 @@ class _LatestTablesState extends State<LatestTables> {
 
     return Container(
       // width
-      decoration: const BoxDecoration(
-        color: Colors.white,        
+      decoration: BoxDecoration(
+        color: Colors.white, 
+        border: Border.all(  
+          color:  const Color.fromARGB(255, 230, 227, 227), 
+          width: 1, 
+        ),
+        borderRadius: BorderRadius.circular(10.0),   
       ),
-      margin: const EdgeInsets.only(top:16, bottom: 16),
+      margin: const EdgeInsets.only(top:16, bottom: 16, left: 10, right: 10),
       child: Column(         
         children: [
           
-            ...widget.leagueTables,
+          ...widget.leagueTables,
 
-              // "View Tables" button
-              // if gameweeksMap is empty, don't show the button
-                  
-              Row(
+          // "View Tables" button                  
+          Container(
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              border: Border.all(  
+                color:  const Color.fromARGB(255, 230, 227, 227), 
+                width: 1, 
+                // rounded border
+              ),
+            ),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
@@ -67,8 +80,9 @@ class _LatestTablesState extends State<LatestTables> {
                 )
               ],
             )
-              ],
-            ),
-          );
+          )
+        ],
+      ),
+    );
   }
 }

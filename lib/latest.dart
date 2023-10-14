@@ -1,10 +1,13 @@
+import 'package:apl/admin_pages/news/news_items.dart';
 import 'package:apl/helper_classes/custom_appbar.dart';
+import 'package:apl/helper_classes/custom_list_tile.dart';
 import 'package:apl/helper_classes/text.dart';
 import 'package:apl/lastest_news_item.dart';
 import 'package:apl/latest_fixtures.dart';
 import 'package:apl/latest_results.dart';
 import 'package:apl/latest_tables.dart';
 import 'package:apl/pl/fixtures.dart';
+import 'package:apl/pl/news.dart';
 import 'package:apl/pl/results.dart';
 import 'package:apl/pl/tables.dart';
 import 'package:apl/pl/view_news_item.dart';
@@ -247,18 +250,17 @@ class _LatestState extends State<Latest> {
                   return Column(
                     children: [
                       Container(
-                        margin: const EdgeInsets.only(left: 10, right: 10),
                         width: MediaQuery.of(context).size.width,
-                        padding: const EdgeInsets.all(16),
+                        padding: const EdgeInsets.only(top: 16, bottom: 16),
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10.0),
                             topRight: Radius.circular(10.0),
                           ),
                           color: Color.fromARGB(255, 21, 107, 168),
+                          // color: Color.fromARGB(255, 2, 107, 183),
                         ),
-                        child: 
-                        Center(
+                        child: Center(
                           child: AppText(
                             text: '${groupedStandings[standingsId]![0]['competition_name']} ${groupedStandings[standingsId]![0]['standings_name']} (${groupedStandings[standingsId]![0]['gender']})',
                             fontWeight: FontWeight.bold, 
@@ -284,6 +286,7 @@ class _LatestState extends State<Latest> {
               children: [
 
                 if (newsItem.isNotEmpty)
+                  
                   // latest news
                   LatestNews(
                     newsItem: newsItem,
@@ -301,7 +304,8 @@ class _LatestState extends State<Latest> {
                 
 
               const SizedBox(height: 35),
-                
+
+              if (upcomingGameweekMap.isNotEmpty)
 
                   // latest fixtures
                   LatestFixtures(
@@ -353,7 +357,82 @@ class _LatestState extends State<Latest> {
                         )),
                       );
                     },
-                  )
+                  ),
+
+                
+                // Latest news section. Start from second item in the list because the first item is the latest news item. First check if the newsItems list is not empty and then check if the length is greater than 1
+                if (newsItems.isNotEmpty && newsItems.length > 5)
+                  Column(
+                    children: [
+
+                      // latest news 
+                      Container(
+                        margin: const EdgeInsets.only(left: 15, bottom: 10),
+                        width: MediaQuery.of(context).size.width,
+                        child: 
+                        const AppText(
+                          text: 'Latest News',
+                          fontWeight: FontWeight.bold, 
+                          fontSize: 21, 
+                          color: Colors.black
+                        ),
+                      ),
+
+                      // list of news items
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: 5,
+                        itemBuilder: (context, index) {
+                          return LatestNewsListTile(
+                            newsMap: newsItems[index + 1],
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ViewNewsItem(
+                                    newsItemMap: newsItems[index + 1],
+                                  )
+                                ),
+                              );
+                            },
+                          
+                          );
+                        }
+                      ),
+
+
+                      const SizedBox(height: 10), 
+                      
+                      // view all news button
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const News(
+                                  pageName: 'News',
+                                )),
+                              );
+                            },
+                            child: const AppText(
+                              text: 'View all news',
+                              fontWeight: FontWeight.w300,
+                              fontSize: 12,
+                              color: Colors.black,
+                            ),
+                          ),
+                          const Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.black,
+                            size: 10,
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 
               ]          
 

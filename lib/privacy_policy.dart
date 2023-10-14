@@ -1,10 +1,6 @@
- import 'package:apl/helper_classes/text.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:webview_flutter/webview_flutter.dart'; // Duplicate import removed
 import 'helper_classes/custom_appbar.dart';
 import 'package:flutter/material.dart';
-import 'package:webview_flutter_android/webview_flutter_android.dart'; // Import for Android features.
-import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart'; // Import for iOS features.
 
 class PrivacyPolicyPage extends StatefulWidget {
   const PrivacyPolicyPage({Key? key}) : super(key: key);
@@ -27,9 +23,13 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
         ..setNavigationDelegate(
           NavigationDelegate(
             onProgress: (int progress) {
-              // Update loading bar.
+              if (progress == 100) {
+                
+              }
             },
-            onPageStarted: (String url) {},
+            onPageStarted: (String url) {
+              
+            },
             onPageFinished: (String url) {},
             onWebResourceError: (WebResourceError error) {},
             onNavigationRequest: (NavigationRequest request) {
@@ -40,7 +40,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
             },
           ),
         )
-        ..loadRequest(Uri.parse('http://3.8.171.188/backend/privacy_policy.php'));
+        ..loadRequest(Uri.parse('https://3.8.171.188/backend/privacy_policy.php'));
     } catch (e) {
       return;
     }
