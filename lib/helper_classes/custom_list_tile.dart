@@ -116,6 +116,67 @@ class FavTeamMenuListTile extends StatelessWidget {
   }
 }
 
+class SocialMediaLinkMenuListTile extends StatelessWidget {
+
+  SocialMediaLinkMenuListTile (
+    {
+      super.key,
+      required this.platformName,
+      this.onTap,
+      this.platformLogo
+      
+    }
+  );
+
+  String platformName;
+  Function()? onTap;
+  String? platformLogo;
+  
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 55,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(
+          width: 1,
+          color: Colors.transparent,
+        ),
+        borderRadius: BorderRadius.circular(10),
+      
+      ),
+      margin: const EdgeInsets.only(left: 10, right: 10, bottom: 5),
+      child: ListTile(
+        leading: Image.network(
+          platformLogo!,
+          width: 25,
+          height: 25,
+          errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+            return const Icon(
+              Icons.error, 
+              size: 18,
+            );
+          }          
+        ),
+        title: AppText(
+          color: Colors.black,
+          fontSize: 13,
+          fontWeight: FontWeight.w400,
+          text: platformName,
+        ),
+        trailing: const Icon(
+          Icons.arrow_forward_ios,
+          color: Colors.black,
+          size: 9,
+        ),
+        onTap: onTap,
+      ),
+    );
+  }
+}
+
 
 class PlayerListTile extends StatelessWidget {
 

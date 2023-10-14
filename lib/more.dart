@@ -13,7 +13,6 @@ import 'package:apl/requests/user/reset_password_req.dart';
 import 'package:apl/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'helper_classes/custom_list_tile.dart';
 
 class More extends StatefulWidget {
@@ -32,12 +31,11 @@ class _MoreState extends State<More> {
   int? teamId = 0;
   String? emailAdress = "";
   Map<String, dynamic> favouriteTeam = {};
+  String fname = "";
 
   /// this function logs the user out of the app
   void logOut() async {
     Map<String, dynamic> logOutResponse = await UserPreferences().removeUser();
-    teamId = 0;
-    emailAdress = "";
 
     if (!mounted) return;
 
@@ -65,37 +63,38 @@ class _MoreState extends State<More> {
     }
   }
 
-  /// Checks if the user is logged in and if the user is an admin. If the user is as admin, set the isAdmin variable to true.
+  /// Checks if the user is logged in. It checks this by checking if the user's email address is in the shared preferences. If the user is logged in, it retrieves the user's favourite team, email address and first name from the shared preferences. 
   Future<void> setLoggedInState() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     setState(() {
       isLoggedIn = prefs.containsKey('email_address');
-      teamId = prefs.getInt('team_id');
-      emailAdress = prefs.getString('email_address');
-    });
 
-    if (!isLoggedIn) {
-      setState(() {
-        teamId = 0;
-        emailAdress = "";
+      if (isLoggedIn) {
+        teamId = prefs.getInt('team_id');
+        emailAdress = prefs.getString('email_address');
+        fname = prefs.getString('fname') ?? "";
+        getTeams().then((result) {
+        setState(() {
+          teams = result;
+          if (teamId!=0) {
+            favouriteTeam = teams.firstWhere((element) => element['team_id'] == teamId);
+          }
+        });
       });
-    }
+      }
+    });
 
   }
 
   @override
   void initState() {
     super.initState();
-    setLoggedInState();
-    getTeams().then((result) {
-      setState(() {
-        teams = result;
-        if (teamId!=0) {
-          favouriteTeam = teams.firstWhere((element) => element['team_id'] == teamId);
-        }
-      });
-    });
+    try {
+      setLoggedInState();
+    } catch (e) {
+      return;
+    }
   }
 
   @override
@@ -153,6 +152,30 @@ class _MoreState extends State<More> {
           );
         },
       ),
+
+      // space between sections
+      Container(
+        margin: const EdgeInsets.only(top: 10),
+      ),
+
+      // // social media  
+      // Container(
+      //   margin: const EdgeInsets.only(left: 12, bottom: 10, top: 10),
+      //   child: const AppText(
+      //     color: Colors.white,
+      //     text: "Social Media",
+      //     fontSize: 16,
+      //     fontWeight: FontWeight.bold,
+      //   )
+      // ),
+
+      // SocialMediaLinkMenuListTile(
+      //   platformName: "Twitter", 
+      //   platformLogo: 'https://res.cloudinary.com/dvghxq3ba/image/upload/v1697199503/Social%20Media%20Logos/logo-black_knly8o.png',
+      //   onTap: () async {
+          
+      //   }
+      // ),
 
       // FAQS section
       // MenuListTile(
@@ -222,7 +245,7 @@ class _MoreState extends State<More> {
       //   text: "Manage Account",
       //   onTap: () {},
       // ),
-      
+
       // MenuListTile(
       //   text: "Change Email Address",
       //   onTap: () {},
@@ -324,6 +347,29 @@ class _MoreState extends State<More> {
         margin: const EdgeInsets.only(top: 10),
       ),
 
+      // social media  
+      // Container(
+      //   margin: const EdgeInsets.only(left: 12, bottom: 10, top: 10),
+      //   child: const AppText(
+      //     color: Colors.white,
+      //     text: "Social Media",
+      //     fontSize: 16,
+      //     fontWeight: FontWeight.bold,
+      //   )
+      // ),
+
+      // SocialMediaLinkMenuListTile(
+      //   platformName: "Twitter", 
+      //   platformLogo: "https://res.cloudinary.com/dvghxq3ba/image/upload/v1697199503/Social%20Media%20Logos/logo-black_knly8o.png",
+      //   onTap: () {
+      //     // launch('https://twitter.com/AshesiFootball');
+      //   }
+      // ),
+
+      Container(
+        margin: const EdgeInsets.only(top: 10),
+      ),
+
       Container(
         margin: const EdgeInsets.only(left: 12, bottom: 10, top: 10),
         child: const AppText(
@@ -332,6 +378,10 @@ class _MoreState extends State<More> {
           fontSize: 16,
           fontWeight: FontWeight.bold,
         )
+      ),
+
+      Container(
+        margin: const EdgeInsets.only(top: 10),
       ),
 
 
@@ -351,6 +401,8 @@ class _MoreState extends State<More> {
       //   text: "FAQs",
       //   onTap: () {},
       // ),
+
+      
       
     ];
 
