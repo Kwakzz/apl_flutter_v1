@@ -22,7 +22,7 @@ class LatestNews extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.only(bottom: 50),
+      padding: const EdgeInsets.only(bottom: 60),
       color: const Color.fromARGB(255, 0, 53, 91),
         child: Column(
 

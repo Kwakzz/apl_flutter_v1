@@ -1,50 +1,13 @@
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:apl/helper_classes/web_view.dart';
 import 'helper_classes/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
-class PrivacyPolicyPage extends StatefulWidget {
-  const PrivacyPolicyPage({Key? key}) : super(key: key);
-
-  @override
-  _PrivacyPolicyPageState createState() => _PrivacyPolicyPageState();
-}
-
-class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
-  late final WebViewController controller;
-
-  @override
-  void initState() {
-    super.initState();
-
-    try {
-      controller = WebViewController()
-        ..setJavaScriptMode(JavaScriptMode.unrestricted)
-        ..setBackgroundColor(const Color(0x00000000))
-        ..setNavigationDelegate(
-          NavigationDelegate(
-            onProgress: (int progress) {
-              if (progress == 100) {
-                
-              }
-            },
-            onPageStarted: (String url) {
-              
-            },
-            onPageFinished: (String url) {},
-            onWebResourceError: (WebResourceError error) {},
-            onNavigationRequest: (NavigationRequest request) {
-              if (request.url.startsWith('https://www.youtube.com/')) {
-                return NavigationDecision.prevent;
-              }
-              return NavigationDecision.navigate;
-            },
-          ),
-        )
-        ..loadRequest(Uri.parse('https://3.8.171.188/backend/privacy_policy.php'));
-    } catch (e) {
-      return;
+class PrivacyPolicyPage extends StatelessWidget {
+  const PrivacyPolicyPage(
+    {
+      super.key,
     }
-  }
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +18,8 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
         icon: const Icon(Icons.arrow_back),
         prevContext: context,
       ),
-
-      body: WebViewWidget(controller: controller),
+      body: WebViewPage(url: 'https://3.8.171.188/backend/privacy_policy.php'),
+      
     );
   }
 }
