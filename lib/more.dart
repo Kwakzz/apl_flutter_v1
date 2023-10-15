@@ -11,6 +11,7 @@ import 'package:apl/privacy_policy.dart';
 import 'package:apl/requests/teams/get_teams_req.dart';
 import 'package:apl/requests/user/reset_password_req.dart';
 import 'package:apl/sign_in.dart';
+import 'package:apl/social_media_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'helper_classes/custom_list_tile.dart';
@@ -106,6 +107,16 @@ class _MoreState extends State<More> {
         margin: const EdgeInsets.only(top: 10),
       ),
 
+      Container(
+        margin: const EdgeInsets.only(left: 12, bottom: 10, top: 10),
+        child: const AppText(
+          color: Colors.white,
+          text: "Account Actions",
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        )
+      ),
+
       // sign in, sign up section
       MenuListTile(
         text: "Sign in",
@@ -135,9 +146,67 @@ class _MoreState extends State<More> {
         },
       ),
 
+
       // space between sections
       Container(
-        margin: const EdgeInsets.only(top: 20),
+        margin: const EdgeInsets.only(top: 10),
+      ),
+
+      // social media  
+      Container(
+        margin: const EdgeInsets.only(left: 12, bottom: 10, top: 10),
+        child: const AppText(
+          color: Colors.white,
+          text: "Social Media",
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        )
+      ),
+
+      SocialMediaLinkMenuListTile(
+        platformName: "Twitter", 
+        platformLogo: 'https://res.cloudinary.com/dvghxq3ba/image/upload/v1697199503/Social%20Media%20Logos/logo-black_knly8o.png',
+        onTap: () async {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SocialMediaPage(
+                  url: 'https://twitter.com/AshesiFootball',
+                ),
+              ),
+            );
+        }
+      ),
+
+      SocialMediaLinkMenuListTile(
+        platformName: "Instagram", 
+        platformLogo: 'https://res.cloudinary.com/dvghxq3ba/image/upload/v1697337068/Social%20Media%20Logos/Instagram_Glyph_Black_drwokr.png',
+        onTap: () async {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SocialMediaPage(
+                  url: 'https://www.instagram.com/ashesi_football/',
+                ),
+              ),
+            );
+        }
+      ),
+
+      // space between sections
+      Container(
+        margin: const EdgeInsets.only(top: 10),
+      ),
+
+      // Other section
+      Container(
+        margin: const EdgeInsets.only(left: 12, bottom: 10, top: 10),
+        child: const AppText(
+          color: Colors.white,
+          text: "Other",
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        )
       ),
 
       // privacy 
@@ -152,30 +221,6 @@ class _MoreState extends State<More> {
           );
         },
       ),
-
-      // space between sections
-      Container(
-        margin: const EdgeInsets.only(top: 10),
-      ),
-
-      // // social media  
-      // Container(
-      //   margin: const EdgeInsets.only(left: 12, bottom: 10, top: 10),
-      //   child: const AppText(
-      //     color: Colors.white,
-      //     text: "Social Media",
-      //     fontSize: 16,
-      //     fontWeight: FontWeight.bold,
-      //   )
-      // ),
-
-      // SocialMediaLinkMenuListTile(
-      //   platformName: "Twitter", 
-      //   platformLogo: 'https://res.cloudinary.com/dvghxq3ba/image/upload/v1697199503/Social%20Media%20Logos/logo-black_knly8o.png',
-      //   onTap: () async {
-          
-      //   }
-      // ),
 
       // FAQS section
       // MenuListTile(
@@ -348,23 +393,45 @@ class _MoreState extends State<More> {
       ),
 
       // social media  
-      // Container(
-      //   margin: const EdgeInsets.only(left: 12, bottom: 10, top: 10),
-      //   child: const AppText(
-      //     color: Colors.white,
-      //     text: "Social Media",
-      //     fontSize: 16,
-      //     fontWeight: FontWeight.bold,
-      //   )
-      // ),
+      Container(
+        margin: const EdgeInsets.only(left: 12, bottom: 10, top: 10),
+        child: const AppText(
+          color: Colors.white,
+          text: "Social Media",
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        )
+      ),
 
-      // SocialMediaLinkMenuListTile(
-      //   platformName: "Twitter", 
-      //   platformLogo: "https://res.cloudinary.com/dvghxq3ba/image/upload/v1697199503/Social%20Media%20Logos/logo-black_knly8o.png",
-      //   onTap: () {
-      //     // launch('https://twitter.com/AshesiFootball');
-      //   }
-      // ),
+      SocialMediaLinkMenuListTile(
+        platformName: "Twitter", 
+        platformLogo: 'https://res.cloudinary.com/dvghxq3ba/image/upload/v1697199503/Social%20Media%20Logos/logo-black_knly8o.png',
+        onTap: () async {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SocialMediaPage(
+                  url: 'https://twitter.com/AshesiFootball',
+                ),
+              ),
+            );
+        }
+      ),
+
+      SocialMediaLinkMenuListTile(
+        platformName: "Instagram", 
+        platformLogo: 'https://res.cloudinary.com/dvghxq3ba/image/upload/v1697337068/Social%20Media%20Logos/Instagram_Glyph_Black_drwokr.png',
+        onTap: () async {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SocialMediaPage(
+                  url: 'https://www.instagram.com/ashesi_football/',
+                ),
+              ),
+            );
+        }
+      ),
 
       Container(
         margin: const EdgeInsets.only(top: 10),
@@ -379,12 +446,6 @@ class _MoreState extends State<More> {
           fontWeight: FontWeight.bold,
         )
       ),
-
-      Container(
-        margin: const EdgeInsets.only(top: 10),
-      ),
-
-
       // privacy, FAQS section
       MenuListTile(
         text: "Privacy Policy",
