@@ -361,78 +361,78 @@ class _LatestState extends State<Latest> {
 
                 
                 // Latest news section. Start from second item in the list because the first item is the latest news item. First check if the newsItems list is not empty and then check if the length is greater than 1
-                if (newsItems.isNotEmpty && newsItems.length > 5)
-                  Column(
-                    children: [
+                // if (newsItems.isNotEmpty && newsItems.length > 5)
+                //   Column(
+                //     children: [
 
-                      // latest news 
-                      Container(
-                        margin: const EdgeInsets.only(left: 15, bottom: 10),
-                        width: MediaQuery.of(context).size.width,
-                        child: 
-                        const AppText(
-                          text: 'Latest News',
-                          fontWeight: FontWeight.bold, 
-                          fontSize: 21, 
-                          color: Colors.black
-                        ),
-                      ),
+                //       // latest news 
+                //       Container(
+                //         margin: const EdgeInsets.only(left: 15, bottom: 10),
+                //         width: MediaQuery.of(context).size.width,
+                //         child: 
+                //         const AppText(
+                //           text: 'Latest News',
+                //           fontWeight: FontWeight.bold, 
+                //           fontSize: 21, 
+                //           color: Colors.black
+                //         ),
+                //       ),
 
-                      // list of news items
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 5,
-                        itemBuilder: (context, index) {
-                          return LatestNewsListTile(
-                            newsMap: newsItems[index + 1],
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ViewNewsItem(
-                                    newsItemMap: newsItems[index + 1],
-                                  )
-                                ),
-                              );
-                            },
+                //       // list of news items
+                //       ListView.builder(
+                //         shrinkWrap: true,
+                //         physics: const NeverScrollableScrollPhysics(),
+                //         itemCount: 5,
+                //         itemBuilder: (context, index) {
+                //           return LatestNewsListTile(
+                //             newsMap: newsItems[index + 1],
+                //             onTap: () {
+                //               Navigator.push(
+                //                 context,
+                //                 MaterialPageRoute(
+                //                   builder: (context) => ViewNewsItem(
+                //                     newsItemMap: newsItems[index + 1],
+                //                   )
+                //                 ),
+                //               );
+                //             },
                           
-                          );
-                        }
-                      ),
+                //           );
+                //         }
+                //       ),
 
 
-                      const SizedBox(height: 10), 
+                //       const SizedBox(height: 10), 
                       
-                      // view all news button
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const News(
-                                  pageName: 'News',
-                                )),
-                              );
-                            },
-                            child: const AppText(
-                              text: 'View all news',
-                              fontWeight: FontWeight.w300,
-                              fontSize: 12,
-                              color: Colors.black,
-                            ),
-                          ),
-                          const Icon(
-                            Icons.arrow_forward_ios,
-                            color: Colors.black,
-                            size: 10,
-                          )
-                        ],
-                      )
-                    ],
-                  ),
+                //       // view all news button
+                //       Row(
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           TextButton(
+                //             onPressed: () {
+                //               Navigator.push(
+                //                 context,
+                //                 MaterialPageRoute(builder: (context) => const News(
+                //                   pageName: 'News',
+                //                 )),
+                //               );
+                //             },
+                //             child: const AppText(
+                //               text: 'View all news',
+                //               fontWeight: FontWeight.w300,
+                //               fontSize: 12,
+                //               color: Colors.black,
+                //             ),
+                //           ),
+                //           const Icon(
+                //             Icons.arrow_forward_ios,
+                //             color: Colors.black,
+                //             size: 10,
+                //           )
+                //         ],
+                //       )
+                //     ],
+                //   ),
                 
               ]          
 
