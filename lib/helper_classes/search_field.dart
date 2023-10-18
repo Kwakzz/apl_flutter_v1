@@ -53,13 +53,13 @@ class SearchField extends StatelessWidget {
 
 
 
+// ignore: must_be_immutable
 class SearchFieldWithController extends StatelessWidget {
   final String labelText;
   final TextEditingController controller;
   void Function(String?) onChanged;
 
-  SearchFieldWithController({
-    Key? key,
+  SearchFieldWithController({super.key, 
     required this.labelText,
     required this.controller,
     required this.onChanged,

@@ -2,9 +2,6 @@
 import 'package:apl/admin_pages/games/game_events.dart';
 
 import 'package:apl/admin_pages/games/game_lineups.dart';
-import 'package:apl/admin_pages/games/games_view.dart';
-import 'package:apl/requests/games/get_mens_gw_games_req.dart';
-import 'package:apl/requests/games/get_womens_gw_games_req.dart';
 import 'package:flutter/material.dart';
 import '../../helper_classes/custom_appbar.dart';
 import '../../requests/teams/get_teams_req.dart';
@@ -98,7 +95,7 @@ class _GameDetailsState extends State<GameDetails> {
                 homeTeam: widget.homeTeam,
                 awayTeam: widget.awayTeam,
               ),
-              Text(""),
+              const Text(""),
             ]
           ),
         ),

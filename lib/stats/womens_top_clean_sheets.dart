@@ -1,7 +1,6 @@
 import 'package:apl/helper_classes/custom_dropdown.dart';
 import 'package:apl/helper_classes/my_data_table.dart';
 import 'package:apl/requests/goal/get_season_comp_clean_sheets_req.dart';
-import 'package:apl/requests/goal/get_season_comp_top_scorers_req.dart';
 import 'package:apl/requests/seasons/get_seasons_req.dart';
 import 'package:flutter/material.dart';
 

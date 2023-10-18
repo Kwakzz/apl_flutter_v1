@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class ScoreLineRow extends StatelessWidget {
 
-  ScoreLineRow (
+  const ScoreLineRow (
     {
       super.key,
       required this.homeTeam,
@@ -103,7 +103,7 @@ class ScoreLineRow extends StatelessWidget {
 
 class StartTimeRow extends StatelessWidget {
 
-  StartTimeRow (
+  const StartTimeRow (
     {
       super.key,
       required this.homeTeam,

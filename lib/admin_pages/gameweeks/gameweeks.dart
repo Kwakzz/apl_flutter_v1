@@ -100,7 +100,7 @@ class _GameweeksState extends State<Gameweeks> {
     if (seasonsMap.isEmpty) {
       return Column(
 
-        children:  const [
+        children: const [
 
           Center(
             child: AppText(

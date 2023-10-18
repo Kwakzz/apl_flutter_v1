@@ -3,7 +3,6 @@ import 'package:apl/helper_classes/custom_list_tile.dart';
 import 'package:apl/requests/games/get_no_of_games_played_by_mens_team_req.dart';
 import 'package:apl/requests/goal/get_mens_team_draws_req.dart';
 import 'package:apl/requests/goal/get_mens_team_total_wins_req.dart';
-import 'package:apl/requests/goal/get_team_goals_req.dart';
 import 'package:apl/requests/goal/get_total_goals_conceded_by_mens_team_req.dart';
 import 'package:apl/requests/goal/get_womens_team_losses_req.dart';
 import 'package:apl/requests/goal/get_womens_team_wins_req.dart';

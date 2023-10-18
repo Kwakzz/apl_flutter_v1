@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class AddPlayerToStartingXIDialogBox extends StatelessWidget {
 
-  AddPlayerToStartingXIDialogBox (
+  const AddPlayerToStartingXIDialogBox (
     {
       super.key,
       required this.players,
@@ -102,7 +102,7 @@ class AddPlayerToStartingXIDialogBox extends StatelessWidget {
 /// class for deleting confirmation dialog box
 class DeleteConfirmationDialogBox extends StatelessWidget {
 
-  DeleteConfirmationDialogBox (
+  const DeleteConfirmationDialogBox (
     {
       super.key,
       required this.title,
@@ -166,7 +166,7 @@ class DeleteConfirmationDialogBox extends StatelessWidget {
 /// class for deleting confirmation dialog box
 class ActionConfirmationDialogBox extends StatelessWidget {
 
-  ActionConfirmationDialogBox (
+  const ActionConfirmationDialogBox (
     {
       super.key,
       required this.title,
@@ -243,7 +243,7 @@ class ActionConfirmationDialogBox extends StatelessWidget {
 // ignore: must_be_immutable
 class AddGoalDialogBox extends StatelessWidget {
 
-  AddGoalDialogBox (
+  const AddGoalDialogBox (
     {
       super.key,
       required this.teamDropDownList,
@@ -365,7 +365,7 @@ class AddGoalDialogBox extends StatelessWidget {
 // ignore: must_be_immutable
 class AddStandingsTeamDialogBox extends StatelessWidget {
 
-  AddStandingsTeamDialogBox (
+  const AddStandingsTeamDialogBox (
     {
       super.key,
       required this.teamDropDownList,

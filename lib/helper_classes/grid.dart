@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'grid_partition.dart';
 
 /// This class is used to create a grid.
 /// It is used in the SelectTeam class.

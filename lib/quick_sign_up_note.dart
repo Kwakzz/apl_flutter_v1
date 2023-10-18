@@ -1,6 +1,5 @@
 import 'package:apl/create_user.dart';
 import 'package:apl/helper_classes/custom_button.dart';
-import 'package:apl/select_team.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

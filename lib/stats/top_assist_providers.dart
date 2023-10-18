@@ -1,7 +1,5 @@
 import 'package:apl/stats/mens_top_assist_providers.dart';
-import 'package:apl/stats/mens_top_scorers.dart';
 import 'package:apl/stats/womens_top_assist_providers.dart';
-import 'package:apl/stats/womens_top_scorers.dart';
 import 'package:flutter/material.dart';
 import '../../../helper_classes/custom_appbar.dart';
 

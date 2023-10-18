@@ -1,4 +1,3 @@
-import 'package:apl/create_user.dart';
 import 'package:apl/quick_sign_up_note.dart';
 import 'package:apl/sign_in.dart';
 import 'package:flutter/material.dart';

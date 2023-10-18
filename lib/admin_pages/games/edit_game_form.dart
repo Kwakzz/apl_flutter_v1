@@ -53,7 +53,7 @@ class _EditGameFormState extends State<EditGameForm> {
   String gameJson = '';
 
   // selected men's season competition map
-  Map<String, dynamic> _selectedSeasonCompMap = {};
+  final Map<String, dynamic> _selectedSeasonCompMap = {};
 
   // selected home team map
   Map<String, dynamic> _selectedHomeTeamMap = {};

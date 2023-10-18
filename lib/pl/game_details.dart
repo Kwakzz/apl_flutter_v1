@@ -95,7 +95,7 @@ class _GameDetailsState extends State<GameDetails> {
                 homeTeam: widget.homeTeam,
                 awayTeam: widget.awayTeam,
               ),
-              Text(""),
+              const Text(""),
             ]
           ),
         ),

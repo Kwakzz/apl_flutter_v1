@@ -180,7 +180,6 @@ class _TeamsState extends State<Teams> {
                                 }
                               )
                             );
-;
 
                             if (!mounted) return;
 

@@ -30,7 +30,7 @@ class StandingsTeams extends StatefulWidget {
 class _StandingsTeamsState extends State<StandingsTeams> {
 
   // form key
-  GlobalKey <FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey <FormState> _formKey = GlobalKey<FormState>();
 
   List<Map<String, dynamic>> standingsTeams = [];
 

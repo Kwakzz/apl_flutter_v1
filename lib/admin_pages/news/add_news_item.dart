@@ -6,7 +6,6 @@ import 'package:apl/helper_classes/text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rich_field_controller/rich_field_controller.dart';
 import '../../helper_classes/custom_button.dart';
 import '../../helper_classes/custom_appbar.dart';
 import '../../helper_functions/convert_to_json.dart';
@@ -41,21 +40,12 @@ class _AddNewsItemState extends State<AddNewsItem> {
   // Controllers for the text fields
   final _titleController = TextEditingController();
   final _subtitleController = TextEditingController();
-  late final RichFieldController _contentController;
-  late final FocusNode _fieldFocusNode;
-  late final RichFieldSelectionControls _selectionControls;
+  final _contentController = TextEditingController();
 
 
   // Team's details
   String newsItemJson = '';
 
-  @override
-  void initState() {
-    super.initState();
-    _fieldFocusNode = FocusNode();
-    _contentController = RichFieldController(focusNode: _fieldFocusNode);
-    _selectionControls = RichFieldSelectionControls(context, _contentController);
-  }
 
 
   @override
@@ -64,7 +54,6 @@ class _AddNewsItemState extends State<AddNewsItem> {
     _titleController.dispose();
     _subtitleController.dispose();
     _contentController.dispose();
-    _fieldFocusNode.dispose();
     super.dispose();
   }
 
@@ -192,9 +181,8 @@ class _AddNewsItemState extends State<AddNewsItem> {
               ),
 
               // Content
-              RichTextField(
+              MultiLineTextField(
                 controller: _contentController, 
-                selectionControls: _selectionControls,
                 labelText: "Content",
                 validator: (value) {
                   if (value == null || value.isEmpty) {

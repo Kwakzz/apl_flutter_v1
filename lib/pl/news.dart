@@ -1,10 +1,8 @@
-import 'package:apl/pl/club_details.dart';
 import 'package:apl/helper_classes/custom_appbar.dart';
 import 'package:apl/helper_classes/custom_list_tile.dart';
 import 'package:apl/pl/view_news_item.dart';
 import 'package:apl/requests/news_item/get_all_news_items_req.dart';
 import 'package:flutter/material.dart';
-import '../../requests/teams/get_teams_req.dart';
 
 
 class News extends StatefulWidget {

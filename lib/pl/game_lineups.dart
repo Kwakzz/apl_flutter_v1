@@ -1,7 +1,6 @@
 import 'package:apl/pl//team_lineup.dart';
 import 'package:flutter/material.dart';
 import '../../helper_classes/custom_appbar.dart';
-import '../../requests/teams/get_teams_req.dart';
 
 
 

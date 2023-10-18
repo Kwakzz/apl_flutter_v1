@@ -2,11 +2,7 @@
 import 'package:apl/helper_classes/custom_appbar.dart';
 import 'package:apl/helper_classes/custom_list_tile.dart';
 import 'package:apl/requests/coach/get_coach_req.dart';
-import 'package:apl/requests/goal/get_player_total_goals_req.dart';
-import 'package:apl/requests/players/get_player_req.dart';
-import 'package:apl/requests/transfers/get_transfers_by_player_req.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import '../helper_classes/text.dart';
 
 

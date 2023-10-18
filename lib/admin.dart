@@ -84,7 +84,7 @@ class _AdminState extends State<Admin> {
           return const NewsItems();
 
         default:
-          return Text('No content available');
+          return const Text('No content available');
       }
     }
 
