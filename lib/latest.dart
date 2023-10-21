@@ -43,13 +43,18 @@ class _LatestState extends State<Latest> {
   Map <String, dynamic> selectedSeasonMap = {};
 
   List<Map<String, dynamic>> gameweeksMap = [];
+
   Map <String, dynamic> upcomingGameweekMap = {};
 
   Map <String, dynamic> mostRecentGameweekMap = {};
 
+  Map <String, dynamic> todaysGameweekMap = {};
+
   List<Map <String, dynamic>> upcomingGameweekFixtures = [];
 
   List <Map<String, dynamic>> mostRecentGameweekFixtures = [];
+
+  List <Map<String, dynamic>> todaysGameweekFixtures = [];
 
   int selectedCompId = 0;
 
@@ -77,29 +82,40 @@ class _LatestState extends State<Latest> {
         
 
 
-      // FETCH THE UPCOMING GAMEWEEK AND THE MOST RECENT GAMEWEEK
+      // FETCH THE UPCOMING GAMEWEEK, THE MOST RECENT GAMEWEEK AND TODAY'S GAMEWEEK
       if (gameweeksMap.isNotEmpty) {
 
         // get today's date
         DateTime today = DateTime.now();
 
-        // get next gameweek. Among the list of gameweeks, it's the gameweek whose date is greater than today's date or equal to today's date. For the gameweeks whose date is greater than today's date, the one with the nearest date is selected. The gameweeks are already sorted in descending order of date, so the first gameweek whose date is greater than today's date is the next gameweek
-        if (gameweeksMap.firstWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isAfter(today) || DateTime.parse(gameweek['gameweek_date']).isAtSameMomentAs(today) ).isNotEmpty) {
+        // For the gameweeks whose date is after than today's date, the one with the nearest date is selected. The gameweeks are already sorted in descending order of date (latest to oldest), so the last gameweek whose date is greater than today's date is the next gameweek
+  
+        Map<String, dynamic> nextGameweek = (gameweeksMap.lastWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isAfter(today), orElse: () => {}));
 
-          Map<String, dynamic> nextGameweek = (gameweeksMap.firstWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isAfter(today)));
-            upcomingGameweekMap = nextGameweek;
-          }
+        upcomingGameweekMap = nextGameweek;    
+
                       
-          // get the most recent gameweek to display the most recent results. this gameweek is the one whose date is less than today's date. For the gameweeks whose date is less than today's date, the one with the nearest date is selected. The gameweeks are already sorted in descending order of date, so the first gameweek whose date is less than today's date is the most recent gameweek
-          if (gameweeksMap.firstWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isBefore(today)).isNotEmpty) {
+        // For the gameweeks whose date is before than today's date, the one with the nearest date is selected. The gameweeks are already sorted in descending order of date, so the first gameweek whose date is less than today's date is the most recent gameweek
+        
 
-            Map<String, dynamic> mostRecentGameweek = (gameweeksMap.firstWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isBefore(today)));
+        Map <String, dynamic> mostRecentGameweek = (gameweeksMap.firstWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isBefore(today), orElse: () => {}));
 
-            mostRecentGameweekMap = mostRecentGameweek;
-          }
+        mostRecentGameweekMap = mostRecentGameweek;
+        
+
+        // For the gameweeks whose date is equal to today's date, the one with the nearest date is selected. The gameweeks are already sorted in descending order of date, so the first gameweek whose date is equal to today's date is today's gameweek
+        
+        Map <String, dynamic> todaysGameweek = (gameweeksMap.firstWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isAtSameMomentAs(today), orElse: () => {}));
+
+        todaysGameweekMap = todaysGameweek;
+            
                   
       }
-  
+
+      // FETCH TODAY'S FIXTURES
+      if (todaysGameweekMap.isNotEmpty) {
+        todaysGameweekFixtures = await getGameweekGames(todaysGameweekMap['gameweek_id']);
+      }
 
       // FETCH THE NEXT SET OF FIXTURES (UNPLAYED GAMES)
       if (upcomingGameweekMap.isNotEmpty) {
@@ -148,8 +164,10 @@ class _LatestState extends State<Latest> {
         newsItem, 
         upcomingGameweekMap, 
         mostRecentGameweekMap, 
+        todaysGameweekMap,
         upcomingGameweekFixtures, 
         mostRecentGameweekFixtures, 
+        todaysGameweekFixtures,
         selectedCompId, 
         standingsTeams, 
         teams
@@ -215,12 +233,13 @@ class _LatestState extends State<Latest> {
               newsItem = data[0];
               upcomingGameweekMap = data[1];
               mostRecentGameweekMap = data[2];
-              upcomingGameweekFixtures = data[3];
-              mostRecentGameweekFixtures = data[4];
-              selectedCompId = data[5];
-              standingsTeams = data[6];
-              teams = data[7];
-
+              todaysGameweekMap = data[3];
+              upcomingGameweekFixtures = data[4];
+              mostRecentGameweekFixtures = data[5];
+              todaysGameweekFixtures = data[6];
+              selectedCompId = data[7];
+              standingsTeams = data[8];
+              teams = data[9];
 
               // check the standingsTeam list. if there's any standingsTeam with a different standings_id, create a separate list for that
               // this is to create a separate table for each standings_id
@@ -276,7 +295,6 @@ class _LatestState extends State<Latest> {
 
               
             }
-
         
             return ListView(
 
@@ -300,9 +318,9 @@ class _LatestState extends State<Latest> {
                   ),
                 
 
-              const SizedBox(height: 35),
+                const SizedBox(height: 35),
 
-              if (upcomingGameweekMap.isNotEmpty)
+                if (upcomingGameweekMap.isNotEmpty && todaysGameweekFixtures.isNotEmpty)
 
                   // latest fixtures
                   LatestFixtures(
@@ -319,42 +337,42 @@ class _LatestState extends State<Latest> {
                     }
                   ),
 
-              Container(
-                height: 20,
-              ),
-                
-                if (mostRecentGameweekMap.isNotEmpty)
-                  LatestResults(
-                    fixtures: mostRecentGameweekFixtures, 
-                    teams: teams,
-                    selectedGameweekMap: mostRecentGameweekMap,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const Results(
-                          pageName: 'Results',
-                        )),
-                      );
-                    },
-                    selectedSeasonId: selectedSeasonMap['season_id'],
-                    selectedCompId: selectedCompId,
+                  Container(
+                    height: 20,
                   ),
+                
+                  if (mostRecentGameweekMap.isNotEmpty)
+                    LatestResults(
+                      fixtures: mostRecentGameweekFixtures, 
+                      teams: teams,
+                      selectedGameweekMap: mostRecentGameweekMap,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const Results(
+                            pageName: 'Results',
+                          )),
+                        );
+                      },
+                      selectedSeasonId: selectedSeasonMap['season_id'],
+                      selectedCompId: selectedCompId,
+                    ),
                 
 
-                // tables
-                if (standingsTeams.isNotEmpty)
-                  LatestTables(
-                    leagueTables: leagueTables, 
-                    gameweeksMap: gameweeksMap, 
-                    viewAllTablesOnPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const Tables(
-                          pageName: 'Tables',
-                        )),
-                      );
-                    },
-                  ),
+                  // tables
+                  if (standingsTeams.isNotEmpty)
+                    LatestTables(
+                      leagueTables: leagueTables, 
+                      gameweeksMap: gameweeksMap, 
+                      viewAllTablesOnPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const Tables(
+                            pageName: 'Tables',
+                          )),
+                        );
+                      },
+                    ),
 
                 
                 // Latest news section. Start from second item in the list because the first item is the latest news item. First check if the newsItems list is not empty and then check if the length is greater than 1

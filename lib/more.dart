@@ -16,6 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'helper_classes/custom_list_tile.dart';
 
+
+/// This class is the More page. It contains a list of menu items. The menu items are different depending on whether the user is logged in or not. If the user is logged in, the menu items are: sign out, manage account, change email address, change password, favourite team, social media links, privacy policy and FAQs. If the user is not logged in, the menu items are: sign in, sign up, social media links, privacy policy and FAQs.
 class More extends StatefulWidget {
   const More({super.key});
 
@@ -23,18 +25,28 @@ class More extends StatefulWidget {
   _MoreState createState() => _MoreState();
 }
 
+
 class _MoreState extends State<More> {
 
   // A list of teams
   List <Map <String, dynamic>> teams = [];
 
   bool isLoggedIn = false;
+
+  // teamId can be null. This could happen in the absence of an internet connection. If the user is not logged in, teamId is 0.
   int? teamId = 0;
+
   String? emailAdress = "";
   Map<String, dynamic> favouriteTeam = {};
   String fname = "";
 
-  /// this function logs the user out of the app
+  /// This is an asynchronous function that logs the user out. 
+  /// 
+  /// It fcalls the [removeUser] function in the UserPreferences class. 
+  /// 
+  /// The removeUser function clears the shared preferences. It returns a map with an [isRemoved] key and a message key. The [isRemoved] key is true if the user the shared preferences were successfully cleared and false if they weren't. The message key contains a message that describes the result of the log out. 
+  /// 
+  /// [logOut] returns a dialogue box that shows the result of the log out.  
   void logOut() async {
     Map<String, dynamic> logOutResponse = await UserPreferences().removeUser();
 
@@ -64,7 +76,12 @@ class _MoreState extends State<More> {
     }
   }
 
-  /// Checks if the user is logged in. It checks this by checking if the user's email address is in the shared preferences. If the user is logged in, it retrieves the user's favourite team, email address and first name from the shared preferences. 
+  /// This function checks if the user is logged in. 
+  /// 
+  /// It does this by checking if the user's email address is in the shared preferences. If the user is logged in, it retrieves the user's favourite team's id, email address and first name from the shared preferences and assigns them to the variables, [teamId], [emailAddress] and [fname] respectively. 
+  /// It uses the teamId to get the user's favourite team from the list of teams. It then assigns the user's favourite team to the [favouriteTeam] variable. If the user is not logged in, it assigns an empty list to the teams variable and assigns 0 to the teamId variable. 
+  /// 
+  /// It then calls [setState] to rebuild the widget. 
   Future<void> setLoggedInState() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -76,13 +93,19 @@ class _MoreState extends State<More> {
         emailAdress = prefs.getString('email_address');
         fname = prefs.getString('fname') ?? "";
         getTeams().then((result) {
-        setState(() {
-          teams = result;
-          if (teamId!=0) {
-            favouriteTeam = teams.firstWhere((element) => element['team_id'] == teamId);
+
+          // enclose in a try catch block to prevent the app from crashing if there's no internet connection. If there's no connection, getTeams() will return an empty list. This means teams.firstWhere() will throw an error.
+          try{
+            setState(() {
+              teams = result;
+              if (teamId!=0) {
+                favouriteTeam = teams.firstWhere((team) => team['team_id'] == teamId);
+              }
+            });
+          } catch (e) {
+            return;
           }
         });
-      });
       }
     });
 
@@ -234,6 +257,7 @@ class _MoreState extends State<More> {
 
 
      List signInListViewChildren = [
+
 
       Container(
         margin: const EdgeInsets.only(top: 10),

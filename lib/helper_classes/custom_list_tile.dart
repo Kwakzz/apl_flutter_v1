@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+
+/// This class represents a custom list tile widget. It is used on the stats page, pl page and more page to display menu items to lead to other pages.
+/// Returns a container with a list tile widget inside it.
 class MenuListTile extends StatelessWidget {
 
   MenuListTile (
