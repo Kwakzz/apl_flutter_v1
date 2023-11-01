@@ -119,7 +119,8 @@ class _StandingsTeamsState extends State<StandingsTeams> {
 
         body: Column(
           children: [
-            AddFanButton(
+
+            SmallAddButton(
               onPressed: () {
                 showDialog(
                   context: context, 
@@ -194,7 +195,7 @@ class _StandingsTeamsState extends State<StandingsTeams> {
       body: Column(
         children: [
 
-          AddFanButton(
+          SmallAddButton(
             onPressed: () {
               showDialog(
                   context: context, 

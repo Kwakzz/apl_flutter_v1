@@ -5,7 +5,7 @@ import 'package:apl/admin_pages/news/news_items.dart';
 import 'package:apl/admin_pages/seasons/seasons.dart';
 import 'package:apl/admin_pages/standings/standings.dart';
 import 'package:apl/admin_pages/teams/teams.dart';
-import 'package:apl/admin_pages/users/fans.dart';
+import 'package:apl/admin_pages/users/users.dart';
 import 'package:apl/admin_pages/players/players.dart';
 import 'package:apl/helper_classes/custom_list_tile.dart';
 import 'package:apl/helper_classes/text.dart';

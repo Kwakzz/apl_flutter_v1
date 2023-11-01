@@ -8,13 +8,13 @@ import '../api_uri.dart';
 /// An example of the response is:
 /// [{"fname": "Kwaku", "lname": "Osafo",..}]
 
-Future<List<Map<String, dynamic>>> getFans () async {
+Future<List<Map<String, dynamic>>> getRegularUsers () async {
 
   // RESPONSE
   try {
 
     final response = await http.get(
-      Uri.http(domain, '$path/user/get_fans.php'),
+      Uri.http(domain, '$path/user/get_regular.php'),
       headers: <String, String> {
         'Content-Type': 'application/json',
         'Accept': 'application/json',

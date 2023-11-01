@@ -12,7 +12,7 @@ Future <Map<String, dynamic>> submitNewUserData (String personalDetails) async {
   try {
 
     final response = await http.post(
-      Uri.http(domain, '$path/user/create.php'),
+      Uri.http(domain, '$path/user/sign_up.php'),
       headers: <String, String> {
         'Content-Type': 'application/json',
         'Accept': 'application/json',

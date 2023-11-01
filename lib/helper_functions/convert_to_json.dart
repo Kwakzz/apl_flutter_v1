@@ -421,14 +421,14 @@ String createNewsItemJson (
   subtitle,
   content,
   timePublished,
-  coverPic
+  coverPic,
 ) {
   return jsonEncode(<String, dynamic>{
       'title': title,
       'subtitle': subtitle,
       'content': content,
       'time_published': timePublished,
-      'cover_pic': coverPic
+      'cover_pic': coverPic,
     }
   );
 }

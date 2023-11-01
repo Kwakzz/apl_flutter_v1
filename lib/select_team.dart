@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:apl/helper_classes/custom_dropdown.dart';
-import 'package:apl/user_category.dart';
+import 'package:apl/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:apl/helper_classes/custom_button.dart';
 import 'helper_classes/custom_appbar.dart';
@@ -82,10 +82,6 @@ class _SelectTeamState extends State<SelectTeam> {
           prevContext: context,
         ),
 
-        // sign in form.
-        // It contains the following fields:
-        // - Email address
-        // - Password
    
         body: Center(
           child: ListView(
@@ -99,7 +95,7 @@ class _SelectTeamState extends State<SelectTeam> {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(30),
                 child: const AppText(
-                  text: "What's your team?",
+                  text: "Select your favourite team",
                   color: Colors.white,
                   fontSize: 13,
                   fontWeight: FontWeight.w400,
@@ -116,7 +112,7 @@ class _SelectTeamState extends State<SelectTeam> {
                     
                     // Continue button
                     SignUpButton(
-                      text: 'Continue',
+                      text: 'Finish',
                       onPressed: () async {
 
                         if (_formKey.currentState!.validate()) {
@@ -148,9 +144,8 @@ class _SelectTeamState extends State<SelectTeam> {
                             Navigator.push(
                               context, 
                               MaterialPageRoute(
-                                builder: (context) => UserCategory(
-                                  pageName: 'User Category',
-                                  personalDetailsMap: widget.personalDetailsMap,
+                                builder: (context) => const SignIn(
+                                  pageName: 'Sign In',
                                 )
                               )
                             );

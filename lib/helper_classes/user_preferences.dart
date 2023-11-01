@@ -15,11 +15,6 @@ class UserPreferences {
     prefs.setString("gender", user.gender);
     prefs.setInt("is_admin", user.isAdmin);
     prefs.setInt("team_id", user.teamId);
-    
-    // only save player_id if it is not null
-    if (user.playerId != null) {
-      prefs.setInt("player_id", user.playerId!);
-    }
 
     // prefs.setString("token", user.token);
     // prefs.setString("renewalToken", user.renewalToken);
@@ -41,12 +36,6 @@ class UserPreferences {
     // String renewalToken = prefs.getString("renewalToken")!;
     String gender = prefs.getString("gender")!;
     int teamId = prefs.getInt("team_id")!;
-    int playerId;
-    try {
-      playerId = prefs.getInt("player_id")!;
-    } catch (e) {
-      playerId = 0;
-    }
 
     return User(
       userId: userId,
@@ -60,7 +49,6 @@ class UserPreferences {
       // token: token,
       // renewalToken: renewalToken
       teamId: teamId,
-      playerId: playerId
     );
 
   }

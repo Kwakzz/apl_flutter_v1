@@ -1,4 +1,4 @@
-import 'package:apl/quick_sign_up_note.dart';
+import 'package:apl/create_user.dart';
 import 'package:apl/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -67,7 +67,10 @@ class Welcome extends StatelessWidget {
                   // Navigate to the personal details screen
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const QuickSignUpNote()),
+                    MaterialPageRoute(builder: (context) => 
+                    const CreateUser(
+                      pageName: "Personal Details",
+                    )),
                   );
                 },
                 // Get started button colour is blue

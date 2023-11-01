@@ -171,7 +171,7 @@ class _TeamLineupState extends State<TeamLineup> {
           children: [
 
              // add starting xi button
-            AddFanButton(
+            SmallAddButton(
               onPressed: () async {
 
 
@@ -228,7 +228,7 @@ class _TeamLineupState extends State<TeamLineup> {
 
           children: [
     
-            AddFanButton(
+            SmallAddButton(
               onPressed: () {
                 // if the starting XI has 11 players, don't allow any more players to be added
                 if (teamStartingXIPlayers.length == 11) {

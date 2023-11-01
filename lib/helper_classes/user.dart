@@ -25,7 +25,6 @@ class User {
       // required this.renewalToken,
       required this.isAdmin,
       required this.teamId,
-      required this.playerId
     }
   );
 
@@ -45,7 +44,6 @@ class User {
         // token: responseData['access_token'],
         // renewalToken: responseData['renewal_token']
         teamId: responseData['team_id'],
-        playerId: responseData['player_id']
     );
   }
 }

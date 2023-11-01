@@ -93,7 +93,7 @@ class _WomensPlayersState extends State<WomensPlayers> {
   @override
   Widget build(BuildContext context) {
 
-    List <String> playerCriteria = ["Active", "Retired", "Has Account", "No Account"];
+    List <String> playerCriteria = ["Active", "Retired"];
 
     MyDropdownFormField playerCriteriaDropDown = MyDropdownFormField(
       items: playerCriteria,
@@ -122,24 +122,6 @@ class _WomensPlayersState extends State<WomensPlayers> {
             });
           }
 
-          if (newValue == "Has Account") {
-            getWomensPlayersWithAccount().then((result) {
-              setState(() {
-                players = result;
-                filteredPlayers = players;
-              });
-            });
-          }
-
-          if (newValue == "No Account") {
-            getWomensPlayersWithoutAccount().then((result) {
-              setState(() {
-                players = result;
-                filteredPlayers = players;
-              });
-            });
-          }
-
 
         });
       }
@@ -155,7 +137,7 @@ class _WomensPlayersState extends State<WomensPlayers> {
           // player criteria dropdown
           playerCriteriaDropDown,
 
-          AddFanButton(
+          SmallAddButton(
             onPressed: () {
                 Navigator.push(
                   context,
@@ -202,7 +184,7 @@ class _WomensPlayersState extends State<WomensPlayers> {
           ),
 
         
-          AddFanButton(
+          SmallAddButton(
             onPressed: () {
                 Navigator.push(
                   context,

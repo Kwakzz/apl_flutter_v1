@@ -180,9 +180,9 @@ class SignInWithGoogleButton extends StatelessWidget {
 
 
 
-class AddFanButton extends StatelessWidget {
+class SmallAddButton extends StatelessWidget {
 
-  const AddFanButton(
+  const SmallAddButton(
     {
       super.key,
       required this.onPressed,

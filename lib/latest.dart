@@ -108,7 +108,7 @@ class _LatestState extends State<Latest> {
         Map <String, dynamic> todaysGameweek = (gameweeksMap.firstWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isAtSameMomentAs(today), orElse: () => {}));
 
         todaysGameweekMap = todaysGameweek;
-            
+
                   
       }
 
@@ -320,7 +320,7 @@ class _LatestState extends State<Latest> {
 
                 const SizedBox(height: 35),
 
-                if (upcomingGameweekMap.isNotEmpty && todaysGameweekFixtures.isNotEmpty)
+                if (upcomingGameweekMap.isNotEmpty && todaysGameweekFixtures.isEmpty)
 
                   // latest fixtures
                   LatestFixtures(

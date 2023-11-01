@@ -93,7 +93,7 @@ class _MensPlayersState extends State<MensPlayers> {
   @override
   Widget build(BuildContext context) {
 
-    List <String> playerCriteria = ["Active", "Retired", "Has Account", "No Account"];
+    List <String> playerCriteria = ["Active", "Retired"];
 
     MyDropdownFormField playerCriteriaDropDown = MyDropdownFormField(
       items: playerCriteria,
@@ -122,24 +122,6 @@ class _MensPlayersState extends State<MensPlayers> {
             });
           }
 
-          if (newValue == "Has Account") {
-            getMensPlayersWithAccount().then((result) {
-              setState(() {
-                players = result;
-                filteredPlayers = players;
-              });
-            });
-          }
-
-          if (newValue == "No Account") {
-            getMensPlayersWithoutAccount().then((result) {
-              setState(() {
-                players = result;
-                filteredPlayers = players;
-              });
-            });
-          }
-
 
         });
       }
@@ -155,7 +137,7 @@ class _MensPlayersState extends State<MensPlayers> {
           // player criteria dropdown
           playerCriteriaDropDown,
 
-          AddFanButton(
+          SmallAddButton(
             onPressed: () {
                 Navigator.push(
                   context,
@@ -202,7 +184,7 @@ class _MensPlayersState extends State<MensPlayers> {
           ),
 
         
-          AddFanButton(
+          SmallAddButton(
             onPressed: () {
                 Navigator.push(
                   context,

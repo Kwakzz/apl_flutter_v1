@@ -78,7 +78,7 @@ class _TeamsState extends State<Teams> {
       return  Column(
 
         children: [
-          AddFanButton(
+          SmallAddButton(
             onPressed: () {
                 Navigator.push(
                   context,
@@ -117,7 +117,7 @@ class _TeamsState extends State<Teams> {
             labelText: 'Search by name',
           ),
 
-          AddFanButton(
+          SmallAddButton(
             onPressed: () {
               Navigator.push(
                 context,

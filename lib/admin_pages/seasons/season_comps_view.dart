@@ -43,7 +43,7 @@ class _SeasonCompsViewState extends State<SeasonCompsView> {
       return  Column(
 
         children: [
-          AddFanButton(
+          SmallAddButton(
             onPressed: () {
                 Navigator.push(
                   context,
@@ -75,7 +75,7 @@ class _SeasonCompsViewState extends State<SeasonCompsView> {
     return Column(
       children: [
                   
-        AddFanButton(
+        SmallAddButton(
           onPressed: () {
             Navigator.push(
               context,

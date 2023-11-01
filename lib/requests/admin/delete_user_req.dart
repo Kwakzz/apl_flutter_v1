@@ -12,7 +12,7 @@ Future <Map<String, dynamic>> deleteUser (String userIdJson) async {
   try {
 
     final response = await https.post(
-      Uri.http(domain, '$path/user/delete_fan.php'),
+      Uri.http(domain, '$path/user/delete.php'),
       headers: <String, String> {
         'Content-Type': 'application/json',
         'Accept': 'application/json',

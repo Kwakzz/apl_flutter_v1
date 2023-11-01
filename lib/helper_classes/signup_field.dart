@@ -217,9 +217,9 @@ class SignUpPasswordFieldState extends State<SignUpPasswordField> {
           ),
           labelText: widget.labelText,
           labelStyle: GoogleFonts.montserrat(
-          fontSize: 13,
-          color: const Color.fromARGB(200, 0, 0, 0),
-        ),
+            fontSize: 13,
+            color: const Color.fromARGB(200, 0, 0, 0),
+          ),
           enabledBorder: const UnderlineInputBorder(
             borderSide: BorderSide(
               color: Color.fromARGB(50, 0, 0, 0),

@@ -38,7 +38,7 @@ class AuthProvider with ChangeNotifier {
     try {
 
       final response = await http.post(
-        Uri.http(domain, '$path/user/login.php'),
+        Uri.http(domain, '$path/user/sign_in.php'),
         headers: <String, String> {
           'Content-Type': 'application/json',
           'Accept': 'application/json',

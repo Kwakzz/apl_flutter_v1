@@ -3,6 +3,7 @@ import 'package:apl/admin.dart';
 import 'package:apl/helper_classes/custom_dialog_box.dart';
 import 'package:apl/helper_classes/multi_line_text_field.dart';
 import 'package:apl/helper_classes/text.dart';
+import 'package:apl/requests/news_item/get_news_item_tags_req.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,7 +12,6 @@ import '../../helper_classes/custom_appbar.dart';
 import '../../helper_functions/convert_to_json.dart';
 import '../../helper_functions/file_upload.dart';
 import '../../requests/news_item/add_news_item_req.dart';
-
 
 /// This class is the stateful widget for adding a news item
 class AddNewsItem extends StatefulWidget {
@@ -41,7 +41,11 @@ class _AddNewsItemState extends State<AddNewsItem> {
   final _titleController = TextEditingController();
   final _subtitleController = TextEditingController();
   final _contentController = TextEditingController();
+  final _selectedTagController = TextEditingController();
 
+  // List of news categories
+  List<Map<String, dynamic>> newsItemTags = [];
+  List<String> newsItemTagNames = [];
 
   // Team's details
   String newsItemJson = '';
@@ -54,6 +58,7 @@ class _AddNewsItemState extends State<AddNewsItem> {
     _titleController.dispose();
     _subtitleController.dispose();
     _contentController.dispose();
+    _selectedTagController.dispose();
     super.dispose();
   }
 
@@ -112,6 +117,7 @@ class _AddNewsItemState extends State<AddNewsItem> {
               text: "Camera",
             ),
             onPressed: () {
+              
               // close the options modal
               Navigator.of(context).pop();
               // get image from camera
@@ -121,6 +127,20 @@ class _AddNewsItemState extends State<AddNewsItem> {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // get news categories
+    getAllNewsItemTags().then((value) {
+      setState(() {
+        newsItemTags = value;
+        // get news_tag_names from newsItemTags
+        newsItemTagNames = newsItemTags.map((tag) => tag['news_tag_name'].toString()).toList();
+      });
+    });
   }
   
   @override
@@ -191,8 +211,8 @@ class _AddNewsItemState extends State<AddNewsItem> {
                   return null;
                 },
               ),
+              
 
-      
 
               // Continue button
               SignUpButton(
@@ -200,6 +220,19 @@ class _AddNewsItemState extends State<AddNewsItem> {
                 onPressed: () async {
                   // Validate the form
                   if (_formKey.currentState!.validate()) {
+
+                    if (_image == null) {
+                      showDialog(
+                        context: context, 
+                        builder: (BuildContext context) {
+                          return ErrorDialogueBox(
+                            content: 'Please select a cover image',
+                            text: "Upload Error",
+                          );
+                        }
+                      );
+                      return;
+                    }
 
                     // image url
                     String imageUrl = '';
@@ -229,16 +262,14 @@ class _AddNewsItemState extends State<AddNewsItem> {
                         );
                       }
 
-                    }
-
-                    // String content = jsonEncode(_contentController.document.toDelta().toJson());
+                    } 
 
                     newsItemJson = createNewsItemJson(
                       _titleController.text, 
                       _subtitleController.text,
                       _contentController.text, 
                       DateTime.now().toString(),
-                      imageUrl,
+                      imageUrl
                     );
 
                     Map<String, dynamic> response = await addNewsItem(newsItemJson);

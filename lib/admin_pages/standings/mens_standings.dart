@@ -169,7 +169,7 @@ class _MensStandingsState extends State<MensStandings> {
           // Drop down menu for competitions
           compsDropDown,
 
-          AddFanButton(
+          SmallAddButton(
             onPressed: () {
               Navigator.push(
                 context,
@@ -202,7 +202,7 @@ class _MensStandingsState extends State<MensStandings> {
           
           compsDropDown,
 
-          AddFanButton(
+          SmallAddButton(
             onPressed: () {
               Navigator.push(
                 context,

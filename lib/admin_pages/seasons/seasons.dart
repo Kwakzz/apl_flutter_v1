@@ -51,7 +51,7 @@ class _SeasonsState extends State<Seasons> {
 
         children: [
 
-          AddFanButton(
+          SmallAddButton(
             onPressed: () {
               Navigator.push(
                 context,
@@ -89,7 +89,7 @@ class _SeasonsState extends State<Seasons> {
             labelText: 'Search by name',
           ),
 
-          AddFanButton(
+          SmallAddButton(
             onPressed: () {
               Navigator.push(
                 context,

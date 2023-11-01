@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:apl/admin_pages/users/add_fan.dart';
-import 'package:apl/admin_pages/users/edit_fan.dart';
+import 'package:apl/admin_pages/users/add_user.dart';
+import 'package:apl/admin_pages/users/edit_user.dart';
 import 'package:apl/helper_classes/custom_button.dart';
 import 'package:apl/helper_classes/custom_dialog_box.dart';
 import 'package:apl/helper_classes/text.dart';
@@ -53,12 +53,11 @@ class _AdminsState extends State<Admins> {
   @override
   Widget build(BuildContext context) {
 
-    // if the fans list is empty
     if (admins.isEmpty) {
       return  Column(
 
           children: [
-            AddFanButton(
+            SmallAddButton(
               onPressed: () {
                 Navigator.push(
                   context,
@@ -89,15 +88,14 @@ class _AdminsState extends State<Admins> {
   return Scaffold(
     body: Column(
       children: [
-        // Search bar
+
         SearchField(
           onChanged: (value) {
           },
           labelText: 'Search by name',
         ),
 
-        // Add fan button
-        AddFanButton(
+        SmallAddButton(
           onPressed: () {
             Navigator.push(
               context,

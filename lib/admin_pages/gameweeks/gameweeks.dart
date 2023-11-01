@@ -122,7 +122,7 @@ class _GameweeksState extends State<Gameweeks> {
           // Drop down menu for seasons
           seasonsDropDown,
 
-          AddFanButton(
+          SmallAddButton(
             onPressed: () {
               Navigator.push(
                 context,
@@ -151,7 +151,7 @@ class _GameweeksState extends State<Gameweeks> {
           // Drop down menu for seasons
           seasonsDropDown,
 
-          AddFanButton(
+          SmallAddButton(
             onPressed: () {
               Navigator.push(
                 context,

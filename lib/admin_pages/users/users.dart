@@ -1,13 +1,13 @@
 import 'dart:convert';
-import 'package:apl/admin_pages/users/add_fan.dart';
-import 'package:apl/admin_pages/users/edit_fan.dart';
+import 'package:apl/admin_pages/users/add_user.dart';
+import 'package:apl/admin_pages/users/edit_user.dart';
 import 'package:apl/helper_classes/custom_button.dart';
 import 'package:apl/helper_classes/custom_dialog_box.dart';
 import 'package:apl/helper_classes/text.dart';
 import 'package:apl/requests/admin/delete_user_req.dart';
+import 'package:apl/requests/admin/get_regular_users_req.dart';
 import 'package:flutter/material.dart';
 import '../../helper_classes/custom_list_tile.dart';
-import '../../requests/admin/get_fans_req.dart';
 import '../../requests/teams/get_teams_req.dart';
 import '../../helper_classes/search_field.dart';
 
@@ -32,8 +32,9 @@ class _FansState extends State<Fans> {
 
     super.initState();
     
-    // Call the function to get the fans when the page loads
-    getFans().then((result) {
+    // Call the function to get the regular users when the page loads.
+    // Regular users are 
+    getRegularUsers().then((result) {
       setState(() {
         fans = result;
         filteredFans = fans;
@@ -73,7 +74,7 @@ class _FansState extends State<Fans> {
       return  Column(
 
           children: [
-            AddFanButton(
+            SmallAddButton(
               onPressed: () {
                 Navigator.push(
                   context,
@@ -116,7 +117,7 @@ class _FansState extends State<Fans> {
         ),
 
         // Add fan button
-        AddFanButton(
+        SmallAddButton(
           onPressed: () {
             Navigator.push(
               context,

@@ -44,7 +44,7 @@ class _NewsItemsState extends State<NewsItems> {
       return  Column(
 
         children: [
-          AddFanButton(
+          SmallAddButton(
             onPressed: () {
               Navigator.push(
                 context,
@@ -76,7 +76,7 @@ class _NewsItemsState extends State<NewsItems> {
       body: Column(
         children: [
 
-          AddFanButton(
+          SmallAddButton(
             onPressed: () {
               Navigator.push(
                 context,
