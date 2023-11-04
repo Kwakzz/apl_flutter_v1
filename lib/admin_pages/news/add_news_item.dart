@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:apl/admin.dart';
 import 'package:apl/helper_classes/custom_dialog_box.dart';
+import 'package:apl/helper_classes/custom_dropdown.dart';
 import 'package:apl/helper_classes/multi_line_text_field.dart';
 import 'package:apl/helper_classes/text.dart';
 import 'package:apl/requests/news_item/get_news_item_tags_req.dart';
@@ -41,11 +42,12 @@ class _AddNewsItemState extends State<AddNewsItem> {
   final _titleController = TextEditingController();
   final _subtitleController = TextEditingController();
   final _contentController = TextEditingController();
-  final _selectedTagController = TextEditingController();
+  Map <String, dynamic> selectedTagMap = {};
 
   // List of news categories
-  List<Map<String, dynamic>> newsItemTags = [];
-  List<String> newsItemTagNames = [];
+  List<Map<String, dynamic>> newsTags = [];
+
+  
 
   // Team's details
   String newsItemJson = '';
@@ -58,7 +60,6 @@ class _AddNewsItemState extends State<AddNewsItem> {
     _titleController.dispose();
     _subtitleController.dispose();
     _contentController.dispose();
-    _selectedTagController.dispose();
     super.dispose();
   }
 
@@ -117,7 +118,7 @@ class _AddNewsItemState extends State<AddNewsItem> {
               text: "Camera",
             ),
             onPressed: () {
-              
+
               // close the options modal
               Navigator.of(context).pop();
               // get image from camera
@@ -134,11 +135,9 @@ class _AddNewsItemState extends State<AddNewsItem> {
     super.initState();
 
     // get news categories
-    getAllNewsItemTags().then((value) {
+    getAllNewsTags().then((value) {
       setState(() {
-        newsItemTags = value;
-        // get news_tag_names from newsItemTags
-        newsItemTagNames = newsItemTags.map((tag) => tag['news_tag_name'].toString()).toList();
+        newsTags = value;
       });
     });
   }
@@ -146,6 +145,20 @@ class _AddNewsItemState extends State<AddNewsItem> {
   @override
   Widget build (BuildContext context) {
 
+    final newsTagNames = newsTags.map((newsTag) => newsTag['news_tag_name'] as String).toList();
+
+    SignUpDropdownFormField newsTagsDropdown = SignUpDropdownFormField(
+      items: newsTagNames,
+      labelText: "Tag",
+      onChanged: (newValue) {
+        setState(() {
+          selectedTagMap = newsTags.firstWhere(
+            (newsTag) => newsTag["news_tag_name"].toString() == newValue,
+            orElse: () => {},
+          );
+        });
+      }
+    );
     
    
     return MaterialApp(
@@ -211,6 +224,9 @@ class _AddNewsItemState extends State<AddNewsItem> {
                   return null;
                 },
               ),
+
+              // News item tag
+              newsTagsDropdown,
               
 
 
@@ -269,7 +285,8 @@ class _AddNewsItemState extends State<AddNewsItem> {
                       _subtitleController.text,
                       _contentController.text, 
                       DateTime.now().toString(),
-                      imageUrl
+                      imageUrl,
+                      selectedTagMap['news_tag_id'].toString(),
                     );
 
                     Map<String, dynamic> response = await addNewsItem(newsItemJson);

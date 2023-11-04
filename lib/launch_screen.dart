@@ -20,6 +20,8 @@ class LaunchScreen extends StatefulWidget {
 class LaunchScreenState extends State<LaunchScreen> {
 
   bool isLoggedIn = false;
+  bool firstTimeOpeningApp = true;
+
 
   void checkLoggedInStatus() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -30,10 +32,23 @@ class LaunchScreenState extends State<LaunchScreen> {
 
   }
 
+  void checkIfFirstTimeOpeningApp () async {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if (!prefs.containsKey('first_time_opening_app')) {
+      prefs.setBool('first_time_opening_app', false);
+    }
+
+    firstTimeOpeningApp = prefs.getBool('first_time_opening_app')!;
+  }
+
   @override
   void initState() {
     super.initState();
     checkLoggedInStatus();
+    checkIfFirstTimeOpeningApp();
   }
 
   @override
@@ -45,8 +60,9 @@ class LaunchScreenState extends State<LaunchScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => 
-          // If the user is logged in, go to the home screen, otherwise go to the welcome screen
-          isLoggedIn ? const HomePage() :
+          // If this is the first time opening the app, show the welcome screen
+          // Otherwise, show the home page
+          !firstTimeOpeningApp ? const HomePage() :
           const Welcome()),
         );
       }

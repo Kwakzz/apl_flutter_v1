@@ -2,12 +2,14 @@ import 'dart:io';
 
 import 'package:apl/admin.dart';
 import 'package:apl/helper_classes/multi_line_text_field.dart';
+import 'package:apl/requests/news_item/get_news_item_tags_req.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../helper_classes/custom_button.dart';
 import '../../helper_classes/custom_appbar.dart';
 import '../../helper_classes/custom_dialog_box.dart';
+import '../../helper_classes/custom_dropdown.dart';
 import '../../helper_classes/text.dart';
 import '../../helper_functions/convert_to_json.dart';
 import '../../helper_functions/file_upload.dart';
@@ -45,6 +47,10 @@ class _EditNewsItemState extends State<EditNewsItem> {
   late TextEditingController _titleController;
   late TextEditingController _subtitleController;
   late TextEditingController _contentController;
+  Map <String, dynamic> _selectedNewsTag = {};
+
+  List <Map<String, dynamic>> newsTags = [];
+  List <String> newsTagNames = [];
 
   // The news item's cover image. It can be a file or a url. If the news item already has a cover image, it will be a url. If not, it will be a file. Again, if the user changes the cover image, it will be a file. The news item's cover pic will be displayed based on this variable.
   dynamic _image;
@@ -65,7 +71,20 @@ class _EditNewsItemState extends State<EditNewsItem> {
 
   @override
   void initState() {
+
+    // get the teams for drop down list
+    getAllNewsTags().then((value) {
+
+      setState(() {
+        newsTags = value;
+        newsTagNames = newsTags.map((newsTag) => newsTag['news_tag_name'] as String).toList();
+
+      });
+
+    });
+
     super.initState();
+
     _titleController = TextEditingController(text: widget.newsItem['title']);
     _subtitleController = TextEditingController(text: widget.newsItem['subtitle']);
     _contentController = TextEditingController(text: widget.newsItem['content']);
@@ -73,6 +92,14 @@ class _EditNewsItemState extends State<EditNewsItem> {
     if (widget.newsItem['cover_pic'] != null) {
       _image = widget.newsItem['cover_pic'];
     }
+
+    _selectedNewsTag = newsTags.firstWhere(
+      (newsTag) => newsTag['news_tag_id'] == widget.newsItem['news_tag_id'],
+      orElse: () => {},
+    );
+
+
+
   }
 
 
@@ -143,6 +170,20 @@ class _EditNewsItemState extends State<EditNewsItem> {
   
   @override
   Widget build (BuildContext context) {
+
+    SignUpDropdownFormField newsTagsDropdown = SignUpDropdownFormField(
+      items: newsTagNames,
+      labelText: "Tag",
+      onChanged: (newValue) {
+        setState(() {
+          _selectedNewsTag = newsTags.firstWhere(
+            (newsTag) => newsTag["news_tag_name"].toString() == newValue,
+            orElse: () => {},
+          );
+        });
+      },
+      selectedValue: _selectedNewsTag['news_tag_name'],
+    );
  
     return MaterialApp(
       home: Scaffold (
@@ -208,7 +249,9 @@ class _EditNewsItemState extends State<EditNewsItem> {
                   }
                   return null;
                 },
-              ),            
+              ),        
+
+              newsTagsDropdown,    
 
 
               // Continue button
@@ -255,6 +298,7 @@ class _EditNewsItemState extends State<EditNewsItem> {
                       _subtitleController.text,
                       _contentController.text,
                       imageUrl,
+                      _selectedNewsTag['news_tag_id'],
                     );
                 
 

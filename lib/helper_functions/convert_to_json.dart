@@ -422,6 +422,7 @@ String createNewsItemJson (
   content,
   timePublished,
   coverPic,
+  selectedTagId
 ) {
   return jsonEncode(<String, dynamic>{
       'title': title,
@@ -429,6 +430,7 @@ String createNewsItemJson (
       'content': content,
       'time_published': timePublished,
       'cover_pic': coverPic,
+      'news_tag_id': selectedTagId
     }
   );
 }
@@ -438,14 +440,16 @@ String editNewsItemJson (
   title,
   subtitle,
   content,
-  coverPic
+  coverPic,
+  selectedTagId
 ) {
   return jsonEncode(<String, dynamic>{
       'news_item_id': newsItemId,
       'title': title,
       'subtitle': subtitle,
       'content': content,
-      'cover_pic': coverPic
+      'cover_pic': coverPic,
+      'news_tag_id': selectedTagId
     }
   );
 }

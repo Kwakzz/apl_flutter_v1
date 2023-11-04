@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:apl/helper_classes/custom_dropdown.dart';
+import 'package:apl/helper_classes/grid.dart';
 import 'package:apl/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:apl/helper_classes/custom_button.dart';
@@ -38,39 +39,41 @@ class _SelectTeamState extends State<SelectTeam> {
   // form key
   final _formKey = GlobalKey<FormState>();
 
-  List<String> teamNames = [];
-  String selectedTeam = "";
 
   @override
   void initState() {
     super.initState();
-    getTeamNames().then((names) {
+
+    getTeams().then((value) {
       setState(() {
-        teamNames = names;
+        teams = value;
       });
     });
   }
+
+  List<Map<String, dynamic>> teams = [];
+  Map <String, dynamic> selectedTeam = {};
 
   
   @override
   Widget build(BuildContext context) {
 
-    MyDropdownFormField teamsDropdownFormField = MyDropdownFormField(
-      items: teamNames,
-      labelText: "Team Name",
-      onChanged: (newValue) {
-        setState(() {
-          selectedTeam = newValue!;
-        });
-      },
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please select a team';
-        }
-        return null;
-      },
+    // MyDropdownFormField teamsDropdownFormField = MyDropdownFormField(
+    //   items: teamNames,
+    //   labelText: "Team Name",
+    //   onChanged: (newValue) {
+    //     setState(() {
+    //       selectedTeam = newValue!;
+    //     });
+    //   },
+    //   validator: (value) {
+    //     if (value == null || value.isEmpty) {
+    //       return 'Please select a team';
+    //     }
+    //     return null;
+    //   },
                       
-    );
+    // );
    
     return MaterialApp(
       home: Scaffold (
@@ -84,10 +87,9 @@ class _SelectTeamState extends State<SelectTeam> {
 
    
         body: Center(
-          child: ListView(
+          child: Column(
 
             // prevent list view from scrolling
-            physics: const NeverScrollableScrollPhysics(),
             children: [
 
               // What's your team?
@@ -97,7 +99,7 @@ class _SelectTeamState extends State<SelectTeam> {
                 child: const AppText(
                   text: "Select your favourite team",
                   color: Colors.white,
-                  fontSize: 13,
+                  fontSize: 14,
                   fontWeight: FontWeight.w400,
                 )
               ),
@@ -108,7 +110,10 @@ class _SelectTeamState extends State<SelectTeam> {
              
                   children:[
                     
-                    teamsDropdownFormField,
+                    TeamSelectionGrid(
+                      teams: teams,
+                      selectedTeam: selectedTeam
+                    ),
                     
                     // Continue button
                     SignUpButton(
@@ -119,7 +124,7 @@ class _SelectTeamState extends State<SelectTeam> {
                           
 
                           // Add the user's team to the personal details map
-                          widget.personalDetailsMap['team_name'] = selectedTeam;
+                          widget.personalDetailsMap['team_name'] = selectedTeam['team_name'];
 
                           Map<String, dynamic> response = await setUserTeam(jsonEncode(widget.personalDetailsMap));
                           

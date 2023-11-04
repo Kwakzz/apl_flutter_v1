@@ -35,7 +35,6 @@ Future<List<String>> getTeamNames () async {
   }
 
   catch (e) {
-    print (e);
     return [];
   }
 

@@ -5,13 +5,13 @@ import '../api_uri.dart';
 
 /// This function sends a GET request to the server to get all the news item tags. These tags form the items in the dropdown menu for news categories in the add news item page
 
-Future<List<Map<String, dynamic>>> getAllNewsItemTags () async {
+Future<List<Map<String, dynamic>>> getAllNewsTags () async {
 
   // RESPONSE
   try {
 
     final response = await http.get(
-      Uri.http(domain, '$path/news_item/get_all_news_item_tags.php'),
+      Uri.http(domain, '$path/news_item/get_all_news_tags.php'),
       headers: <String, String> {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -19,6 +19,10 @@ Future<List<Map<String, dynamic>>> getAllNewsItemTags () async {
     );
 
     if (response.statusCode == 200) {
+
+      // If the response is empty, return an empty list.
+      if (response.body.isEmpty) return [];
+
       final newsItems = jsonDecode(response.body);
       return List<Map<String, dynamic>>.from(newsItems);  
     }
