@@ -1,4 +1,8 @@
+import 'package:apl/helper_classes/custom_dialog_box.dart';
+import 'package:apl/helper_classes/error_handling.dart';
 import 'package:apl/helper_classes/text.dart';
+import 'package:apl/helper_functions/convert_to_json.dart';
+import 'package:apl/requests/starting_xi/delete_starting_xi_player.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -1289,6 +1293,91 @@ class ResultsGraphicListTile extends StatelessWidget {
           )
         ),
         
+      )
+    );
+  }
+}
+
+
+class StartingXISection extends StatefulWidget {
+
+  StartingXISection (
+    {
+      super.key,
+      required this.height,
+      required this.players,
+      required this.teamStartingXI,
+      required this.refreshData
+    }
+  );
+
+  double height;
+  List<Map<String, dynamic>> players;
+  Map<String, dynamic> teamStartingXI;
+  Function() refreshData;
+
+  
+
+  @override
+  _StartingXISectionState createState() => _StartingXISectionState();
+
+}
+
+class _StartingXISectionState extends State<StartingXISection> {
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: widget.height,
+      child: ListView.builder(
+        itemCount: widget.players.length,
+        itemBuilder: (context, index) {
+
+          final goalkeeper = widget.players[index];
+
+          return AdminStartingXITile(
+            fname: goalkeeper['fname'],
+            lname: goalkeeper['lname'],    
+            trailingOnPressed: () {
+
+              showDialog(
+                context: context, 
+                builder: (context) {
+                  return DeleteConfirmationDialogBox(
+                    title: "Confirm Deletetion", 
+                    content: "Are you sure you want to delete this player from the starting XI?", 
+                    onPressed: () async {
+
+                      Map <String, dynamic> response = await removeStartingXIPlayer(
+                        startingXIPlayerJson(
+                          widget.teamStartingXI['xi_id'],
+                          goalkeeper['player_id'],
+                          goalkeeper['position_id']
+                        )
+                      );
+
+                      if (!mounted) return;
+
+                      if (response['status']) {
+                        // refresh data
+                        widget.refreshData();
+                      }
+
+                      else {
+                        ErrorHandling.showError(
+                          response['message'], 
+                          context,
+                          'Error'
+                        );
+                      }
+                    }
+                  );
+                }
+              );
+            },
+          );
+                  
+        },
       )
     );
   }

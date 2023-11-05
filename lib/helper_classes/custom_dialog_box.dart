@@ -15,7 +15,6 @@ class AddPlayerToStartingXIDialogBox extends StatelessWidget {
       required this.playerDropDownOnChanged,
       required this.positionDropDownOnChanged,
       required this.submitButtonOnPressed,
-      required this.playerValidator,
       required this.positionValidator,
       required this.formKey,
     }
@@ -27,7 +26,6 @@ class AddPlayerToStartingXIDialogBox extends StatelessWidget {
   final Function (String?) playerDropDownOnChanged;
   final Function (String?) positionDropDownOnChanged;
   final Function submitButtonOnPressed;
-  final FormFieldValidator <String?> playerValidator;
   final FormFieldValidator <String?> positionValidator;
 
   @override
@@ -52,7 +50,12 @@ class AddPlayerToStartingXIDialogBox extends StatelessWidget {
               items: players, 
               labelText: "Player", 
               onChanged: playerDropDownOnChanged,
-              validator: playerValidator,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please choose a player';
+                }
+                return null;
+              },
             ),
 
             MyDropdownFormField(
@@ -589,5 +592,75 @@ class ErrorDialogueBox extends StatelessWidget {
       
     );
   }
+}
+
+
+class SelectMOTMDialogBox extends StatelessWidget {
+
+  SelectMOTMDialogBox (
+    {
+      super.key,
+      required this.playersDropDown,
+      required this.formKey,
+      required this.onSubmit
+    }
+  );
+
+  final GlobalKey <FormState> formKey;
+  final SignUpDropdownFormField playersDropDown;
+  final Function onSubmit;
+
+  @override
+  Widget build(BuildContext context) {
+
+    return AlertDialog(
+      title: const AppText(
+        text: "Select MOTM",
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        color: Colors.black,
+      ),
+
+      content: Form(
+        key: formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            playersDropDown,
+          ],
+        ),
+      ),
+
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          }, 
+          child: const AppText(
+            text: "Cancel",
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: Colors.black,
+          ),
+        ),
+
+        TextButton(
+          onPressed: () {
+            if (formKey.currentState!.validate()) {
+              onSubmit();
+              Navigator.of(context).pop();
+            }
+          }, 
+          child: const AppText(
+            text: "Select",
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: Colors.black,
+          ),
+        ),
+      ],
+    );
+  }
+
 }
 

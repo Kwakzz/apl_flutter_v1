@@ -133,6 +133,29 @@ class _ViewPlayerState extends State<ViewPlayer> {
 
             children: [
 
+              // player image
+              Container(
+                padding: const EdgeInsets.only(left: 80, top: 20),
+                width: MediaQuery.of(context).size.width,
+                color: player['color_code'] == '' ? const Color.fromARGB(255, 0, 53, 91) : Color(int.parse('0xFF${player['color_code']}')),
+                height: 250,
+                child: Image.network(
+                  player['player_image_url'],
+                  width: MediaQuery.of(context).size.width,
+                  height: 150,
+                  scale: 0.5,
+                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                    return const Center(
+                      child: Icon(
+                        Icons.person,
+                        size: 150,
+                        color: Colors.white,
+                      ),
+                    );
+                  }
+                ),
+              ),
+
               const SizedBox(height: 20),
 
               // Player image

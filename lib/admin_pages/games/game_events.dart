@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:apl/helper_classes/app_bar_bottom_row.dart';
 import 'package:apl/helper_classes/custom_button.dart';
 import 'package:apl/helper_classes/custom_dialog_box.dart';
+import 'package:apl/helper_classes/error_handling.dart';
 import 'package:apl/helper_classes/text.dart';
 import 'package:apl/helper_functions/convert_to_json.dart';
 import 'package:apl/requests/assist/get_assists_by_game_req.dart';
@@ -12,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../helper_classes/scoreline_row.dart';
 import '../../requests/goal/get_goals_by_team_and_game_req.dart';
-
 
 
 class GameEvents extends StatefulWidget {
@@ -227,27 +227,17 @@ class _GameEventsState extends State<GameEvents> {
                             // refresh the page
                             refreshData();
 
-                            showDialog(
-                              context: context, 
-                              builder: (context) {
-                                return ErrorDialogueBox(
-                                  content: response['message'],
-                                  text: "Success",
-                                );
-                              }
-                            );
+                            
                           }
 
                           else {
-                            showDialog(
-                              context: context, 
-                              builder: (context) {
-                                return ErrorDialogueBox(
-                                  content: response['message'],
-                                );
-                              }
+                            ErrorHandling.showError(
+                              response['message'], 
+                              context,
+                              'Error'
                             );
                           }
+
                         }, 
                         teamValidator: (value){
                           if (value == null) {
@@ -373,26 +363,17 @@ class _GameEventsState extends State<GameEvents> {
                                         // refresh the page
                                         refreshData();
 
-                                        showDialog(
-                                          context: context, 
-                                          builder: (context) {
-                                            return ErrorDialogueBox(
-                                              content: response['message'],
-                                              text: "Success",
-                                            );
-                                          }
-                                        );
+                                      
                                       }
 
                                       else {
-                                        showDialog(
-                                          context: context, 
-                                          builder: (context) {
-                                            return ErrorDialogueBox(
-                                              content: response['message'],
-                                            );
-                                          }
+
+                                        ErrorHandling.showError(
+                                          response['message'], 
+                                          context,
+                                          'Error'
                                         );
+
                                       }
                                     }
                                   );
@@ -474,6 +455,7 @@ class _GameEventsState extends State<GameEvents> {
                                     content: "Are you sure you want to delete this goal?", 
                                     onPressed: (){
                                       deleteGoal(jsonEncode({'goal_id': goal['goal_id']}));
+                                      refreshData();
                                     }
                                   );
                                 }

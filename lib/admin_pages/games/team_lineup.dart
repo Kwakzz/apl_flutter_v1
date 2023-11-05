@@ -4,7 +4,6 @@ import 'package:apl/helper_classes/custom_list_tile.dart';
 import 'package:apl/helper_classes/text.dart';
 import 'package:apl/helper_functions/convert_to_json.dart';
 import 'package:apl/requests/starting_xi/add_starting_xi_req.dart';
-import 'package:apl/requests/starting_xi/delete_starting_xi_player.dart';
 import 'package:apl/requests/starting_xi/get_team_starting_xi_players_req.dart';
 import 'package:apl/requests/starting_xi/get_team_starting_xi_req.dart';
 import 'package:apl/requests/teams/get_team_players_req.dart';
@@ -48,7 +47,6 @@ class _TeamLineupState extends State<TeamLineup> {
   List<Map<String, dynamic>> dropdownPositionsMap = [];
   List<String> dropDownListForPositions = [];
 
-  List<Map<String, dynamic>> formations = [];
   Map<String, dynamic> teamStartingXI = {};
   List <Map<String, dynamic>> teamStartingXIPlayers = [];
 
@@ -222,7 +220,7 @@ class _TeamLineupState extends State<TeamLineup> {
     }
 
     // prevent the page from crashing if the formation hasn't been loaded yet
-    try {
+    
     
       return ListView(
 
@@ -273,41 +271,21 @@ class _TeamLineupState extends State<TeamLineup> {
                           if (!mounted) return;
 
                           if (response['status']) {
-                           
-                            // refresh data
+                                                       // refresh data
                             refreshData();
-
-                            showDialog(
-                              context: context, 
-                              builder: (context) {
-                                return ErrorDialogueBox(
-                                  content: response['message'],
-                                  text: "Success",
-                                );
-                              }
-                            );
                               
                           }
 
                           else {
                             showDialog(
-                              context: context, 
+                              context: Scaffold.of(context).context, 
                               builder: (context) {
                                 return ErrorDialogueBox(
                                   content: response['message'],
                                 );
                               }
                             );
-                          }
-                          
-                          
-                            
-                        }, 
-                        playerValidator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please choose a player';
-                          }
-                          return null;
+                          }                        
                         }, 
                         positionValidator: (value) {
                           if (value == null || value.isEmpty) {
@@ -340,61 +318,11 @@ class _TeamLineupState extends State<TeamLineup> {
               ),
             ),
             
-            SizedBox(
-              height: goalkeeperListViewHeight,
-              child: ListView.builder(
-                itemCount: goalkeepers.length,
-                itemBuilder: (context, index) {
-
-                  final goalkeeper = goalkeepers[index];
-
-                  return AdminStartingXITile(
-                    fname: goalkeeper['fname'],
-                    lname: goalkeeper['lname'],    
-                    trailingOnPressed: () {
-
-                      showDialog(
-                        context: context, 
-                        builder: (context) {
-                          return DeleteConfirmationDialogBox(
-                            title: "Confirm Deletetion", 
-                            content: "Are you sure you want to delete this player from the starting XI?", 
-                            onPressed: () async {
-
-                              Map <String, dynamic> response = await removeStartingXIPlayer(
-                                startingXIPlayerJson(
-                                  teamStartingXI['xi_id'],
-                                  goalkeeper['player_id'],
-                                  goalkeeper['position_id']
-                                )
-                              );
-
-                              if (!mounted) return;
-
-                              if (response['status']) {
-                                // refresh data
-                                refreshData();
-                              }
-
-                              else {
-                                showDialog(
-                                  context: context, 
-                                  builder: (context) {
-                                    return ErrorDialogueBox(
-                                      content: response['message'],
-                                    );
-                                  }
-                                );
-                              }
-                            }
-                          );
-                        }
-                      );
-                    },
-                  );
-                  
-                },
-              )
+            StartingXISection(
+              height: goalkeeperListViewHeight, 
+              players: goalkeepers, 
+              teamStartingXI: teamStartingXI, 
+              refreshData: refreshData
             ),
 
             // Defenders
@@ -407,64 +335,14 @@ class _TeamLineupState extends State<TeamLineup> {
               ),
             ),
 
-           SizedBox(
-              height: defenderListViewHeight,
-              child: ListView.builder(
-                itemCount: defenders.length,
-                itemBuilder: (context, index) {
-
-                  final defender = defenders[index];
-
-                  return AdminStartingXITile(
-                    fname: defender['fname'],
-                    lname: defender['lname'],    
-                    trailingOnPressed: () {
-
-                      showDialog(
-                        context: context, 
-                        builder: (context) {
-                          return DeleteConfirmationDialogBox(
-                            title: "Confirm Deletetion", 
-                            content: "Are you sure you want to delete this player from the starting XI?", 
-                            onPressed: () async {
-
-                              Map <String, dynamic> response = await removeStartingXIPlayer(
-                                startingXIPlayerJson(
-                                  teamStartingXI['xi_id'],
-                                  defender['player_id'],
-                                  defender['position_id']
-                                )
-                              );
-
-                              if (!mounted) return;
-
-                              if (response['status']) {
-                                // refresh data
-                                refreshData();
-                              }
-
-                              else {
-                                showDialog(
-                                  context: context, 
-                                  builder: (context) {
-                                    return ErrorDialogueBox(
-                                      content: response['message'],
-                                    );
-                                  }
-                                );
-                              }
-                            }
-                          );
-                        }
-                      );
-                    },
-                  );                    
-                },
-              )
+           StartingXISection(
+              height: defenderListViewHeight, 
+              players: defenders, 
+              teamStartingXI: teamStartingXI, 
+              refreshData: refreshData
             ),
                   
-                
-
+            
             // Midfielders
             const ListTile(
               title: AppText(
@@ -475,61 +353,11 @@ class _TeamLineupState extends State<TeamLineup> {
               ),
             ),
 
-            SizedBox(
-              height: midfielderListViewHeight,
-              child: ListView.builder(
-                itemCount: midfielders.length,
-                itemBuilder: (context, index) {
-
-                  final midfielder = midfielders[index];
-
-                  return AdminStartingXITile(
-                    fname: midfielder['fname'],
-                    lname: midfielder['lname'],    
-                    trailingOnPressed: () {
-
-                      showDialog(
-                        context: context, 
-                        builder: (context) {
-                          return DeleteConfirmationDialogBox(
-                            title: "Confirm Deletetion", 
-                            content: "Are you sure you want to delete this player from the starting XI?", 
-                            onPressed: () async {
-
-                              Map <String, dynamic> response = await removeStartingXIPlayer(
-                                startingXIPlayerJson(
-                                  teamStartingXI['xi_id'],
-                                  midfielder['player_id'],
-                                  midfielder['position_id']
-                                )
-                              );
-
-                              if (!mounted) return;
-
-                              if (response['status']) {
-                                // refresh data
-                                refreshData();
-                              }
-
-                              else {
-                                showDialog(
-                                  context: context, 
-                                  builder: (context) {
-                                    return ErrorDialogueBox(
-                                      content: response['message'],
-                                    );
-                                  }
-                                );
-                              }
-                            }
-                          );
-                        }
-                      );
-                    },
-                  );  
-                  
-                },
-              )
+            StartingXISection(
+              height: midfielderListViewHeight, 
+              players: midfielders, 
+              teamStartingXI: teamStartingXI, 
+              refreshData: refreshData
             ),
 
             // Forwards
@@ -542,71 +370,14 @@ class _TeamLineupState extends State<TeamLineup> {
               ),
             ),
 
-            SizedBox(
-              height: forwardListViewHeight,
-              child: ListView.builder(
-                itemCount: forwards.length,
-                itemBuilder: (context, index) {
-
-                  final forward = forwards[index];
-
-                  return AdminStartingXITile(
-                    fname: forward['fname'],
-                    lname: forward['lname'],    
-                    trailingOnPressed: () {
-
-                      showDialog(
-                        context: context, 
-                        builder: (context) {
-                          return DeleteConfirmationDialogBox(
-                            title: "Confirm Deletetion", 
-                            content: "Are you sure you want to delete this player from the starting XI?", 
-                            onPressed: () async {
-
-                              Map <String, dynamic> response = await removeStartingXIPlayer(
-                                startingXIPlayerJson(
-                                  teamStartingXI['xi_id'],
-                                  forward['player_id'],
-                                  forward['position_id']
-                                )
-                              );
-
-                              if (!mounted) return;
-
-                              if (response['status']) {
-                                // refresh data
-                                refreshData();
-                              }
-
-                              else {
-                                showDialog(
-                                  context: context, 
-                                  builder: (context) {
-                                    return ErrorDialogueBox(
-                                      content: response['message'],
-                                    );
-                                  }
-                                );
-                              }
-                            }
-                          );
-                        }
-                      );
-                    },
-                  );  
-                  
-                },
-              )
+            StartingXISection(
+              height: forwardListViewHeight, 
+              players: forwards, 
+              teamStartingXI: teamStartingXI, 
+              refreshData: refreshData
             ),
           ]
       );
-    }
-    catch (e) {
-      return const CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation<Color>(
-          Colors.black
-        )
-      );
-    }
+   
   }
 }

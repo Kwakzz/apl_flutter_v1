@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:apl/admin_pages/players/add_player.dart';
 import 'package:apl/admin_pages/players/edit_player.dart';
 import 'package:apl/helper_classes/custom_button.dart';
+import 'package:apl/helper_classes/error_handling.dart';
 import 'package:apl/helper_classes/text.dart';
 import 'package:apl/helper_functions/convert_to_json.dart';
 import 'package:apl/requests/players/get_womens_players_req.dart';
@@ -271,28 +272,22 @@ class _WomensPlayersState extends State<WomensPlayers> {
 
                             if (response['status']) {
 
-                              showDialog(
-                                context: context, 
-                                builder: (context) {
-                                  return ErrorDialogueBox(
-                                    content: response['message'], 
-                                    text: "Success",
-                                  );
-                                }
+                              ErrorHandling.showError(
+                                response['message'], 
+                                context,
+                                "Success"
                               );
+
                               // refresh the page
                               setState(() {
                                 players.removeAt(index);
                               });
                               
                             } else {
-                              showDialog(
-                                context: context, 
-                                builder: (context) {
-                                  return ErrorDialogueBox(
-                                    content: response['message'], 
-                                  );
-                                }
+                              ErrorHandling.showError(
+                                response['message'], 
+                                context,
+                                "Error"
                               );
                             }
                           }
@@ -341,15 +336,10 @@ class _WomensPlayersState extends State<WomensPlayers> {
                               if (response['status']) {
 
                                 // show success dialogue box
-                                showDialog(
-                                  // use root widget's context, not the dialogue box's context
-                                  context: context, 
-                                  builder: (BuildContext context) {
-                                    return ErrorDialogueBox(
-                                      content: response['message'], 
-                                      text: "Success",
-                                    );
-                                  }
+                                ErrorHandling.showError(
+                                  response['message'], 
+                                  context,
+                                  "Success"
                                 );
 
                                 // refresh the page
@@ -365,13 +355,10 @@ class _WomensPlayersState extends State<WomensPlayers> {
                               } 
                               
                               else {
-                                showDialog(
-                                  context: context, 
-                                  builder: (BuildContext context) {
-                                    return ErrorDialogueBox(
-                                      content: response['message'], 
-                                    );
-                                  }
+                                ErrorHandling.showError(
+                                  response['message'], 
+                                  context,
+                                  "Error"
                                 );
                               }
 

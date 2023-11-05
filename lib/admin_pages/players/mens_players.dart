@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:apl/admin_pages/players/add_player.dart';
 import 'package:apl/admin_pages/players/edit_player.dart';
 import 'package:apl/helper_classes/custom_button.dart';
+import 'package:apl/helper_classes/error_handling.dart';
 import 'package:apl/helper_classes/text.dart';
 import 'package:apl/helper_functions/convert_to_json.dart';
 import 'package:apl/requests/transfers/add_transfer_req.dart';
@@ -272,29 +273,26 @@ class _MensPlayersState extends State<MensPlayers> {
 
                             if (response['status']) {
 
-                              showDialog(
-                                context: context, 
-                                builder: (context) {
-                                  return ErrorDialogueBox(
-                                    content: response['message'], 
-                                    text: "Success",
-                                  );
-                                }
+                              ErrorHandling.showError(
+                                response['message'], 
+                                context,
+                                "Success"
                               );
                               // refresh the page
                               setState(() {
                                 players.removeAt(index);
                               });
                               
-                            } else {
-                              showDialog(
-                                context: context, 
-                                builder: (context) {
-                                  return ErrorDialogueBox(
-                                    content: response['message'], 
-                                  );
-                                }
+                            } 
+                            
+                            else {
+
+                              ErrorHandling.showError(
+                                response['message'], 
+                                context,
+                                "Error"
                               );
+
                             }
                           }
                         );
@@ -342,15 +340,10 @@ class _MensPlayersState extends State<MensPlayers> {
                               if (response['status']) {
 
                                 // show success dialogue box
-                                showDialog(
-                                  // use root widget's context, not the dialogue box's context
-                                  context: context, 
-                                  builder: (BuildContext context) {
-                                    return ErrorDialogueBox(
-                                      content: response['message'], 
-                                      text: "Success",
-                                    );
-                                  }
+                                ErrorHandling.showError(
+                                  response['message'], 
+                                  context,
+                                  "Success"
                                 );
 
                                 // refresh the page
@@ -366,13 +359,10 @@ class _MensPlayersState extends State<MensPlayers> {
                               } 
                               
                               else {
-                                showDialog(
-                                  context: context, 
-                                  builder: (BuildContext context) {
-                                    return ErrorDialogueBox(
-                                      content: response['message'], 
-                                    );
-                                  }
+                                ErrorHandling.showError(
+                                  response['message'], 
+                                  context,
+                                  "Error"
                                 );
                               }
 

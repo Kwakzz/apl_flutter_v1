@@ -2,6 +2,7 @@
 import 'package:apl/pl/game_events.dart';
 
 import 'package:apl/pl/game_lineups.dart';
+import 'package:apl/pl/man_of_the_match.dart';
 import 'package:flutter/material.dart';
 import '../../../helper_classes/custom_appbar.dart';
 import '../../../requests/teams/get_teams_req.dart';
@@ -95,7 +96,11 @@ class _GameDetailsState extends State<GameDetails> {
                 homeTeam: widget.homeTeam,
                 awayTeam: widget.awayTeam,
               ),
-              const Text(""),
+              ManOfTheMatch(
+                game: widget.gameDetails, 
+                homeTeam: widget.homeTeam, 
+                awayTeam: widget.awayTeam,
+              )
             ]
           ),
         ),
