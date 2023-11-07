@@ -118,6 +118,7 @@ class _ClubSquadState extends State<ClubSquad> {
                 return PlayerListTile(
                   playerName: '${teamPlayer['fname']} ${teamPlayer['lname']}',
                   teamName: position['position_name'],
+                  playerImageURL: teamPlayer['player_image_url'],
                   onTap: () {
                     Navigator.push(
                       context,

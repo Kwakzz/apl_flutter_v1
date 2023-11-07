@@ -51,6 +51,19 @@ class LatestNews extends StatelessWidget {
               )
             ),
 
+            Container(
+              margin: const EdgeInsets.only(left:10, top: 12, bottom: 10),
+              child: GestureDetector(
+                onTap: onTapped,
+                child: AppText(
+                  text: newsItem['news_tag_name']??'',
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey,
+                )
+              ),
+            ),
+
             // news item title
             Container(
               margin: const EdgeInsets.only(left:10, top: 12, bottom: 5),

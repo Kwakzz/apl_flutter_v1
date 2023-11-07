@@ -66,8 +66,8 @@ class _NewsState extends State<News> {
               itemCount: newsItems.length,
               itemBuilder: (context, index) {
                 final newsItem = newsItems[index];
-          
-                
+
+      
                 return NewsListTile(
                   newsMap: newsItem,
                   onTap: () {

@@ -4,6 +4,7 @@ import 'package:apl/helper_classes/custom_list_tile.dart';
 import 'package:apl/helper_classes/my_data_table.dart';
 import 'package:apl/requests/goal/get_player_total_goals_req.dart';
 import 'package:apl/requests/players/get_player_no_of_appearances_req.dart';
+import 'package:apl/requests/players/get_player_no_of_losses_req.dart';
 import 'package:apl/requests/players/get_player_no_of_wins_req.dart';
 import 'package:apl/requests/players/get_player_req.dart';
 import 'package:apl/requests/transfers/get_transfers_by_player_req.dart';
@@ -35,6 +36,8 @@ class _ViewPlayerState extends State<ViewPlayer> {
   int noOfGoals = 0;
   int noOfAppearances = 0;
   int noOfWins = 0;
+  int noOfLosses = 0;
+  int noOfDraws = 0;
   int age = 0;
 
 
@@ -43,8 +46,12 @@ class _ViewPlayerState extends State<ViewPlayer> {
   void initState() {
     super.initState();
 
-
-    age = DateTime.now().year - int.parse(widget.playerMap['date_of_birth'].substring(0, 4));
+    try{
+      age = DateTime.now().year - int.parse(widget.playerMap['date_of_birth'].substring(0, 4));
+    }
+    catch (e) {
+      return;
+    }
 
 
     getPlayerTotalGoals(widget.playerMap['player_id']).then((result) {
@@ -74,13 +81,27 @@ class _ViewPlayerState extends State<ViewPlayer> {
     getPlayerNoOfWins(widget.playerMap['player_id']).then((result) {
       try{
         setState(() {        
-          noOfWins = result['total_wins'];
+          noOfWins = result['no_of_wins'];
         });
       }
       catch(e) {
         return;
       }
     });
+
+    getPlayerNoOfLosses(widget.playerMap['player_id']).then((result) {
+      try{
+        setState(() {        
+          noOfLosses = result['no_of_losses'];
+        });
+      }
+      catch(e) {
+        return;
+      }
+    });
+
+    noOfDraws = noOfAppearances - noOfWins - noOfLosses;
+    
 
   }
 
@@ -106,6 +127,7 @@ class _ViewPlayerState extends State<ViewPlayer> {
             getTransfersByPlayer(widget.playerMap['player_id']),
           ]
         ),
+        
         builder: (context, snapshot) {
 
           if(snapshot.connectionState == ConnectionState.waiting) {
@@ -137,9 +159,9 @@ class _ViewPlayerState extends State<ViewPlayer> {
               Container(
                 padding: const EdgeInsets.only(left: 80, top: 20),
                 width: MediaQuery.of(context).size.width,
-                color: player['color_code'] == '' ? const Color.fromARGB(255, 0, 53, 91) : Color(int.parse('0xFF${player['color_code']}')),
+                color: const Color.fromARGB(255, 0, 53, 91),
                 height: 250,
-                child: Image.network(
+                child: player['player_image_url'] == null || player['player_image_url'] == '' ? const Icon(Icons.image_not_supported, size: 13): Image.network(
                   player['player_image_url'],
                   width: MediaQuery.of(context).size.width,
                   height: 150,
@@ -158,14 +180,6 @@ class _ViewPlayerState extends State<ViewPlayer> {
 
               const SizedBox(height: 20),
 
-              // Player image
-              // Container(
-              //   margin: const EdgeInsets.only(left: 20),
-              //   child: CircleAvatar(
-              //     radius: 50,
-              //     backgroundImage: NetworkImage(widget.playerMap['image_url']),
-              //   ),
-              // ),
 
               Container(
                 margin: const EdgeInsets.only(left: 20),
@@ -182,19 +196,19 @@ class _ViewPlayerState extends State<ViewPlayer> {
               // Player name
               PlayerDetailListTile(
                 heading: 'Full Name',
-                value: '${player['fname']} ${player['lname']}',
+                value: player['fname'] == null && player['lname'] == null ? 'N/A' : '${player['fname']} ${player['lname']}',
               ),
 
               // Player date of birth
               PlayerDetailListTile(
                 heading: 'Date of birth',
-                value: player['date_of_birth'],
+                value: player['date_of_birth'] == null ? 'N/A' : player['date_of_birth'].toString(),
               ),
 
               // Player gender
               PlayerDetailListTile(
                 heading: 'Gender',
-                value: player['gender'],
+                value: player['gender'] == null ? 'N/A' : player['gender'].toString(),
               ),
 
               // age
@@ -263,8 +277,15 @@ class _ViewPlayerState extends State<ViewPlayer> {
               // losses
               PlayerDetailListTile(
                 heading: "Losses",
-                value: "0"
+                value: noOfLosses.toString()
               ),
+
+              // draws
+              PlayerDetailListTile(
+                heading: "Draws",
+                value: noOfDraws.toString()
+              ),
+
 
               // transfer history
               const SizedBox(height: 20),

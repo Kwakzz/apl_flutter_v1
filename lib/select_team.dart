@@ -121,29 +121,31 @@ class _SelectTeamState extends State<SelectTeam> {
                       onPressed: () async {
 
                         if (_formKey.currentState!.validate()) {
-                          
+                                                    
 
-                          // Add the user's team to the personal details map
-                          widget.personalDetailsMap['team_name'] = selectedTeam['team_name'];
-
-                          Map<String, dynamic> response = await setUserTeam(jsonEncode(widget.personalDetailsMap));
+                          Map<String, dynamic> response = await setUserTeam(
+                            jsonEncode(<String, dynamic>{
+                              'email_address': widget.personalDetailsMap['email_address'],
+                              'team_id': selectedTeam['team_id'],
+                            })
+                          );
                           
                           if (!mounted) return;
 
                           if (response['status']) {
 
                             ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              backgroundColor: const Color.fromARGB(255, 28, 28, 28),
-                              content: AppText(
-                                text: response['message'], 
-                                fontWeight: FontWeight.w300, 
-                                fontSize: 12, 
-                                color: Colors.white
+                              SnackBar(
+                                backgroundColor: const Color.fromARGB(255, 28, 28, 28),
+                                content: AppText(
+                                  text: response['message'], 
+                                  fontWeight: FontWeight.w300, 
+                                  fontSize: 12, 
+                                  color: Colors.white
+                                ),
+                                duration: const Duration(seconds: 2),
                               ),
-                              duration: const Duration(seconds: 2),
-                            ),
-                          );
+                            );
 
                             // After completing the sign up process, the user is redirected to the sign in page
                             Navigator.push(

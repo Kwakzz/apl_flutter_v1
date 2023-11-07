@@ -60,7 +60,7 @@ class _ManOfTheMatchState extends State<ManOfTheMatch> {
               margin: const EdgeInsets.only(top: 20),
               padding: const EdgeInsets.only(left: 20, top: 20),
               width: MediaQuery.of(context).size.width,
-              color: motm['color_code'] == '' ? const Color.fromARGB(255, 0, 53, 91) : Color(int.parse('0xFF${motm['color_code']}')),
+              color: const Color.fromARGB(255, 0, 53, 91),
               height: 170,
               child: Column(
                 children: [
@@ -86,7 +86,7 @@ class _ManOfTheMatchState extends State<ManOfTheMatch> {
                         ],
                       ),
                       Expanded(
-                        child: Image.network(
+                        child: motm['player_image_url'] == null || motm['player_image_url'] == '' ? const Icon(Icons.image_not_supported, size: 13): Image.network(
                           motm['player_image_url'],
                           width: MediaQuery.of(context).size.width,
                           height: 150,

@@ -184,6 +184,58 @@ class SocialMediaLinkMenuListTile extends StatelessWidget {
   }
 }
 
+class CoachListTile extends StatelessWidget {
+
+  CoachListTile (
+    {
+      super.key,
+      required this.coachName,
+      required this.teamName,
+      this.onTap
+    }
+  );
+
+  String coachName;
+  String teamName;
+  Function()? onTap;
+
+  
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 70,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(
+          color: const Color.fromARGB(255, 246, 245, 245),
+        ),
+      ),
+      child: ListTile(
+        title: AppText(
+          color: Colors.black,
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          text: coachName,
+        ),
+        subtitle: AppText(
+          color: Colors.black,
+          fontSize: 9,
+          fontWeight: FontWeight.w300,
+          text: teamName,
+        ),        
+        trailing: const Icon(
+          Icons.arrow_forward_ios,
+          color: Colors.black,
+          size:9
+        ),
+        onTap: onTap,
+      ),
+    );
+  }
+}
+
 
 class PlayerListTile extends StatelessWidget {
 
@@ -192,12 +244,14 @@ class PlayerListTile extends StatelessWidget {
       super.key,
       required this.playerName,
       required this.teamName,
+      this.playerImageURL,
       this.onTap
     }
   );
 
   String playerName;
   String teamName;
+  String? playerImageURL;
   Function()? onTap;
 
   
@@ -226,6 +280,20 @@ class PlayerListTile extends StatelessWidget {
           fontWeight: FontWeight.w300,
           text: teamName,
         ),
+        leading: playerImageURL == null || playerImageURL == '' ? const Icon(Icons.image_not_supported, size: 13) : Image.network(
+          playerImageURL!,
+          width: 50,
+          height: 50,
+          errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+            return const Icon(
+              Icons.error, 
+              size: 18,
+            );
+          }
+        ),
+
+        
+        
         trailing: const Icon(
           Icons.arrow_forward_ios,
           color: Colors.black,
@@ -576,6 +644,8 @@ class StartingXIListTile extends StatelessWidget {
    );
   }
 }
+
+
 
 
 class PlayerDetailListTile extends StatelessWidget {

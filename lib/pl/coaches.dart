@@ -105,8 +105,8 @@ class _CoachesState extends State<Coaches> {
 
                 
                 
-                return PlayerListTile(
-                  playerName: '${coach['fname']} ${coach['lname']}', 
+                return CoachListTile(
+                  coachName: '${coach['fname']} ${coach['lname']}', 
                   teamName: team['team_name'],
                   onTap: () {
                     Navigator.push(

@@ -87,13 +87,14 @@ class NewsItemDetails extends StatelessWidget {
             // Personal details
             const SizedBox(height: 20),
 
+            // news item tag
             Container(
               margin: const EdgeInsets.only(left: 20),
               child: AppText(
-                text: newsItem['title']??'',
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+                text: newsItem['news_tag_name']??'',
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+                color: const Color.fromARGB(255, 0, 53, 91),
               )
             ),
 
@@ -109,6 +110,22 @@ class NewsItemDetails extends StatelessWidget {
                 color: Colors.black,
               )
             ),
+
+            const SizedBox(height: 20,),
+
+            Container(
+              margin: const EdgeInsets.only(left: 20),
+              child: AppText(
+                text: newsItem['title']??'',
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              )
+            ),
+
+            
+
+            
        
 
             // cover image

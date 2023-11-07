@@ -168,6 +168,7 @@ class _MensPlayersState extends State<MensPlayers> {
                             return PlayerListTile(
                               playerName: '${player['fname']} ${player['lname']}',
                               teamName: team['team_name'],
+                              playerImageURL: player['player_image_url'],
                               onTap: () {
                                 Navigator.push(
                                   context,

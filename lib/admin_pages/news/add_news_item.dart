@@ -157,7 +157,13 @@ class _AddNewsItemState extends State<AddNewsItem> {
             orElse: () => {},
           );
         });
-      }
+      },
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please select a tag';
+        }
+        return null;
+      },
     );
     
    

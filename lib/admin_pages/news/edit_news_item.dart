@@ -78,7 +78,10 @@ class _EditNewsItemState extends State<EditNewsItem> {
       setState(() {
         newsTags = value;
         newsTagNames = newsTags.map((newsTag) => newsTag['news_tag_name'] as String).toList();
-
+        _selectedNewsTag = newsTags.firstWhere(
+          (newsTag) => newsTag['news_tag_id'] == widget.newsItem['news_tag_id'],
+          orElse: () => {},
+        );
       });
 
     });
@@ -93,10 +96,7 @@ class _EditNewsItemState extends State<EditNewsItem> {
       _image = widget.newsItem['cover_pic'];
     }
 
-    _selectedNewsTag = newsTags.firstWhere(
-      (newsTag) => newsTag['news_tag_id'] == widget.newsItem['news_tag_id'],
-      orElse: () => {},
-    );
+    
 
 
 
@@ -183,7 +183,14 @@ class _EditNewsItemState extends State<EditNewsItem> {
         });
       },
       selectedValue: _selectedNewsTag['news_tag_name'],
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please select a tag';
+        }
+        return null;
+      },
     );
+
  
     return MaterialApp(
       home: Scaffold (

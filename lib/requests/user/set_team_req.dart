@@ -4,7 +4,7 @@ import '../api_uri.dart';
 
 /// This function sends a POST request to the API to set a user's team id.
 /// The arguments are the user's email address and the name of the team selected.
-Future <Map<String, dynamic>> setUserTeam (String details) async {
+Future <Map<String, dynamic>> setUserTeam (String emailAddressAndTeamId) async {
 
   Map<String, dynamic> result;
 
@@ -17,7 +17,7 @@ Future <Map<String, dynamic>> setUserTeam (String details) async {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
-      body: details
+      body: emailAddressAndTeamId
     );
  
     if (response.statusCode == 200) {
