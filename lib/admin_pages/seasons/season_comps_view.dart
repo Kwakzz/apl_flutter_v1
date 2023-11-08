@@ -58,12 +58,15 @@ class _SeasonCompsViewState extends State<SeasonCompsView> {
             text: "Add Competition"
           ),
 
-          const Center(
-            child: AppText(
-            text: 'No competitions found',
-            fontSize: 13,
-            fontWeight: FontWeight.w400,
-            color: Colors.black,
+          Center(
+            child: Container(
+              margin: const EdgeInsets.only(top: 20),
+              child: const AppText(
+                text: 'No competitions found',
+                fontSize: 13,
+                fontWeight: FontWeight.w400,
+                color: Colors.black,
+              )
             )
           ),
 

@@ -65,12 +65,15 @@ class _SeasonsState extends State<Seasons> {
             text: "Add Season"
           ),
 
-          const Center(
-            child: AppText(
-            text: 'No seasons found',
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: Colors.black,
+          Center(
+            child: Container(
+              margin: const EdgeInsets.only(top: 20),
+              child: const AppText(
+                text: 'No seasons found',
+                fontSize: 13,
+                fontWeight: FontWeight.w400,
+                color: Colors.black,
+              )
             )
           ),
 

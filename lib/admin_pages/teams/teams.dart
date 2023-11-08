@@ -92,12 +92,15 @@ class _TeamsState extends State<Teams> {
             text: "Add Team"
           ),
 
-          const Center(
-            child: AppText(
-            text: 'No teams found',
-            fontSize: 14,
-            fontWeight: FontWeight.w300,
-            color: Colors.black,
+          Center(
+            child: Container(
+              margin: const EdgeInsets.only(top: 20),
+              child: const AppText(
+                text: 'No teams found',
+                fontSize: 13,
+                fontWeight: FontWeight.w400,
+                color: Colors.black,
+              )
             )
           ),
 

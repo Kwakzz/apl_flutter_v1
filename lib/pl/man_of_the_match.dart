@@ -107,6 +107,20 @@ class _ManOfTheMatchState extends State<ManOfTheMatch> {
                 ],
               ),
             )
+
+          else
+
+          Center(
+            child: Container(
+              margin: const EdgeInsets.only(top: 20),
+              child: const AppText (
+                text: "Man of the Match not announced yet",
+                fontSize: 13,
+                fontWeight: FontWeight.w400,
+                color: Colors.black,
+              )
+            )
+          )
           
                 
         ]

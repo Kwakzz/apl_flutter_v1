@@ -152,12 +152,15 @@ class _MensPlayersState extends State<MensPlayers> {
             text: "Add Player"
           ),
 
-          const Center(
-            child: AppText(
-            text: 'No players found',
-            fontSize: 14,
-            fontWeight: FontWeight.w300,
-            color: Colors.black,
+          Center(
+            child: Container(
+              margin: const EdgeInsets.only(top: 20),
+              child: const AppText(
+                text: 'No players found',
+                fontSize: 13,
+                fontWeight: FontWeight.w400,
+                color: Colors.black,
+              )
             )
           ),
 

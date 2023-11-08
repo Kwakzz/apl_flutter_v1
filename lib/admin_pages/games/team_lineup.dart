@@ -210,8 +210,8 @@ class _TeamLineupState extends State<TeamLineup> {
 
             const AppText(
               text: 'No Starting XI',
-              fontSize: 14,
-              fontWeight: FontWeight.w300,
+              fontSize: 13,
+              fontWeight: FontWeight.w400,
               color: Colors.black,
             ),
 

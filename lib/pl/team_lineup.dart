@@ -153,8 +153,8 @@ class _TeamLineupState extends State<TeamLineup> {
               margin: const EdgeInsets.only(top: 20),
               child: const AppText(
                 text: 'Starting XI not announced yet',
-                fontSize: 14,
-                fontWeight: FontWeight.w300,
+                fontSize: 13,
+                fontWeight: FontWeight.w400,
                 color: Colors.black,
               )
             ),

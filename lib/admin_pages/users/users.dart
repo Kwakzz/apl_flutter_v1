@@ -88,14 +88,17 @@ class _FansState extends State<Fans> {
               text: "Add User"
             ),
 
-            const Center(
-              child: AppText(
-                text: 'No fans found',
-                fontSize: 14,
-                fontWeight: FontWeight.w300,
+            Center(
+            child: Container(
+              margin: const EdgeInsets.only(top: 20),
+              child: const AppText(
+                text: 'No users found',
+                fontSize: 13,
+                fontWeight: FontWeight.w400,
                 color: Colors.black,
               )
-            ),
+            )
+          ),
 
           ],
         
