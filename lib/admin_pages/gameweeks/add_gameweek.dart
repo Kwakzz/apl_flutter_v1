@@ -97,13 +97,19 @@ class _AddGameweekState extends State<AddGameweek> {
       items: seasonNames,
       labelText: "Season",
       onChanged: (newValue) {
-      setState(() {
-        selectedSeasonMap = seasonsMap.firstWhere(
-          (season) => season["season_name"].toString() == newValue,
-          orElse: () => {},
-        );
-      });
-  },
+        setState(() {
+          selectedSeasonMap = seasonsMap.firstWhere(
+            (season) => season["season_name"].toString() == newValue,
+            orElse: () => {},
+          );
+        });
+      },
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please select a season';
+        }
+        return null;
+      },
     );
 
 

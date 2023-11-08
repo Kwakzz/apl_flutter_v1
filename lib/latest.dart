@@ -15,6 +15,7 @@ import 'package:apl/requests/seasons/get_seasons_req.dart';
 import 'package:apl/requests/standings/get_season_comp_standings_with_teams_req.dart';
 import 'package:apl/requests/standings/update_standings_team_req.dart';
 import 'package:apl/requests/teams/get_teams_req.dart';
+import 'package:apl/todays_game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -42,7 +43,7 @@ class _LatestState extends State<Latest> {
   // map of selected season
   Map <String, dynamic> selectedSeasonMap = {};
 
-  List<Map<String, dynamic>> gameweeksMap = [];
+  List<Map<String, dynamic>> gameweeksList = [];
 
   Map <String, dynamic> upcomingGameweekMap = {};
 
@@ -78,19 +79,21 @@ class _LatestState extends State<Latest> {
     if (selectedSeasonMap.isNotEmpty) {
 
       // FETCH GAMEWEEKS FOR THE SELECTED SEASON
-      gameweeksMap = await getSeasonGameweeks(selectedSeasonMap['season_id']);
+      gameweeksList = await getSeasonGameweeks(selectedSeasonMap['season_id']);
         
 
 
       // FETCH THE UPCOMING GAMEWEEK, THE MOST RECENT GAMEWEEK AND TODAY'S GAMEWEEK
-      if (gameweeksMap.isNotEmpty) {
+      if (gameweeksList.isNotEmpty) {
 
-        // get today's date
+        // get today's date and time
         DateTime today = DateTime.now();
+        // extract the date from the datetime
+        today = DateTime(today.year, today.month, today.day);
 
         // For the gameweeks whose date is after than today's date, the one with the nearest date is selected. The gameweeks are already sorted in descending order of date (latest to oldest), so the last gameweek whose date is greater than today's date is the next gameweek
   
-        Map<String, dynamic> nextGameweek = (gameweeksMap.lastWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isAfter(today), orElse: () => {}));
+        Map<String, dynamic> nextGameweek = (gameweeksList.lastWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isAfter(today), orElse: () => {}));
 
         upcomingGameweekMap = nextGameweek;    
 
@@ -98,14 +101,14 @@ class _LatestState extends State<Latest> {
         // For the gameweeks whose date is before than today's date, the one with the nearest date is selected. The gameweeks are already sorted in descending order of date, so the first gameweek whose date is less than today's date is the most recent gameweek
         
 
-        Map <String, dynamic> mostRecentGameweek = (gameweeksMap.firstWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isBefore(today), orElse: () => {}));
+        Map <String, dynamic> mostRecentGameweek = (gameweeksList.firstWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isBefore(today), orElse: () => {}));
 
         mostRecentGameweekMap = mostRecentGameweek;
         
 
         // For the gameweeks whose date is equal to today's date, the one with the nearest date is selected. The gameweeks are already sorted in descending order of date, so the first gameweek whose date is equal to today's date is today's gameweek
         
-        Map <String, dynamic> todaysGameweek = (gameweeksMap.firstWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isAtSameMomentAs(today), orElse: () => {}));
+        Map <String, dynamic> todaysGameweek = (gameweeksList.firstWhere((gameweek) => DateTime.parse(gameweek['gameweek_date']).isAtSameMomentAs(today), orElse: () => {}));
 
         todaysGameweekMap = todaysGameweek;
 
@@ -114,19 +117,19 @@ class _LatestState extends State<Latest> {
 
       // FETCH TODAY'S FIXTURES
       if (todaysGameweekMap.isNotEmpty) {
-        todaysGameweekFixtures = await getGameweekGames(todaysGameweekMap['gameweek_id']);
+        todaysGameweekFixtures = (await getGameweekGames(todaysGameweekMap['gameweek_id']))?? [];
       }
 
       // FETCH THE NEXT SET OF FIXTURES (UNPLAYED GAMES)
       if (upcomingGameweekMap.isNotEmpty) {
-        upcomingGameweekFixtures = await getGameweekGames(upcomingGameweekMap['gameweek_id']);
+        upcomingGameweekFixtures = await getGameweekGames(upcomingGameweekMap['gameweek_id']) ?? [];
       }   
 
 
       // FETCH THE MOST RECENT SET OF FIXTURES (PLAYED GAMES) AND SET THE COMPETITION ID OF THE FIRST FIXTURE AS THE SELECTED COMPETITION ID
       if (mostRecentGameweekMap.isNotEmpty) {
-        mostRecentGameweekFixtures = await getGameweekGames(mostRecentGameweekMap['gameweek_id']);
-        selectedCompId = await mostRecentGameweekFixtures.first['competition_id'];
+        mostRecentGameweekFixtures = await getGameweekGames(mostRecentGameweekMap['gameweek_id']) ?? [];
+        selectedCompId = await mostRecentGameweekFixtures.first['competition_id'] ?? 0;
       }
 
 
@@ -320,7 +323,7 @@ class _LatestState extends State<Latest> {
 
                 const SizedBox(height: 35),
 
-                if (upcomingGameweekMap.isNotEmpty && todaysGameweekFixtures.isEmpty)
+                if (upcomingGameweekFixtures.isNotEmpty && todaysGameweekFixtures.isEmpty)
 
                   // latest fixtures
                   LatestFixtures(
@@ -335,6 +338,27 @@ class _LatestState extends State<Latest> {
                         )),
                       );
                     }
+                  ),
+
+
+                if (todaysGameweekFixtures.isNotEmpty)
+
+                  // today's fixtures
+                  TodaysGames(
+                    fixtures: todaysGameweekFixtures, 
+                    teams: teams,
+                    selectedGameweekMap: todaysGameweekMap,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Fixtures(
+                          pageName: 'Fixtures',
+                        )),
+                      );
+                    },
+                    selectedSeasonId: selectedSeasonMap['season_id'],
+                    selectedCompId: selectedCompId,
+
                   ),
 
                   Container(
@@ -363,7 +387,7 @@ class _LatestState extends State<Latest> {
                   if (standingsTeams.isNotEmpty)
                     LatestTables(
                       leagueTables: leagueTables, 
-                      gameweeksMap: gameweeksMap, 
+                      gameweeksMap: gameweeksList, 
                       viewAllTablesOnPressed: () {
                         Navigator.push(
                           context,

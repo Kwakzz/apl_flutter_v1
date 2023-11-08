@@ -63,7 +63,7 @@ class _EditGameFormState extends State<EditGameForm> {
 
 
   // selected time
-  late TimeOfDay _selectedTime;
+  TimeOfDay _selectedTime = TimeOfDay.now();
 
   // time controller
   late TextEditingController _timeController;
@@ -105,18 +105,19 @@ class _EditGameFormState extends State<EditGameForm> {
         // default selected home team map
         // this is so that the selected home team is the team that is already assigned to the game (in case the user doesn't change it)
         _selectedHomeTeamMap = widget.teamsMap.firstWhere(
-        (team) => team["team_id"] == widget.gameDetails['home_id'],
-        orElse: () => {}
-        );
+          (team) => team["team_id"] == widget.gameDetails['home_id'],
+          orElse: () => {}
+          );
 
-        // default selected away team map
-        _selectedAwayTeamMap = widget.teamsMap.firstWhere(
-        (team) => team["team_id"] == widget.gameDetails['away_id'],
-        orElse: () => {},
-    );
+          // default selected away team map
+          _selectedAwayTeamMap = widget.teamsMap.firstWhere(
+          (team) => team["team_id"] == widget.gameDetails['away_id'],
+          orElse: () => {},
+        );
       });
     });
-   
+
+    // default selected time   
 
     // default selected season competition map
     _selectedSeasonCompMap['competition_id'] = widget.gameDetails['competition_id'];
@@ -252,18 +253,22 @@ class _EditGameFormState extends State<EditGameForm> {
                 if (!mounted) return;
 
                 if (response['status']) {
+
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: AppText(
                         text: 'Game edited successfully', 
                         fontWeight: FontWeight.w300, 
                         fontSize: 12, 
-                        color: Colors.black
+                        color: Colors.white
                       ),
                       duration: Duration(seconds: 2),
-                    ),
-                    
+                    ),   
                   );
+
+                  Navigator.pop(context);
+                  
+
                 }
                 else {
                   showDialog(

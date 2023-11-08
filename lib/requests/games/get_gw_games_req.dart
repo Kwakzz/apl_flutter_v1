@@ -6,7 +6,7 @@ import '../api_uri.dart';
 /// This function sends a GET request to the server to get all the games in a particular gameweek.
 /// The API function retrieves a json string of all the games for that gameweek.
 /// The argument is the gameweek id.
-Future<List<Map<String, dynamic>>> getGameweekGames(int gameweekId) async {
+Future<List<Map<String, dynamic>>>? getGameweekGames(int gameweekId) async {
   
   try {
     final response = await http.get(
