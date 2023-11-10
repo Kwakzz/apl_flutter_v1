@@ -1,7 +1,7 @@
 import 'package:apl/create_user.dart';
+import 'package:apl/helper_classes/text.dart';
 import 'package:apl/sign_in.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 
 class Welcome extends StatelessWidget {
@@ -34,28 +34,26 @@ class Welcome extends StatelessWidget {
             Container(
               // put margin between welcome text and the text below
               margin: const EdgeInsets.only(bottom: 20),
-              child: Text(
-                'Welcome!',
-                style: GoogleFonts.montserrat(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-              )
+              child: const AppText(
+                text: 'Welcome!',
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
             ),
+            
 
             // We know you're eager to jump in
             Container(
               // put margin between this text and the get started button below
               margin: const EdgeInsets.only(bottom: 10),
-              child: Text(
-                "We know you’re eager to jump right in,\nbut let’s answer a few questions first.\nYou’ll be done before you know it.",
-                style: GoogleFonts.montserrat(
-                  fontSize: 12,
-                  color: Colors.white,
-                ),
-                textAlign: TextAlign.center,
-              )
+              child: const AppText(
+                text: "We know you’re eager to jump right in,\nbut let’s answer a few questions first.\nYou’ll be done before you know it.",
+                fontSize: 12,
+                color: Colors.white,
+                fontWeight: FontWeight.w400,
+                align: TextAlign.center,
+              ),
             ),
 
             // Get started button
@@ -87,13 +85,11 @@ class Welcome extends StatelessWidget {
                   size: 14,
                 ),
                 // Get started button text
-                label: Text(
-                  'Get Started',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 14,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w400,
-                  ),
+                label: const AppText (
+                  text: 'Get started',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white,
                 ),
               )
             ),
@@ -102,14 +98,12 @@ class Welcome extends StatelessWidget {
             Container(
               // put margin between this text and the sign in button below
               margin: const EdgeInsets.only(bottom: 10),
-              child: Text(
-                "Already have an account?",
-                style: GoogleFonts.montserrat(
-                  fontSize: 14,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                ),
-              )
+              child: const AppText (
+                text: 'Already have an account?',
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
             ),
 
             // Sign in button
@@ -136,25 +130,22 @@ class Welcome extends StatelessWidget {
                 size: 14,
               ),
               // Sign in button text
-              label: Text(
-                'Sign in',
-                style: GoogleFonts.montserrat(
+              label: const AppText (
+                  text: 'Sign in',
                   fontSize: 14,
-                  color: const Color.fromARGB(255, 40, 56, 198),
                   fontWeight: FontWeight.w400,
+                  color: Color.fromARGB(255, 40, 56, 198),
                 ),
               )
-            ),
+            ]
+          )
           
 
-          ],
+        ),
+        backgroundColor: const Color.fromARGB(255, 0, 53, 91)
+        
+      );
 
-        )
-
-      ),
-
-      // Background colour is dark blue.
-      backgroundColor: const Color.fromARGB(255, 0, 53, 91)
-    );
+      // Background colour is dark blu
   }
 }

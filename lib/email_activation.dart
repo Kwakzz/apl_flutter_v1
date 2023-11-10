@@ -1,7 +1,7 @@
 import 'package:apl/helper_classes/custom_button.dart';
+import 'package:apl/helper_classes/text.dart';
 import 'package:apl/select_team.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 
 
@@ -33,13 +33,12 @@ class EmailActivation extends StatelessWidget {
             Container(
               // put margin between welcome text and the text below
               margin: const EdgeInsets.only(left: 20, right: 20, bottom: 5),
-              child: Text(
-                "We have sent an email to your email address. Please click on the link in the email to activate your account. You can't sign in until you activate your account. If you don't sign in, you'll miss out on a personalized experience. The link will expire in 24 hours.",
-                style: GoogleFonts.montserrat(
-                  fontSize: 14,
-                  color: Colors.white,
-                ),
-                textAlign: TextAlign.center,
+              child: const AppText(
+                text: "We have sent an email to your email address. Please click on the link in the email to activate your account. You can't sign in until you activate your account. If you don't sign in, you'll miss out on a personalized experience. The link will expire in 24 hours.",
+                fontSize: 14,
+                color: Colors.white,
+                fontWeight: FontWeight.w300,
+                align: TextAlign.center,
               )
             ),
 
