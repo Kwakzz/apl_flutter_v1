@@ -84,17 +84,18 @@ class NewsItemDetails extends StatelessWidget {
 
           children: [
 
-            // Personal details
-            const SizedBox(height: 20),
-
             // news item tag
             Container(
-              margin: const EdgeInsets.only(left: 20),
-              child: AppText(
-                text: newsItem['news_tag_name']??'',
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-                color: const Color.fromARGB(255, 0, 53, 91),
+              padding: const EdgeInsets.only(bottom: 20, top: 20),
+              margin: const EdgeInsets.only(bottom: 20),
+              color: const Color.fromARGB(255, 71, 108, 255),
+              child: Center(
+                child: AppText(
+                  text: newsItem['news_tag_name']??'',
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: const Color.fromARGB(255, 255, 255, 255),
+                )
               )
             ),
 
@@ -114,7 +115,7 @@ class NewsItemDetails extends StatelessWidget {
             const SizedBox(height: 20,),
 
             Container(
-              margin: const EdgeInsets.only(left: 20),
+              margin: const EdgeInsets.only(left: 20, right: 20),
               child: AppText(
                 text: newsItem['title']??'',
                 fontSize: 30,
@@ -147,7 +148,7 @@ class NewsItemDetails extends StatelessWidget {
             const SizedBox(height: 20),
 
             Container(
-              margin: const EdgeInsets.only(left: 20, right: 20),
+              margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
               child: AppText(
                 text: newsItem['content']??'',
                 fontSize: 14,

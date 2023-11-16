@@ -1,3 +1,4 @@
+import 'package:apl/admin.dart';
 import 'package:apl/helper_classes/custom_dropdown.dart';
 import 'package:apl/helper_classes/text.dart';
 import 'package:apl/requests/games/edit_game_req.dart';
@@ -166,13 +167,7 @@ class _EditGameFormState extends State<EditGameForm> {
       items: teamNames,
       labelText: "Home team",
       onChanged: (newValue) {
-        setState(() {
-          _selectedHomeTeamMap = widget.teamsMap.firstWhere(
-            (team) => team["team_name"] == newValue,
-            orElse: () => {},
-          );
-        }
-        );
+        null;
       },
       // selectedValue is the team name whose id matches the id in the game details map.
       // It's the default value
@@ -184,13 +179,7 @@ class _EditGameFormState extends State<EditGameForm> {
       items: teamNames,
       labelText: "Away team",
       onChanged: (newValue) {
-        setState(() {
-          _selectedAwayTeamMap = widget.teamsMap.firstWhere(
-            (team) => team["team_name"] == newValue,
-            orElse: () => {},
-          );
-        }
-        );
+        null;
       },
       selectedValue: _selectedAwayTeamMap['team_name'],
     );
@@ -266,7 +255,14 @@ class _EditGameFormState extends State<EditGameForm> {
                     ),   
                   );
 
-                  Navigator.pop(context);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Admin(
+                        pageName: 'Admin',
+                      ),
+                    ),
+                  );
                   
 
                 }

@@ -4,6 +4,7 @@ import 'package:apl/admin_pages/coaches/add_coach.dart';
 import 'package:apl/admin_pages/coaches/edit_coach.dart';
 import 'package:apl/helper_classes/custom_button.dart';
 import 'package:apl/helper_classes/custom_list_tile.dart';
+import 'package:apl/helper_classes/error_handling.dart';
 import 'package:apl/helper_classes/text.dart';
 import 'package:apl/helper_functions/convert_to_json.dart';
 import 'package:apl/requests/coach/delete_coach.dart';
@@ -200,13 +201,11 @@ class _CoachesState extends State<Coaches> {
                             }
 
                             else {
-                              showDialog(
-                                context: context, 
-                                builder: (context) {
-                                  return ErrorDialogueBox(
-                                    content: response['message'],
-                                  );
-                                }
+                              
+                              ErrorHandling.showError(
+                                response['message'], 
+                                context,
+                                'Error'
                               );
                             }
                           }

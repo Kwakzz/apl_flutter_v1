@@ -60,9 +60,6 @@ class _AddGameweekState extends State<AddGameweek> {
   }
 
   @override
-  /// This function is called when the page loads.
-  /// It calls the function to get the fans, teams and positions.
-  /// It also sets the filteredCoaches list to the coaches list.
   void initState() {
     super.initState();
 

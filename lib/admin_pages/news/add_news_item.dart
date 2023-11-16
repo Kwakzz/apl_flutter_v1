@@ -217,6 +217,15 @@ class _AddNewsItemState extends State<AddNewsItem> {
               MultiLineTextField(
                 controller: _subtitleController, 
                 labelText: "Subtitle",
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a subtitle';
+                  }
+                  if (value.length > 120) {
+                    return 'Subtitle must be less than 120 characters';
+                  }
+                  return null;
+                },
               ),
 
               // Content

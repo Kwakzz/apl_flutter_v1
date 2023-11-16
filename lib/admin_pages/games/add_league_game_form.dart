@@ -1,3 +1,4 @@
+import 'package:apl/admin.dart';
 import 'package:apl/helper_classes/custom_dropdown.dart';
 import 'package:apl/requests/games/add_league_game_req.dart';
 import 'package:flutter/material.dart';
@@ -258,7 +259,16 @@ class _AddLeagueGameFormState extends State<AddLeagueGameForm> {
                       duration: const Duration(seconds: 2),
                     ),
                   );
-                  Navigator.pop(context);
+                  
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Admin(
+                        pageName: 'Admin',
+                      ),
+                    ),
+                  );
+
                 }
 
                 else {

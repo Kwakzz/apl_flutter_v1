@@ -22,7 +22,7 @@ class LatestNews extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.only(bottom: 60),
+      padding: const EdgeInsets.only(bottom: 40),
       color: const Color.fromARGB(255, 0, 53, 91),
         child: Column(
 
@@ -52,12 +52,12 @@ class LatestNews extends StatelessWidget {
             ),
 
             Container(
-              margin: const EdgeInsets.only(left:10, top: 12, bottom: 10),
+              margin: const EdgeInsets.only(left:10, top: 12),
               child: GestureDetector(
                 onTap: onTapped,
                 child: AppText(
                   text: newsItem['news_tag_name']??'',
-                  fontSize: 15,
+                  fontSize: 12,
                   fontWeight: FontWeight.w600,
                   color: Colors.grey,
                 )
@@ -66,7 +66,7 @@ class LatestNews extends StatelessWidget {
 
             // news item title
             Container(
-              margin: const EdgeInsets.only(left:10, top: 12, bottom: 5),
+              margin: const EdgeInsets.only(left:10, top: 12, bottom: 12, right: 10),
               child: GestureDetector(
                 onTap: onTapped,
                 child: AppText(
@@ -80,7 +80,7 @@ class LatestNews extends StatelessWidget {
 
             // news item subtitle
             Container(
-              margin: const EdgeInsets.only(left:10),
+              margin: const EdgeInsets.only(left:10, right: 10),
               child: AppText(
                 text: newsItem['subtitle']??'',
                 fontSize: 12,

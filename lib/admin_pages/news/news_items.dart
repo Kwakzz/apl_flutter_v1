@@ -5,6 +5,7 @@ import 'package:apl/admin_pages/news/add_news_item.dart';
 import 'package:apl/admin_pages/news/edit_news_item.dart';
 import 'package:apl/helper_classes/custom_button.dart';
 import 'package:apl/helper_classes/custom_list_tile.dart';
+import 'package:apl/helper_classes/error_handling.dart';
 import 'package:apl/helper_classes/text.dart';
 import 'package:apl/requests/news_item/delete_news_item_req.dart';
 import 'package:apl/requests/news_item/get_all_news_items_req.dart';
@@ -136,16 +137,7 @@ class _NewsItemsState extends State<NewsItems> {
                           if (!mounted) return;
 
                           if (response['status']) {
-                            // Show success message
-                             showDialog(
-                                context: context, 
-                                builder: (context) {
-                                  return ErrorDialogueBox(
-                                    content: response['message'], 
-                                    text: "Success",
-                                  );
-                                }
-                              );
+
                             // refresh the page
                             getAllNewsItems().then((result) {
                               setState(() {
@@ -154,13 +146,11 @@ class _NewsItemsState extends State<NewsItems> {
                             });
                             
                           } else {
-                            showDialog(
-                              context: context, 
-                              builder: (context) {
-                                return ErrorDialogueBox(
-                                  content: response['message'], 
-                                );
-                              }
+
+                            ErrorHandling.showError(
+                              response['message'], 
+                              context,
+                              'Error'
                             );
                           }
                         }

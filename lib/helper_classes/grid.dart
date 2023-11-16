@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 class TeamSelectionGrid extends StatefulWidget {
   final List<Map<String, dynamic>> teams;
   Map<String, dynamic> selectedTeam;
+  final Function(Map<String, dynamic>) onTeamSelected;
 
   TeamSelectionGrid({
     required this.teams,
     required this.selectedTeam,
+    required this.onTeamSelected,
   });
 
   @override
@@ -30,9 +32,7 @@ class _TeamSelectionGridState extends State<TeamSelectionGrid> {
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
           onTap: () {
-            setState(() {
-              widget.selectedTeam = widget.teams[index];
-            });
+            widget.onTeamSelected(widget.teams[index]);
           },
           child: Container(
             height: 300,

@@ -23,7 +23,7 @@ Future <Map<String, dynamic>> deleteUser (String userIdJson) async {
     if (response.statusCode == 204) {
       result = {
         'status': true,
-        'message': "User deleted successfully"
+        'message': "Account deleted successfully"
       };
 
       return result;
@@ -32,7 +32,7 @@ Future <Map<String, dynamic>> deleteUser (String userIdJson) async {
     else {
       result = {
         'status': false,
-        'message': "Failed to delete user"
+        'message': "Failed to delete account"
       };
 
       return result;

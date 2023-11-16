@@ -8,6 +8,7 @@ import 'package:apl/helper_classes/user_preferences.dart';
 import 'package:apl/homepage.dart';
 import 'package:apl/pl/club_details.dart';
 import 'package:apl/privacy_policy.dart';
+import 'package:apl/requests/admin/delete_user_req.dart';
 import 'package:apl/requests/teams/get_teams_req.dart';
 import 'package:apl/requests/user/reset_password_req.dart';
 import 'package:apl/sign_in.dart';
@@ -36,7 +37,8 @@ class _MoreState extends State<More> {
   // teamId can be null. This could happen in the absence of an internet connection. If the user is not logged in, teamId is 0.
   int? teamId = 0;
 
-  String? emailAdress = "";
+  String? emailAddress = "";
+  int? userId = 0;
   Map<String, dynamic> favouriteTeam = {};
   String fname = "";
 
@@ -78,7 +80,7 @@ class _MoreState extends State<More> {
 
   /// This function checks if the user is logged in. 
   /// 
-  /// It does this by checking if the user's email address is in the shared preferences. If the user is logged in, it retrieves the user's favourite team's id, email address and first name from the shared preferences and assigns them to the variables, [teamId], [emailAddress] and [fname] respectively. 
+  /// It does this by checking if the user's email address is in the shared preferences. If the user is logged in, it retrieves the user's favourite team's id, email address and first name from the shared preferences and assigns them to the variables, [teamId], [emailAddress], [userId] and [fname] respectively. 
   /// It uses the teamId to get the user's favourite team from the list of teams. It then assigns the user's favourite team to the [favouriteTeam] variable. If the user is not logged in, it assigns an empty list to the teams variable and assigns 0 to the teamId variable. 
   /// 
   /// It then calls [setState] to rebuild the widget. 
@@ -90,8 +92,9 @@ class _MoreState extends State<More> {
 
       if (isLoggedIn) {
         teamId = prefs.getInt('team_id');
-        emailAdress = prefs.getString('email_address');
+        emailAddress = prefs.getString('email_address');
         fname = prefs.getString('fname') ?? "";
+        userId = prefs.getInt('user_id');
         getTeams().then((result) {
 
           // enclose in a try catch block to prevent the app from crashing if there's no internet connection. If there's no connection, getTeams() will return an empty list. This means teams.firstWhere() will throw an error.
@@ -280,6 +283,7 @@ class _MoreState extends State<More> {
                 // if the user confirms that they want to sign out, log them out
                 onPressed: () {
                   logOut();
+                  
                   // refresh the page
                   Navigator.pushReplacement(
                     context,
@@ -293,87 +297,6 @@ class _MoreState extends State<More> {
           );
         },
       ),
-
-      // space between sections
-      Container(
-        margin: const EdgeInsets.only(top: 10),
-      ),
-
-
-      Container(
-        margin: const EdgeInsets.only(left: 12, bottom: 10, top: 10),
-        child: const AppText(
-          color: Colors.white,
-          text: "Account Settings",
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        )
-      ),
-
-      // MenuListTile(
-      //   text: "Manage Account",
-      //   onTap: () {},
-      // ),
-
-      // MenuListTile(
-      //   text: "Change Email Address",
-      //   onTap: () {},
-      // ),
-      MenuListTile(
-        text: "Change Password",
-        onTap: () {
-          String emailJson =  jsonEncode(
-            <String, dynamic> {
-              'email_address': emailAdress
-            }
-          );
-
-          // Ask the user to confirm if they want to reset their password
-          showDialog(
-            context: context, 
-            builder: (BuildContext context) {
-              return ActionConfirmationDialogBox(
-                title: 'Password Reset',
-                content: 'Are you sure you want to reset your password?',
-
-                // if the user confirms that they want to reset their password, send a request to the server to reset their password
-                onPressed: () async {
-                   Map<String, dynamic> response = await resetPassword(emailJson);
-
-                  if (!mounted) return;
-                  
-
-                  if (response['status']) {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return ErrorDialogueBox(
-                          text: 'Password Reset',
-                          content: response['message'],
-                        );
-                      }
-                    );
-                  } 
-                  else {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return ErrorDialogueBox(
-                          text: 'Password Reset Error',
-                          content: response['message'],
-                        );
-                      }
-                    );
-                  }
-                },
-              );
-            }
-          );
-
-         
-        },
-      ),
-
 
 
       // space between sections
@@ -482,12 +405,164 @@ class _MoreState extends State<More> {
           );
         },
       ),
+
+      // space between sections
+      Container(
+        margin: const EdgeInsets.only(top: 10),
+      ),
+
+      Container(
+        margin: const EdgeInsets.only(left: 12, bottom: 10, top: 10),
+        child: const AppText(
+          color: Colors.white,
+          text: "Account Settings",
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        )
+      ),
+
       // MenuListTile(
-      //   text: "FAQs",
+      //   text: "Manage Account",
       //   onTap: () {},
       // ),
 
-      
+      // MenuListTile(
+      //   text: "Change Email Address",
+      //   onTap: () {},
+      // ),
+      MenuListTile(
+        text: "Change Password",
+        onTap: () {
+          String emailJson =  jsonEncode(
+            <String, dynamic> {
+              'email_address': emailAddress
+            }
+          );
+
+          // Ask the user to confirm if they want to reset their password
+          showDialog(
+            context: context, 
+            builder: (BuildContext context) {
+              return ActionConfirmationDialogBox(
+                title: 'Password Reset',
+                content: 'Are you sure you want to reset your password?',
+
+                // if the user confirms that they want to reset their password, send a request to the server to reset their password
+                onPressed: () async {
+                   Map<String, dynamic> response = await resetPassword(emailJson);
+
+                  if (!mounted) return;
+                  
+
+                  if (response['status']) {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return ErrorDialogueBox(
+                          text: 'Password Reset',
+                          content: response['message'],
+                        );
+                      }
+                    );
+                    
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomePage(),
+                      ),
+                    );
+                  } 
+                  else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return ErrorDialogueBox(
+                          text: 'Password Reset Error',
+                          content: response['message'],
+                        );
+                      }
+                    );
+                  }
+                },
+              );
+            }
+          );
+   
+        },
+      ),
+
+
+      MenuListTile(
+        text: "Delete Account",
+        onTap : () {
+
+          showDialog(
+            context: context, 
+            builder: (BuildContext context) { 
+              return ActionConfirmationDialogBox(
+                title: 'Delete Account',
+                content: 'Are you sure you want to delete your APL account?',
+                onPressed: () async {
+
+                  String userIdJson =  jsonEncode(
+                    <String, dynamic> {
+                      'user_id': userId
+                    }
+                  );
+                  
+                  Map<String, dynamic> response = await deleteUser(userIdJson);
+
+                  if (!mounted) return;
+
+                  if (response['status']) {
+                    
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return ErrorDialogueBox(
+                          content: response['message'],
+                        );
+                      }
+                    );
+
+                    // log the user out
+                    logOut();
+
+                    // refresh the page
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomePage(),
+                      ),
+                    );
+                            
+                  } 
+                  
+                  else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return ErrorDialogueBox(
+                          text: 'Account Deletion Error',
+                          content: response['message'],
+                        );
+                      }
+                    );
+                  }
+                },
+              );
+            }
+          );
+        },
+            
+        
+          
+        textColor: const Color.fromARGB(255, 198, 38, 6),
+      ),
+      // MenuListTile(
+      //   text: "FAQs",
+      //   onTap: () {},
+      // ),     
       
     ];
 

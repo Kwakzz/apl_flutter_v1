@@ -17,9 +17,9 @@ import '../../requests/teams/get_teams_req.dart';
 
 
 /// This class is the stateful widget where the user can edit their details
-class EditFan extends StatefulWidget {
+class EditUser extends StatefulWidget {
 
-  const EditFan(
+  const EditUser(
     {
       super.key, 
       required this.pageName,
@@ -33,11 +33,11 @@ class EditFan extends StatefulWidget {
   
 
   @override
-  State<EditFan> createState() => _EditFanState();
+  State<EditUser> createState() => _EditUserState();
 
 }
 
-class _EditFanState extends State<EditFan> {
+class _EditUserState extends State<EditUser> {
   String pageName = 'Edit User';
   final _formKey = GlobalKey<FormState>();
 
@@ -108,7 +108,18 @@ class _EditFanState extends State<EditFan> {
       text: widget.personalDetailsMap['mobile_number']
     );
     _selectedGender = widget.personalDetailsMap['gender'];
-    _selectedTeam = widget.personalDetailsMap['team_name'];
+
+    if (widget.personalDetailsMap['team_name'] == null) {
+
+      setState(() {
+        teamNames.add("None");
+        _selectedTeam = widget.personalDetailsMap['team_name'];
+      });
+      
+    } else {
+      _selectedTeam = widget.personalDetailsMap['team_name'];
+    }
+
     _dateController = TextEditingController(
       text: widget.personalDetailsMap['date_of_birth']
     );
@@ -153,13 +164,18 @@ class _EditFanState extends State<EditFan> {
           _selectedTeam = newValue!;
         }
         );
-      }
+      },
+      selectedValue: _selectedTeam,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please select a team';
+        }
+        if (value == "None") {
+          return 'Please select a team';
+        }
+        return null;
+      },
     );
-
-    // the selected value is changed to the user's team if the team is not null
-    if (widget.personalDetailsMap['team_name'] != "None") {
-      teamDropDown.selectedValue = widget.personalDetailsMap['team_name'];
-    }
 
    
     return MaterialApp(

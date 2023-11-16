@@ -3,6 +3,7 @@ import 'package:apl/admin_pages/users/add_user.dart';
 import 'package:apl/admin_pages/users/edit_user.dart';
 import 'package:apl/helper_classes/custom_button.dart';
 import 'package:apl/helper_classes/custom_dialog_box.dart';
+import 'package:apl/helper_classes/error_handling.dart';
 import 'package:apl/helper_classes/text.dart';
 import 'package:apl/requests/admin/delete_user_req.dart';
 import 'package:apl/requests/admin/get_regular_users_req.dart';
@@ -21,7 +22,7 @@ class Fans extends StatefulWidget {
 class _FansState extends State<Fans> {
 
   // list of fans
-  List<Map<String, dynamic>> fans = [];
+  List<Map<String, dynamic>> users = [];
   // list of teams
   List<Map<String, dynamic>> teams = [];
 
@@ -36,8 +37,8 @@ class _FansState extends State<Fans> {
     // Regular users are 
     getRegularUsers().then((result) {
       setState(() {
-        fans = result;
-        filteredFans = fans;
+        users = result;
+        filteredUsers = users;
       });
     });
 
@@ -53,11 +54,11 @@ class _FansState extends State<Fans> {
   String searchQuery = '';
   
   // list of fans for the search bar
-  List<Map<String, dynamic>> filteredFans = [];
+  List<Map<String, dynamic>> filteredUsers = [];
 
   /// This function is called when the search bar is used.
   void updateFilteredFans(String query) {
-    filteredFans = fans.where((user) {
+    filteredUsers = users.where((user) {
       final fullName = '${user['fname']} ${user['lname']}'.toLowerCase();
       return fullName.contains(query.toLowerCase());
     }).toList();
@@ -69,8 +70,8 @@ class _FansState extends State<Fans> {
   @override
   Widget build(BuildContext context) {
 
-    // if the fans list is empty
-    if (fans.isEmpty) {
+    // if the users list is empty
+    if (users.isEmpty) {
       return  Column(
 
           children: [
@@ -137,26 +138,26 @@ class _FansState extends State<Fans> {
         // List of fans
         Expanded(
           child: ListView.builder(
-            itemCount: filteredFans.length,
+            itemCount: filteredUsers.length,
             itemBuilder: (context, index) {
-              final fan = filteredFans[index];
+              final user = filteredUsers[index];
               final team = teams.firstWhere(
-                (team) => team['team_id'] == fan['team_id'],
+                (team) => team['team_id'] == user['team_id'],
                 orElse: () => {'team_name': 'None'},
               );
               return AdminListTile(
-                title: '${fan['fname']} ${fan['lname']}',
-                subtitle: '${fan['email_address']}',
+                title: '${user['fname']} ${user['lname']}',
+                subtitle: '${user['email_address']}',
                 editOnTap: () {
                 // Add team name to fan map
-                  fan['team_name'] = team['team_name'];
+                  user['team_name'] = team['team_name'];
                   // Move to edit fan page
                   Navigator.push(
                     context, 
                     MaterialPageRoute(
-                      builder: (context) => EditFan(
+                      builder: (context) => EditUser(
                         pageName: 'Edit User',
-                        personalDetailsMap: fan,
+                        personalDetailsMap: user,
                       )
                     ),
                   ); 
@@ -167,38 +168,29 @@ class _FansState extends State<Fans> {
                     builder: (context) {
                       return DeleteConfirmationDialogBox(
                         title: "Delete User", 
-                        content: "Are you sure you want to delete this fan?", 
+                        content: "Are you sure you want to delete this user?", 
                          onPressed: () async {
 
-                            Map <String, dynamic> response = await deleteUser(jsonEncode(fan));
+                            Map <String, dynamic> response = await deleteUser(jsonEncode(user));
 
                             if (!mounted) return;
 
                             if (response['status']) {
-                               showDialog(
-                                  context: context, 
-                                  builder: (context) {
-                                    return ErrorDialogueBox(
-                                      content: response['message'], 
-                                      text: "Success",
-                                    );
-                                  }
-                                );
+
 
                               // refresh the page
                               setState(() {
-                                fans.removeAt(index);
+                                users.removeAt(index);
                               });
                               
                             } else {
-                              showDialog(
-                                context: context, 
-                                builder: (context) {
-                                  return ErrorDialogueBox(
-                                    content: response['message'], 
-                                  );
-                                }
+
+                              ErrorHandling.showError(
+                                response['message'], 
+                                context,
+                                'Error'
                               );
+
                             }
                           }
                       );

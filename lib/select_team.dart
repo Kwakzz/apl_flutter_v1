@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:apl/helper_classes/custom_dropdown.dart';
 import 'package:apl/helper_classes/grid.dart';
 import 'package:apl/sign_in.dart';
 import 'package:flutter/material.dart';
@@ -54,6 +52,8 @@ class _SelectTeamState extends State<SelectTeam> {
   List<Map<String, dynamic>> teams = [];
   Map <String, dynamic> selectedTeam = {};
 
+  Map <String, dynamic> finalSelectedTeam = {};
+
   
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class _SelectTeamState extends State<SelectTeam> {
     //   },
                       
     // );
-   
+
     return MaterialApp(
       home: Scaffold (
 
@@ -112,7 +112,12 @@ class _SelectTeamState extends State<SelectTeam> {
                     
                     TeamSelectionGrid(
                       teams: teams,
-                      selectedTeam: selectedTeam
+                      selectedTeam: selectedTeam,
+                      onTeamSelected: (team) {
+                        setState(() {
+                          selectedTeam = team;
+                        });
+                      },
                     ),
                     
                     // Continue button
@@ -121,7 +126,8 @@ class _SelectTeamState extends State<SelectTeam> {
                       onPressed: () async {
 
                         if (_formKey.currentState!.validate()) {
-                                                    
+                          
+                          print(selectedTeam['team_id']);
 
                           Map<String, dynamic> response = await setUserTeam(
                             jsonEncode(<String, dynamic>{
@@ -129,6 +135,8 @@ class _SelectTeamState extends State<SelectTeam> {
                               'team_id': selectedTeam['team_id'],
                             })
                           );
+
+                        
                           
                           if (!mounted) return;
 

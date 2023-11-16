@@ -6,6 +6,7 @@ import 'package:apl/admin_pages/games/game_details.dart';
 import 'package:apl/helper_classes/app_bar_bottom_row.dart';
 import 'package:apl/helper_classes/custom_button.dart';
 import 'package:apl/helper_classes/custom_list_tile.dart';
+import 'package:apl/helper_classes/error_handling.dart';
 import 'package:apl/helper_classes/text.dart';
 import 'package:apl/requests/games/delete_game_req.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,6 @@ class GamesView extends StatefulWidget {
 }
 
 class _GamesViewState extends State<GamesView> {
-
 
 
   @override
@@ -205,15 +205,7 @@ class _GamesViewState extends State<GamesView> {
                           if (!mounted) return;
 
                           if (response['status']) {
-                            showDialog(
-                              context: context, 
-                              builder: (context) {
-                                return ErrorDialogueBox(
-                                  content: response['message'], 
-                                  text: "Success",
-                                );
-                              }
-                            );
+
                             // refresh the page
                             setState(() {
                               widget.games.removeAt(index);
@@ -221,13 +213,10 @@ class _GamesViewState extends State<GamesView> {
                           } 
                           
                           else {
-                            showDialog(
-                              context: context, 
-                              builder: (context) {
-                                return ErrorDialogueBox(
-                                  content: response['message'], 
-                                );
-                              }
+                            ErrorHandling.showError(
+                              response['message'], 
+                              context,
+                              'Error'
                             );
                           }
                         }

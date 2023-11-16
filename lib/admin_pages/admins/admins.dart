@@ -132,7 +132,7 @@ class _AdminsState extends State<Admins> {
                   Navigator.push(
                     context, 
                     MaterialPageRoute(
-                      builder: (context) => EditFan(
+                      builder: (context) => EditUser(
                         pageName: 'Edit User',
                         personalDetailsMap: admin,
                       )

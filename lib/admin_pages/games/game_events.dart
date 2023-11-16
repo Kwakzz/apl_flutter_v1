@@ -362,8 +362,7 @@ class _GameEventsState extends State<GameEvents> {
 
                                         // refresh the page
                                         refreshData();
-
-                                      
+                             
                                       }
 
                                       else {
@@ -391,6 +390,7 @@ class _GameEventsState extends State<GameEvents> {
                       }
                     ),
                   ),
+                  
                   // away team goals
                   Flexible (
                     child: ListView.builder(
