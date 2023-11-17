@@ -39,6 +39,7 @@ class _SignInState extends State<ForgotPassword> {
 
    
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold (
 
         // app bar with back button and page name 

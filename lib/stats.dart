@@ -20,6 +20,7 @@ class _StatsState extends State<Stats> {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: const APLAppBar(),
         body:  Center(

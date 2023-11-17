@@ -87,6 +87,7 @@ class _CreateUserState extends State<CreateUser> {
   Widget build(BuildContext context) {
    
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold (
 
         // app bar with back button and page name 
