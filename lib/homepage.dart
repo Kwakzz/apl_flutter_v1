@@ -89,6 +89,7 @@ class _HomePageState extends State<HomePage> {
     }
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
           child: widgetOptions[_currentIndex],

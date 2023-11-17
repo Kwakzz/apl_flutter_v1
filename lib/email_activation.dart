@@ -23,6 +23,7 @@ class EmailActivation extends StatelessWidget {
   Widget build(BuildContext context) {
    
     return Scaffold(
+      
       // Center column
       body: Center(
 
@@ -54,11 +55,7 @@ class EmailActivation extends StatelessWidget {
                     ),
                 );
               }
-            )
-
-            
-
-            
+            )   
 
           ],
 
