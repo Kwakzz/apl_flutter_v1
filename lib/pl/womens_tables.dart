@@ -1,12 +1,12 @@
 import 'package:apl/helper_classes/custom_dropdown.dart';
 import 'package:apl/helper_classes/my_data_table.dart';
-import 'package:apl/helper_functions/convert_to_json.dart';
+import 'package:apl/helper/functions/convert_to_json.dart';
 import 'package:apl/requests/seasons/get_seasons_req.dart';
 import 'package:apl/requests/standings/get_season_comp_standings_with_teams_req.dart';
 import 'package:apl/requests/standings/update_standings_team_req.dart';
 import 'package:flutter/material.dart';
 
-import '../helper_classes/text.dart';
+import '../helper/widgets/text.dart';
 import '../requests/competitions/get_womens_comps_req.dart';
 
 

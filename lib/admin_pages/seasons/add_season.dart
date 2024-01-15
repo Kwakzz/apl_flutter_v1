@@ -1,4 +1,4 @@
-import 'package:apl/admin.dart';
+import 'package:apl/pages/nav_tabs/admin.dart';
 import 'package:apl/requests/seasons/add_season_req.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -7,8 +7,8 @@ import '../../helper_classes/custom_button.dart';
 import '../../helper_classes/custom_dialog_box.dart';
 import '../../helper_classes/signup_field.dart';
 import '../../helper_classes/custom_appbar.dart';
-import '../../helper_classes/text.dart';
-import '../../helper_functions/convert_to_json.dart';
+import '../../helper/widgets/text.dart';
+import '../../helper/functions/convert_to_json.dart';
 
 
 /// This class is the stateful widget where the player can edit their details

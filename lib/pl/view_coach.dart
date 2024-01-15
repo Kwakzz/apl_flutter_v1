@@ -3,7 +3,7 @@ import 'package:apl/helper_classes/custom_appbar.dart';
 import 'package:apl/helper_classes/custom_list_tile.dart';
 import 'package:apl/requests/coach/get_coach_req.dart';
 import 'package:flutter/material.dart';
-import '../helper_classes/text.dart';
+import '../helper/widgets/text.dart';
 
 
 class ViewCoach extends StatefulWidget {

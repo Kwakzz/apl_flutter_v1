@@ -4,7 +4,7 @@ import 'package:apl/requests/goal/get_goals_by_season_and_comp_req.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'helper_classes/text.dart';
+import 'helper/widgets/text.dart';
 
 
 

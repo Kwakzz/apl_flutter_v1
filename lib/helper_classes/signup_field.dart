@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../helper_functions/valid_email.dart';
+import '../helper/functions/valid_email.dart';
 
 
 /// Class for sign up text field.

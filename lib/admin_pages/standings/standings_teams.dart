@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:apl/helper_classes/custom_appbar.dart';
 import 'package:apl/helper_classes/custom_button.dart';
 import 'package:apl/helper_classes/custom_list_tile.dart';
-import 'package:apl/helper_classes/text.dart';
+import 'package:apl/helper/widgets/text.dart';
 import 'package:apl/requests/standings/delete_standings_team_req.dart';
 import 'package:apl/requests/standings/get_standings_teams_req.dart';
 import 'package:apl/requests/teams/get_mens_teams_req.dart';

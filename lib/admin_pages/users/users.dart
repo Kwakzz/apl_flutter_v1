@@ -4,7 +4,7 @@ import 'package:apl/admin_pages/users/edit_user.dart';
 import 'package:apl/helper_classes/custom_button.dart';
 import 'package:apl/helper_classes/custom_dialog_box.dart';
 import 'package:apl/helper_classes/error_handling.dart';
-import 'package:apl/helper_classes/text.dart';
+import 'package:apl/helper/widgets/text.dart';
 import 'package:apl/requests/admin/delete_user_req.dart';
 import 'package:apl/requests/admin/get_regular_users_req.dart';
 import 'package:flutter/material.dart';

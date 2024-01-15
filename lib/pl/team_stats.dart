@@ -7,7 +7,7 @@ import 'package:apl/requests/goal/get_total_goals_conceded_by_mens_team_req.dart
 import 'package:apl/requests/goal/get_womens_team_losses_req.dart';
 import 'package:apl/requests/goal/get_womens_team_wins_req.dart';
 import 'package:flutter/material.dart';
-import '../helper_classes/text.dart';
+import '../helper/widgets/text.dart';
 import '../requests/games/get_no_of_games_played_by_womens_team_req.dart';
 import '../requests/goal/get_mens_team_total_losses_req.dart';
 import '../requests/goal/get_mens_team_goals_req.dart';

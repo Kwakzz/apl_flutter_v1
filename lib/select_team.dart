@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:apl/helper_classes/custom_button.dart';
 import 'helper_classes/custom_appbar.dart';
 import 'helper_classes/custom_dialog_box.dart';
-import 'helper_classes/text.dart';
+import 'helper/widgets/text.dart';
 import 'requests/user/set_team_req.dart';
 import 'requests/teams/get_teams_req.dart';
 

@@ -1,6 +1,6 @@
 import 'package:apl/helper_classes/custom_dropdown.dart';
 import 'package:apl/helper_classes/signup_field.dart';
-import 'package:apl/helper_classes/text.dart';
+import 'package:apl/helper/widgets/text.dart';
 import 'package:flutter/material.dart';
 
 /// Class for adding player to starting XI dialog box

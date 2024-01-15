@@ -1,11 +1,63 @@
 import 'package:apl/helper_classes/custom_dialog_box.dart';
 import 'package:apl/helper_classes/error_handling.dart';
-import 'package:apl/helper_classes/text.dart';
-import 'package:apl/helper_functions/convert_to_json.dart';
+import 'package:apl/helper/widgets/text.dart';
+import 'package:apl/helper/functions/convert_to_json.dart';
 import 'package:apl/requests/starting_xi/delete_starting_xi_player.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+
+
+class AppListTile extends StatelessWidget {
+
+  AppListTile (
+    {
+      super.key,
+      required this.text,
+      this.onTap,
+      this.tileColor = Colors.white,
+      this.textColor = Colors.black,
+    }
+  );
+
+  String text;
+  Function()? onTap;
+  Color tileColor;
+  Color textColor;
+  
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 55,
+      decoration: BoxDecoration(
+        color: tileColor,
+        border: Border.all(
+          width: 1,
+          color: Colors.transparent,
+        ),
+        borderRadius: BorderRadius.circular(10),
+      
+      ),
+      margin: const EdgeInsets.only(left: 10, right: 10, bottom: 5),
+      child: ListTile(
+        title: AppText(
+          color: textColor,
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          text: text,
+        ),
+        trailing:  Icon(
+          Icons.arrow_forward_ios,
+          color: textColor,
+          size: 9,
+        ),
+        onTap: onTap,
+      ),
+    );
+  }
+}
 
 
 /// This class represents a custom list tile widget. It is used on the stats page, pl page and more page to display menu items to lead to other pages.

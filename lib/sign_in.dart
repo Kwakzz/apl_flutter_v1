@@ -1,7 +1,7 @@
 import 'package:apl/create_user.dart';
 import 'package:apl/forgot_password.dart';
-import 'package:apl/helper_functions/convert_to_json.dart';
-import 'package:apl/homepage.dart';
+import 'package:apl/helper/functions/convert_to_json.dart';
+import 'package:apl/pages/nav_tabs/entry.dart';
 import 'package:apl/requests/user/sign_in_req.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

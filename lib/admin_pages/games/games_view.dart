@@ -7,7 +7,7 @@ import 'package:apl/helper_classes/app_bar_bottom_row.dart';
 import 'package:apl/helper_classes/custom_button.dart';
 import 'package:apl/helper_classes/custom_list_tile.dart';
 import 'package:apl/helper_classes/error_handling.dart';
-import 'package:apl/helper_classes/text.dart';
+import 'package:apl/helper/widgets/text.dart';
 import 'package:apl/requests/games/delete_game_req.dart';
 import 'package:flutter/material.dart';
 

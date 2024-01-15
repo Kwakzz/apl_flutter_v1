@@ -1,4 +1,4 @@
-import '../requests/if_user_exists.dart';
+import '../../requests/if_user_exists.dart';
 
 /// This function validates an email based on a regular expression pattern.
 bool isEmailValid(String email) {

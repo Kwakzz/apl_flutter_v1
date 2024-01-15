@@ -1,9 +1,9 @@
-import 'package:apl/admin.dart';
+import 'package:apl/pages/nav_tabs/admin.dart';
 import 'package:apl/helper_classes/custom_dropdown.dart';
 import 'package:apl/requests/gameweeks/add_gw_req.dart';
 import '../../helper_classes/custom_appbar.dart';
 import 'package:apl/helper_classes/custom_button.dart';
-import 'package:apl/helper_functions/convert_to_json.dart';
+import 'package:apl/helper/functions/convert_to_json.dart';
 import 'package:apl/requests/seasons/get_seasons_req.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

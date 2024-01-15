@@ -1,24 +1,23 @@
 
-import 'package:apl/admin.dart';
-import 'package:apl/helper_classes/bottom_navigation_bar.dart';
+import 'package:apl/pages/nav_tabs/admin.dart';
 import 'package:apl/helper_classes/user_preferences.dart';
-import 'package:apl/latest.dart';
-import 'package:apl/pl.dart';
-import 'package:apl/stats.dart';
-import 'package:apl/more.dart';
+import 'package:apl/pages/nav_tabs/latest.dart';
+import 'package:apl/pages/nav_tabs/pl.dart';
+import 'package:apl/pages/nav_tabs/stats.dart';
+import 'package:apl/pages/nav_tabs/more.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'helper_classes/user.dart';
+import '../../helper_classes/user.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
+
   bool isLoggedIn = false;
   bool isAdmin = false;
   int _currentIndex = 0;
@@ -55,25 +54,39 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     
     List<BottomNavigationBarItem> bottomNavBarItems = [
       const BottomNavigationBarItem(
-        icon: Icon(Icons.home),
-        label: 'Latest',
+        icon: Icon(
+          Icons.home,
+        ),
+        label: '',
       ),
       const BottomNavigationBarItem(
-        icon: Icon(Icons.sports_soccer),
-        label: 'PL',
+        icon: Icon(
+          Icons.sports_soccer,
+        ),
+        label: '',
       ),
       const BottomNavigationBarItem(
-        icon: Icon(Icons.bar_chart),
-        label: 'Stats',
+        icon: Icon(
+          Icons.bar_chart,
+        ),
+        label: '',
       ),
       const BottomNavigationBarItem(
-        icon: Icon(Icons.more_horiz),
-        label: 'More',
+        icon: Icon(
+          Icons.more_horiz,
+        ),
+        label: '',
       ),
     ];
 
@@ -82,8 +95,10 @@ class _HomePageState extends State<HomePage> {
 
       bottomNavBarItems.add(
         const BottomNavigationBarItem(
-          icon: Icon(Icons.admin_panel_settings),
-          label: 'Admin',
+          icon: Icon(
+            Icons.admin_panel_settings,
+          ),
+          label: '',
         ),
       );
     }
@@ -91,22 +106,19 @@ class _HomePageState extends State<HomePage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: Center(
-          child: widgetOptions[_currentIndex],
-        ),
-        bottomNavigationBar: CustomBottomNavigationBar(
+        body: widgetOptions.elementAt(_currentIndex),
+        bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
           onTap: onTabTapped,
-          selectedItemColor: const Color.fromARGB(255, 40, 56, 198),
           items: bottomNavBarItems,
-        ),
+          selectedIconTheme: const IconThemeData(
+            size: 40,
+          ),
+          backgroundColor: Colors.red,
+      
+        )
       ),
     );
   }
 
-  void onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
 }

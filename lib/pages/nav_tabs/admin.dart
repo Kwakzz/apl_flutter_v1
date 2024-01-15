@@ -8,8 +8,8 @@ import 'package:apl/admin_pages/teams/teams.dart';
 import 'package:apl/admin_pages/users/users.dart';
 import 'package:apl/admin_pages/players/players.dart';
 import 'package:apl/helper_classes/custom_list_tile.dart';
-import 'package:apl/helper_classes/text.dart';
-import 'package:apl/homepage.dart';
+import 'package:apl/helper/widgets/text.dart';
+import 'package:apl/pages/nav_tabs/entry.dart';
 import 'package:flutter/material.dart';
 
 

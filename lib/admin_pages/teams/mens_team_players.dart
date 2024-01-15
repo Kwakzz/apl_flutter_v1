@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:apl/admin_pages/players/edit_player.dart';
 import 'package:apl/helper_classes/custom_list_tile.dart';
-import 'package:apl/helper_classes/text.dart';
-import 'package:apl/helper_functions/convert_to_json.dart';
+import 'package:apl/helper/widgets/text.dart';
+import 'package:apl/helper/functions/convert_to_json.dart';
 import 'package:apl/requests/teams/get_teams_req.dart';
 import 'package:flutter/material.dart';
 import '../../helper_classes/custom_dialog_box.dart';

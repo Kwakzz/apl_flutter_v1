@@ -6,7 +6,7 @@ import 'package:apl/helper_classes/custom_dialog_box.dart';
 import 'package:apl/helper_classes/custom_dropdown.dart';
 import 'package:apl/helper_classes/custom_button.dart';
 import 'package:apl/helper_classes/custom_list_tile.dart';
-import 'package:apl/helper_classes/text.dart';
+import 'package:apl/helper/widgets/text.dart';
 import 'package:apl/requests/gameweeks/delete_gw_req.dart';
 import 'package:apl/requests/gameweeks/get_season_gw_req.dart';
 import 'package:apl/requests/seasons/get_seasons_req.dart';

@@ -1,4 +1,4 @@
-import 'package:apl/helper_classes/text.dart';
+import 'package:apl/helper/widgets/text.dart';
 import 'package:apl/requests/man_of_the_match/get_motm_req.dart';
 import 'package:flutter/material.dart';
 

@@ -2,7 +2,7 @@
 import 'package:apl/helper_classes/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../helper_classes/text.dart';
+import '../helper/widgets/text.dart';
 import '../requests/news_item/get_news_item_req.dart';
 
 

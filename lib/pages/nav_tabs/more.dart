@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:apl/create_user.dart';
 import 'package:apl/helper_classes/custom_appbar.dart';
 import 'package:apl/helper_classes/custom_dialog_box.dart';
-import 'package:apl/helper_classes/text.dart';
+import 'package:apl/helper/widgets/text.dart';
 import 'package:apl/helper_classes/user_preferences.dart';
-import 'package:apl/homepage.dart';
+import 'package:apl/pages/nav_tabs/entry.dart';
 import 'package:apl/pl/club_details.dart';
 import 'package:apl/privacy_policy.dart';
 import 'package:apl/requests/admin/delete_user_req.dart';
@@ -15,7 +15,7 @@ import 'package:apl/sign_in.dart';
 import 'package:apl/social_media_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'helper_classes/custom_list_tile.dart';
+import '../../helper_classes/custom_list_tile.dart';
 
 
 /// This class is the More page. It contains a list of menu items. The menu items are different depending on whether the user is logged in or not. If the user is logged in, the menu items are: sign out, manage account, change email address, change password, favourite team, social media links, privacy policy and FAQs. If the user is not logged in, the menu items are: sign in, sign up, social media links, privacy policy and FAQs.

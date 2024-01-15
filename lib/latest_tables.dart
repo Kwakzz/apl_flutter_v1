@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'helper_classes/text.dart';
+import 'helper/widgets/text.dart';
 
 
 

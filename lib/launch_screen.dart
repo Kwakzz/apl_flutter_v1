@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:apl/homepage.dart';
+import 'package:apl/pages/nav_tabs/entry.dart';
 import 'package:apl/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -57,9 +57,11 @@ class LaunchScreenState extends State<LaunchScreen> {
     // Navigate to the welcome screen after a delay
     Future.delayed(
       const Duration(seconds: 3), () {
+        
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => 
+
           // If this is the first time opening the app, show the welcome screen
           // Otherwise, show the home page
           !firstTimeOpeningApp ? const HomePage() :

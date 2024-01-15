@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:apl/helper_classes/custom_button.dart';
 import 'package:apl/helper_classes/custom_dialog_box.dart';
 import 'package:apl/helper_classes/error_handling.dart';
-import 'package:apl/helper_classes/text.dart';
+import 'package:apl/helper/widgets/text.dart';
 import 'package:apl/requests/man_of_the_match/change_motm_req.dart';
 import 'package:apl/requests/man_of_the_match/get_motm_req.dart';
 import 'package:apl/requests/man_of_the_match/set_motm_req.dart';

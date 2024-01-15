@@ -9,7 +9,7 @@ import 'package:apl/requests/players/get_player_no_of_wins_req.dart';
 import 'package:apl/requests/players/get_player_req.dart';
 import 'package:apl/requests/transfers/get_transfers_by_player_req.dart';
 import 'package:flutter/material.dart';
-import '../helper_classes/text.dart';
+import '../helper/widgets/text.dart';
 
 
 class ViewPlayer extends StatefulWidget {

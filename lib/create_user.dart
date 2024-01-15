@@ -9,10 +9,10 @@ import '../helper_classes/custom_button.dart';
 import '../helper_classes/signup_field.dart';
 import 'helper_classes/custom_appbar.dart';
 import 'helper_classes/radio_form_field.dart';
-import 'helper_functions/valid_phone_number.dart';
-import 'helper_functions/valid_email.dart';
-import 'helper_functions/convert_to_json.dart';
-import 'helper_functions/valid_password.dart';
+import 'helper/functions/valid_phone_number.dart';
+import 'helper/functions/valid_email.dart';
+import 'helper/functions/convert_to_json.dart';
+import 'helper/functions/valid_password.dart';
 
 
 /// This class is the stateful widget where the user fills in their personal details

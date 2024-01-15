@@ -1,6 +1,6 @@
 import 'package:apl/helper_classes/custom_dropdown.dart';
 import 'package:apl/helper_classes/custom_list_tile.dart';
-import 'package:apl/helper_classes/text.dart';
+import 'package:apl/helper/widgets/text.dart';
 import 'package:apl/requests/games/get_season_comp_fixtures_req.dart';
 import 'package:apl/requests/goal/get_goals_by_season_and_comp_req.dart';
 import 'package:apl/requests/seasons/get_seasons_req.dart';

@@ -4,7 +4,7 @@ import 'package:apl/requests/standings/add_standings_req.dart';
 import 'package:flutter/material.dart';
 import '../../helper_classes/custom_button.dart';
 import '../../helper_classes/signup_field.dart';
-import '../../helper_functions/convert_to_json.dart';
+import '../../helper/functions/convert_to_json.dart';
 
 
 /// This class is the stateful widget where the player can edit their details

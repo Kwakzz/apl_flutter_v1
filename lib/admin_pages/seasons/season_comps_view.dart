@@ -1,8 +1,8 @@
 import 'package:apl/admin_pages/seasons/add_season_comp.dart';
 import 'package:apl/helper_classes/custom_button.dart';
 import 'package:apl/helper_classes/custom_list_tile.dart';
-import 'package:apl/helper_classes/text.dart';
-import 'package:apl/helper_functions/convert_to_json.dart';
+import 'package:apl/helper/widgets/text.dart';
+import 'package:apl/helper/functions/convert_to_json.dart';
 import 'package:apl/requests/seasons/delete_season_comp_req.dart';
 import 'package:flutter/material.dart';
 

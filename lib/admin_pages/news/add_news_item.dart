@@ -1,17 +1,17 @@
 import 'dart:io';
-import 'package:apl/admin.dart';
+import 'package:apl/pages/nav_tabs/admin.dart';
 import 'package:apl/helper_classes/custom_dialog_box.dart';
 import 'package:apl/helper_classes/custom_dropdown.dart';
 import 'package:apl/helper_classes/multi_line_text_field.dart';
-import 'package:apl/helper_classes/text.dart';
+import 'package:apl/helper/widgets/text.dart';
 import 'package:apl/requests/news_item/get_news_item_tags_req.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../helper_classes/custom_button.dart';
 import '../../helper_classes/custom_appbar.dart';
-import '../../helper_functions/convert_to_json.dart';
-import '../../helper_functions/file_upload.dart';
+import '../../helper/functions/convert_to_json.dart';
+import '../../helper/functions/file_upload.dart';
 import '../../requests/news_item/add_news_item_req.dart';
 
 /// This class is the stateful widget for adding a news item

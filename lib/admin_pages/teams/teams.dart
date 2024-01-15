@@ -5,7 +5,7 @@ import 'package:apl/admin_pages/teams/edit_team.dart';
 import 'package:apl/admin_pages/teams/team_players.dart';
 import 'package:apl/helper_classes/custom_button.dart';
 import 'package:apl/helper_classes/custom_list_tile.dart';
-import 'package:apl/helper_classes/text.dart';
+import 'package:apl/helper/widgets/text.dart';
 import 'package:apl/requests/teams/delete_team_req.dart';
 import 'package:flutter/material.dart';
 import '../../helper_classes/custom_dialog_box.dart';

@@ -1,5 +1,5 @@
 import 'package:apl/helper_classes/custom_appbar.dart';
-import 'package:apl/helper_classes/text.dart';
+import 'package:apl/helper/widgets/text.dart';
 import 'package:apl/lastest_news_item.dart';
 import 'package:apl/latest_fixtures.dart';
 import 'package:apl/latest_results.dart';
@@ -19,8 +19,8 @@ import 'package:apl/todays_games.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-import 'helper_classes/my_data_table.dart';
-import 'helper_functions/convert_to_json.dart';
+import '../../helper_classes/my_data_table.dart';
+import '../../helper/functions/convert_to_json.dart';
 
 
 

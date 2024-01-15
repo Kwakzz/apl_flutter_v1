@@ -1,4 +1,4 @@
-import 'package:apl/helper_classes/text.dart';
+import 'package:apl/helper/widgets/text.dart';
 import 'package:flutter/material.dart';
 
 class ScoreLineRow extends StatelessWidget {

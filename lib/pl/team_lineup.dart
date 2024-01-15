@@ -1,5 +1,5 @@
 import 'package:apl/helper_classes/custom_list_tile.dart';
-import 'package:apl/helper_classes/text.dart';
+import 'package:apl/helper/widgets/text.dart';
 import 'package:apl/pl/view_player.dart';
 import 'package:apl/requests/starting_xi/get_team_starting_xi_players_req.dart';
 import 'package:apl/requests/starting_xi/get_team_starting_xi_req.dart';

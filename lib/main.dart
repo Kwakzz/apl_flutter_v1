@@ -4,8 +4,10 @@ import 'launch_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: LaunchScreen(),
-  ));
+  runApp(
+    const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: LaunchScreen(),
+    )
+  );
 }

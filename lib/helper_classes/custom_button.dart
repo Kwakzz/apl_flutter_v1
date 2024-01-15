@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:apl/helper_classes/text.dart';
+import 'package:apl/helper/widgets/text.dart';
 
 class SignUpButton extends StatelessWidget {
   final String text;

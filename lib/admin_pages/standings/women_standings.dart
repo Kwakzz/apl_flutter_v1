@@ -5,7 +5,7 @@ import 'package:apl/admin_pages/standings/standings_teams.dart';
 import 'package:apl/helper_classes/custom_dropdown.dart';
 import 'package:apl/helper_classes/custom_button.dart';
 import 'package:apl/helper_classes/custom_list_tile.dart';
-import 'package:apl/helper_classes/text.dart';
+import 'package:apl/helper/widgets/text.dart';
 import 'package:apl/requests/seasons/get_seasons_req.dart';
 import 'package:apl/requests/standings/get_season_comp_standings_without_teams_req.dart';
 import 'package:flutter/material.dart';

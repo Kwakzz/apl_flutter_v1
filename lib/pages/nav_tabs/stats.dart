@@ -4,7 +4,7 @@ import 'package:apl/stats/top_clean_sheets.dart';
 import 'package:apl/stats/top_scorers.dart';
 import 'package:flutter/material.dart';
 
-import 'helper_classes/custom_list_tile.dart';
+import '../../helper_classes/custom_list_tile.dart';
 
 class Stats extends StatefulWidget {
   const Stats({super.key});

@@ -1,4 +1,4 @@
-import 'package:apl/admin.dart';
+import 'package:apl/pages/nav_tabs/admin.dart';
 import 'package:apl/helper_classes/radio_form_field.dart';
 import 'package:apl/helper_classes/custom_dropdown.dart';
 import 'package:apl/requests/admin/edit_user_req.dart';
@@ -9,10 +9,10 @@ import '../../helper_classes/custom_button.dart';
 import '../../helper_classes/custom_dialog_box.dart';
 import '../../helper_classes/signup_field.dart';
 import '../../helper_classes/custom_appbar.dart';
-import '../../helper_classes/text.dart';
-import '../../helper_functions/valid_phone_number.dart';
-import '../../helper_functions/valid_email.dart';
-import '../../helper_functions/convert_to_json.dart';
+import '../../helper/widgets/text.dart';
+import '../../helper/functions/valid_phone_number.dart';
+import '../../helper/functions/valid_email.dart';
+import '../../helper/functions/convert_to_json.dart';
 import '../../requests/teams/get_teams_req.dart';
 
 
@@ -151,6 +151,7 @@ class _EditUserState extends State<EditUser> {
   
   @override
   Widget build(BuildContext context) {
+
 
     // dropdown list for teams
     // assigned to variable so that it can be used in the form
