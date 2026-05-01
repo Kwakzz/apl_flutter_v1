@@ -1,6 +1,6 @@
 # Ashesi Premier League App (Legacy Version)
 
-This repository contains the code for the old version of the Ashesi Premier League (APL) app, providing fans with a comprehensive mobile experience to follow the league.
+This is the old version of the Ashesi Premier League (APL) app, providing fans with a comprehensive mobile experience to follow the league.
 
 ## Features
 
@@ -8,18 +8,6 @@ This repository contains the code for the old version of the Ashesi Premier Leag
 - **Fixtures and Results**: View upcoming matches, check past results, and analyze team performance across seasons.
 - **League Tables**: Keep track of the standings, see how teams stack up against each other, and witness the race for the championship unfold.
 - **Team Profiles**: Learn about each APL team, access player rosters, and explore team histories.
-
-
-## Dependencies
-
-- **Flutter** (version required by the old app)
-- Additional dependencies specific to the old version (list them here)
-
-## Getting Started
-
-### Prerequisites
-
-Ensure you have Flutter and Dart installed according to the official documentation: [Flutter Installation Guide](https://docs.flutter.dev/get-started/install)
 
 ## Disclaimer
 
